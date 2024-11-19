@@ -4,7 +4,7 @@ format: html
 editor: visual
 ---
 
-### data 
+### data
 
 -   \_raw: Directory inside data, containing your raw data file(s), which must never be edited
 

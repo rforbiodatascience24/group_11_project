@@ -1,4 +1,4 @@
-\<\<\<\<\<\<\< HEAD \# Data analysis on gene Expression Analysis of Colorectal Cancer samples
+# Data analysis on gene Expression Analysis of Colorectal Cancer samples
 
 ## Project Contributors:
 

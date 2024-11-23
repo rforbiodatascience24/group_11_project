@@ -3,16 +3,23 @@
 ```{r}
 #| message: false
 library(readr)
+
 ```
 
-## Retrieve data
+## Load data
+
+```{r}
+expr_data <- read_csv("~/projects/group_11_project/data/_raw/Colorectal_Cancer_Gene_Expression_Data.csv")
+patient_data <- read_csv("~/projects/group_11_project/data/_raw/Colorectal_Cancer_Patient_Data.csv")
+
+```
 
 ```{r}
 # FPKM normalized gene expression data:
-expr_data <- read_tsv("https://www.ncbi.nlm.nih.gov/geo/download/?type=rnaseq_counts&acc=GSE50760&format=file&file=GSE50760_norm_counts_FPKM_GRCh38.p13_NCBI.tsv.gz")
+# expr_data <- read_tsv("https://www.ncbi.nlm.nih.gov/geo/download/?type=rnaseq_counts&acc=GSE50760&format=file&file=GSE50760_norm_counts_FPKM_GRCh38.p13_NCBI.tsv.gz")
 
 # Human gene annotation data:
-annotation <- read_tsv("https://www.ncbi.nlm.nih.gov/geo/download/?format=file&type=rnaseq_counts&file=Human.GRCh38.p13.annot.tsv.gz")
+# annotation <- read_tsv("https://www.ncbi.nlm.nih.gov/geo/download/?format=file&type=rnaseq_counts&file=Human.GRCh38.p13.annot.tsv.gz")
 ```
 
 ```{r}

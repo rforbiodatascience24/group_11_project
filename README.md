@@ -45,3 +45,35 @@ This RNA-seq dataset comprises 54 samples from 18 colorectal cancer patients. Th
 -   **Library Preparation**: mRNA was purified, fragmented, converted to cDNA, and amplified using the TruSeq RNA Sample Preparation Kit v2 (Illumina).
 
 -   **Sequencing**: Paired-end reads (2x100 bp) were generated using the Illumina HiSeq-2000 platform.
+
+# TO DO
+
+Make the data tidy and clean (flipping, joining, changing ID_ref etc...)
+
+-   expr_data
+
+    -   filp the table (ID_REF becomes the name of the columns, )
+
+-   patient data
+
+    -   take care of missing value
+
+    -   add parameters (ex: BMI, etc.. -\> find stuff that can be calculated with the information we have)
+
+    -   make age into age group
+
+    -   turning gender to binary
+
+    -   change month into years
+
+-   join the table
+
+-   delete all the columns we will not use
+
+Data exploration
+
+-   "Take a look at the data", make some plot
+
+    -   numerical -\> table, mean value etc...
+
+    -   categorical -\> bar charts (how many patients per category)

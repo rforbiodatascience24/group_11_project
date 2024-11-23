@@ -9,4 +9,4 @@ Data Source:
 In the below link, click on "Download RNA-seq counts"
 https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE50760
 
-Under NCBI-generated data, download the FPKM normalized data (GSE50760_norm_counts_FPKM_GRCh38.p13_NCBI.tsv.gz) and the Human gene annotation table (Human.GRCh38.p13.annot.tsv.gz)
+Under NCBI-generated data: the data used is the FPKM normalized data (GSE50760_norm_counts_FPKM_GRCh38.p13_NCBI.tsv.gz) and the Human gene annotation table (Human.GRCh38.p13.annot.tsv.gz)

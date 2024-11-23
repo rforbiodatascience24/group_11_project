@@ -1,9 +1,3 @@
----
-title: "Load data"
-format: html
-editor: visual
----
-
 ## Load libraries
 
 ```{r}

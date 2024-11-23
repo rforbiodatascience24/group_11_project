@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-# Data analysis on gene Expression Analysis of Colorectal Cancer samples
+\<\<\<\<\<\<\< HEAD \# Data analysis on gene Expression Analysis of Colorectal Cancer samples
 
 ## Project Contributors:
 
@@ -18,6 +17,10 @@
 ## Data Retrieval:
 
 The dataset for this project is taken from the Gene Expression Omnibus (GEO) under the accession number [GSE50760](https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE50760 "data download").
+
+In the below above, click on "Download RNA-seq counts".
+
+Under NCBI-generated data, download the FPKM normalized data (GSE50760_norm_counts_FPKM_GRCh38.p13_NCBI.tsv.gz) and the Human gene annotation table (Human.GRCh38.p13.annot.tsv.gz)
 
 ## Dataset Information:
 
@@ -42,17 +45,3 @@ This RNA-seq dataset comprises 54 samples from 18 colorectal cancer patients. Th
 -   **Library Preparation**: mRNA was purified, fragmented, converted to cDNA, and amplified using the TruSeq RNA Sample Preparation Kit v2 (Illumina).
 
 -   **Sequencing**: Paired-end reads (2x100 bp) were generated using the Illumina HiSeq-2000 platform.
-=======
-# group_11_project
-Project Contributors: Group 11
-Eleni-Sofia Tseperi s240066 elenitsep, Johanne Lund s233246 Yoyoyohanne, 
-Marie Picquet s233736 mariep00, 
-Eglantine Anton s233242 EglantineAnton, 
-Qiuyan Wu s241063 s241063
-
-Data Source: 
-In the below link, click on "Download RNA-seq counts"
-https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE50760
-
-Under NCBI-generated data, download the FPKM normalized data (GSE50760_norm_counts_FPKM_GRCh38.p13_NCBI.tsv.gz) and the Human gene annotation table (Human.GRCh38.p13.annot.tsv.gz)
->>>>>>> 75c4e822ed70619a5096e4babed9e8843b88a988

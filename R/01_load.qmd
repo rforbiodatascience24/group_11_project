@@ -15,14 +15,8 @@ project_path <- "~/projects/group_11_project/"
 ## Load data
 
 ```{r}
-<<<<<<< HEAD
 expr_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Gene_Expression_Data.csv"))
 patient_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Patient_Data.csv"))
-
-=======
-expr_data <- read_csv("~/Projects/group_11_project/data/_raw/Colorectal_Cancer_Gene_Expression_Data.csv")
-patient_data <- read_csv("~/Projects/group_11_project/data/_raw/Colorectal_Cancer_Patient_Data.csv")
->>>>>>> d0dfb48756405c1eea7edaa33d712e9f960f8fda
 ```
 
 ```{r}

@@ -15,6 +15,7 @@ project_path <- "~/projects/group_11_project/"
 ## Load data
 
 ```{r}
+data <- read_tsv("~/projects/group_11_project/data/01_dat_load.tsv")
 data <- read_tsv(str_c(project_path, "/data/01_dat_load.tsv"))
 ```
 

@@ -1,0 +1,28 @@
+Load libraries:
+
+```{r}
+#| message: false
+library(readr)
+library(dplyr)
+```
+
+Loading the data:
+
+```{r}
+if (!exists("data")) {
+  data <- read_tsv("../data/01_dat_load.tsv")
+}
+```
+
+Creating age groups:
+
+```{r}
+#Adding agegroups:
+data <- data |>
+  mutate(Age_group = cut(Age, breaks = seq(10, 100, by = 10)))
+
+#relocating the agegroups to be place behinde age:
+data <- data |>
+  relocate(Age_group, .after = Age)
+
+```

@@ -77,3 +77,7 @@ Data exploration
     -   numerical -\> table, mean value etc...
 
     -   categorical -\> bar charts (how many patients per category)
+    
+#########################
+- Update describe if we change the dataset (Example if we delete columns)
+- [extra] see if we can find a correlation between probe name (0000_at) and gene_id. Otherwise manually find gene_id for the few genes that we decide to analyze further and mutate a new column with only those (And the rest will be missing values).

@@ -4,17 +4,18 @@
 data <- read_tsv("~/Projects/group_11_project/data/01_dat_load.tsv")
 ```
 
-## Clean data
+## Cleaning rows value
 
 ```{r}
 data <- data |> 
   select(-...1) |> 
   filter(str_starts(ID_REF, "GSM")) |> 
   mutate(Gender = case_when(Gender == "Male" ~ 0,
-                            Gender == "Female" ~ 1))
+                            Gender == "Female" ~ 1)) |> 
+  
 ```
 
-Cleaning collum names:
+## Cleaning column names
 
 ```{r}
 data <- data |> 

@@ -13,13 +13,29 @@ project_path <- "~/projects/group_11_project/"
 data <- read_tsv(str_c(project_path, "/data/02_dat_clean.tsv"))
 ```
 
+## Set project path
+
+```{r}
+project_path <- "~/projects/group_11_project/"
+data <- read_tsv(str_c(project_path, "/data/02_dat_clean.tsv"))
+```
+
+## Loading the data:
+
+```{r}
+data <- read_tsv(str_c(project_path, "data/02_dat_clean.tsv"))
+```
+
 ## Data describe
+
 
 Inspect the dataset:
 
 ```{r}
 data
+
 ```
+## Data describe
 
 ```{r}
 
@@ -36,7 +52,6 @@ The relationship between age and DFS
 features_num <- c("Age", "DFS")
 # Select numeric columns based on features_num
 numeric_data <- data[ , features_num, drop = FALSE]
-
 
 # Compute summary statistics for each numeric feature
 summary_stats <- numeric_data |>
@@ -66,23 +81,6 @@ summary_table_wide <- summary_table_long %>%
 
 # Print the wide table
 print(summary_table_wide)
-```
-
-```{r}
-library(ggplot2)
-
-ggplot(numeric_data, aes(x = Age, y = DFS)) +
-  geom_point() +               # Scatter plot
-  labs(
-    title = "DFS vs Age",       # Plot title
-    x = "Age",                  # X-axis label
-    y = "DFS (months)"          # Y-axis label
-  ) +
-  theme_minimal() +             # Clean theme
-  theme(
-    panel.grid.major = element_line(color = "grey", size = 0.5),  # Grid lines
-    panel.grid.minor = element_line(color = "grey", size = 0.25)
-  )
 ```
 
 The final dataframe contains 62 observations(rows) which are described by 64 variables.

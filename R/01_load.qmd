@@ -3,15 +3,20 @@
 ```{r}
 #| message: false
 library(readr)
+library(tidyverse)
+```
 
+## Set project path
+
+```{r}
+project_path <- "~/projects/group_11_project/"
 ```
 
 ## Load data
 
 ```{r}
-expr_data <- read_csv("~/Projects/group_11_project/data/_raw/Colorectal_Cancer_Gene_Expression_Data.csv")
-patient_data <- read_csv("~/Projects/group_11_project/data/_raw/Colorectal_Cancer_Patient_Data.csv")
-
+expr_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Gene_Expression_Data.csv"))
+patient_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Patient_Data.csv"))
 ```
 
 ```{r}
@@ -24,6 +29,18 @@ patient_data <- read_csv("~/Projects/group_11_project/data/_raw/Colorectal_Cance
 
 ## Combine the two datasets
 
+### First make the datasets tidy
+
+There are three interrelated rules which make a dataset tidy:
+
+1.  Each variable must have its own column
+
+2.  Each observation must have its own row
+
+3.  Each value must have its own cell
+
+Currently, in the expr_data, the columns represent observations and the rows variables. So it needs to be pivoted before the datasets are combined
+
 ```{r}
 # Pivot expr_data
 expr_data <- expr_data |>
@@ -31,10 +48,15 @@ expr_data <- expr_data |>
   select(-ID_REF) |> 
   pivot_longer(-ID_GENE, names_to = "ID_REF", values_to = "Gene expression level") |> 
   pivot_wider(names_from = ID_GENE, values_from = "Gene expression level") 
+```
 
+### Now they can be combined:
+
+```{r}
 # Join the two datasets
 data <- patient_data |>
-  inner_join(expr_data, by = "ID_REF")
+  full_join(expr_data, by = "ID_REF")
 
-write_tsv(data, "~/Projects/group_11_project/data/01_dat_load.tsv")
+write_tsv(data, 
+          str_c(project_path, "data/01_dat_load.tsv"))
 ```

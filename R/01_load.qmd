@@ -6,25 +6,45 @@ library(readr)
 library(tidyverse)
 ```
 
-## Set project path
+## Set project path and make data directory
 
 ```{r}
 project_path <- "~/projects/group_11_project/"
+data_dir <- "data/_raw/"
+
+#Create folder for data:
+if (!dir.exists(str_c(project_path,data_dir))) {
+  dir.create(str_c(project_path,data_dir), recursive = TRUE)
+}
 ```
 
 ## Load data
 
 ```{r}
-expr_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Gene_Expression_Data.csv"))
-patient_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Patient_Data.csv"))
-```
+expr_file <- "Colorectal_Cancer_Gene_Expression_Data.csv"
+patient_file <-"Colorectal_Cancer_Patient_Data.csv"
+data_url <- "https://www.kaggle.com/api/v1/datasets/download/amandam1/colorectal-cancer-patients"
+zip_file <- "raw_data.zip"
 
-```{r}
-# FPKM normalized gene expression data:
-# expr_data <- read_tsv("https://www.ncbi.nlm.nih.gov/geo/download/?type=rnaseq_counts&acc=GSE50760&format=file&file=GSE50760_norm_counts_FPKM_GRCh38.p13_NCBI.tsv.gz")
+#Download data and uzip
+if( !file.exists(str_c(project_path, data_dir, expr_file)) ){
+  download.file(
+    url = data_url,
+    destfile = str_c(project_path, zip_file)
+    , mode = "wb")
+  
+  unzip(str_c(project_path, zip_file),
+        exdir = str_c(project_path, data_dir))
+}
 
-# Human gene annotation data:
-# annotation <- read_tsv("https://www.ncbi.nlm.nih.gov/geo/download/?format=file&type=rnaseq_counts&file=Human.GRCh38.p13.annot.tsv.gz")
+#Remove the zip file
+if (file.exists(str_c(project_path, zip_file))) {
+  file.remove(str_c(project_path, zip_file))
+}
+
+#Load data into matrix
+expr_data <- read_csv(str_c(project_path, data_dir, expr_file))
+patient_data <- read_csv(str_c(project_path, data_dir, patient_file))
 ```
 
 ## Combine the two datasets

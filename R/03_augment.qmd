@@ -15,7 +15,7 @@ project_path <- "~/projects/group_11_project/"
 ## Loading the data:
 
 ```{r}
- data <- read_tsv(str_c(project_path, "data/02_dat_clean.tsv"))
+data <- read_tsv(str_c(project_path, "data/02_dat_clean.tsv"))
 ```
 
 ## Creating new variables:

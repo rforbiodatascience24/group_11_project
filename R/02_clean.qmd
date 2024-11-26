@@ -15,7 +15,6 @@ project_path <- "~/projects/group_11_project/"
 ## Load data
 
 ```{r}
-#data <- read_tsv("~/projects/group_11_project/data/01_dat_load.tsv")
 data <- read_tsv(str_c(project_path, "data/01_dat_load.tsv"))
 ```
 
@@ -35,13 +34,13 @@ data <- data |>
 data <- data |> 
   rename(Age = `Age (in years)`,
          DFS = `DFS (in months)`,
-         Dukes_stage = `Dukes Stage`) 
-  # pivot_longer(cols = ends_with("_at"),
-  #              names_to = "Gene", 
-  #              values_to = "expr_level") |> 
-  # mutate(Gene = str_remove_all(Gene, "\\D")) |> 
-  # pivot_wider(names_from = Gene, values_from = expr_level)
-
+         Dukes_stage = `Dukes Stage`,
+         DFS_event = `DFS event`) |> 
+  pivot_longer(cols = ends_with("_at"),
+               names_to = "Gene", 
+               values_to = "expr_level") |> 
+  mutate(Gene = str_remove_all(Gene, "\\D")) |> 
+  pivot_wider(names_from = Gene, values_from = expr_level)
 ```
 
 ## Save the data

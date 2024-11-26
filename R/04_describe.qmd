@@ -5,6 +5,8 @@
 library(readr)
 library(dplyr)
 library(tidyr)
+library(tidyverse)
+library(tidyverse)
 ```
 
 ## Set project path
@@ -19,52 +21,36 @@ project_path <- "~/projects/group_11_project/"
 data <- read_tsv(str_c(project_path, "data/03_dat_aug.tsv"))
 ```
 
-## Data describe
+## Inspect the dataset:
 
 ```{r}
-
-# Check for missing values
-sum(is.na(data))  # Total number of NA values in the dataset
-
+data
 ```
+
+The final dataframe contains 62 observations(rows) and 1946 variables(columns). Each observation is a colorectal cancer sample. Of the 1946 variables, 1 is the sample ID, 10 are the sample metadata, and the remaining 1935 variables are different genes whose expression is measured.
+
+The variables Age and Age_group contain the same information, just in a different format. The same goes for Dukes_stage and No_stage.
+
+The variables DFS and DFS event both give information on Disease-Free Survival. DFS describes the length of time without the disease returning, and DFS event describes whether or not the disease returned.
+
+```{r}
+data |>
+  count(DFS_event)
+```
+
+Out of the 62 patients, 25 showed disease free survival, while 37 showed a return of the disease.
+
+## Describe the dataset
+
+Age and DFS 'Simple statistics
+
+The relationship between age and DFS
 
 ```{r}
 # Define a vector of numeric feature names
-numeric_columns <- names(data)[sapply(data, is.numeric)]
-
-#features_num <- setdiff(numeric_columns, c("Dukes Stage", "Gender", "Location"))
-data_filtered <- data |>
-  select(-Gender, -Location,-`Dukes Stage`)
+features_num <- c("Age", "DFS")
 # Select numeric columns based on features_num
 numeric_data <- data[ , features_num, drop = FALSE]
-
-# Define custom percentiles
-percentiles <- c(0.1, 0.25, 0.5, 0.75, 0.9)
-
-# Compute summary statistics for each numeric feature
-summary_stats <- data_filtered  %>%
-  summarise(across(everything(), list(
-    min = ~ min(.x, na.rm = TRUE),
-    `10%` = ~ quantile(.x, probs = 0.1, na.rm = TRUE),
-    Q1 = ~ quantile(.x, probs = 0.25, na.rm = TRUE),
-    median = ~ median(.x, na.rm = TRUE),
-    Q3 = ~ quantile(.x, probs = 0.75, na.rm = TRUE),
-    `90%` = ~ quantile(.x, probs = 0.9, na.rm = TRUE),
-    max = ~ max(.x, na.rm = TRUE),
-    mean = ~ mean(.x, na.rm = TRUE),
-    sd = ~ sd(.x, na.rm = TRUE)
-  )))
-
-```
-
-## Data describe
-
-```{r}
-# Define a vector of numeric feature names
-features_num <- c("Age (in years)", "DFS (in months)")
-# Select numeric columns based on features_num
-numeric_data <- data[ , features_num, drop = FALSE]
-
 
 # Compute summary statistics for each numeric feature
 summary_stats <- numeric_data |>
@@ -94,16 +80,4 @@ summary_table_wide <- summary_table_long %>%
 
 # Print the wide table
 print(summary_table_wide)
-```
-
-Inspect the dataset:
-
-```{r}
-data
-```
-
-The final dataframe contains 62 observations(rows) which are described by 64 variables.
-
-```{r}
-patient_data
 ```

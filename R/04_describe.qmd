@@ -7,6 +7,18 @@ library(dplyr)
 library(tidyr)
 ```
 
+## Set project path
+
+```{r}
+project_path <- "~/projects/group_11_project/"
+```
+
+## Loading the data:
+
+```{r}
+data <- read_tsv(str_c(project_path, "data/03_dat_aug.tsv"))
+```
+
 ## Data describe
 
 ```{r}

@@ -3,9 +3,20 @@
 ```{r}
 #| message: false
 library(readr)
+<<<<<<< HEAD
 library(dplyr)
 library(tidyr)
 library(tidyverse)
+=======
+library(tidyverse)
+```
+
+## Loading clean data
+
+```{r}
+project_path <- "~/projects/group_11_project/"
+data <- read_tsv(str_c(project_path, "/data/02_dat_clean.tsv"))
+>>>>>>> 82b1c7dd9ddac96b745825b72f2e5f1c711bd4ce
 ```
 
 ## Set project path
@@ -22,6 +33,7 @@ data <- read_tsv(str_c(project_path, "data/03_dat_aug.tsv"))
 ```
 
 ## Inspect the dataset:
+<<<<<<< HEAD
 
 ```{r}
 data
@@ -41,6 +53,29 @@ data |>
 Out of the 62 patients, 25 showed disease free survival, while 37 showed a return of the disease.
 
 ## Data describe
+=======
+
+```{r} 
+data
+```
+## Data describe
+
+The final dataframe contains 62 observations(rows) and 1946 variables(columns). Each observation is a colorectal cancer sample. Of the 1946 variables, 1 is the sample ID, 10 are the sample metadata, and the remaining 1935 variables are different genes whose expression is measured.
+
+The variables Age and Age_group contain the same information, just in a different format. The same goes for Dukes_stage and No_stage.
+
+The variables DFS and DFS event both give information on Disease-Free Survival. DFS describes the length of time without the disease returning, and DFS event describes whether or not the disease returned.
+
+```{r} data |>   DFS_event}
+```
+
+## Describe the dataset
+```
+
+Age and DFS 'Simple statistics
+
+The relationship between age and DFS
+>>>>>>> 82b1c7dd9ddac96b745825b72f2e5f1c711bd4ce
 
 ```{r}
 # Define a vector of numeric feature names
@@ -77,3 +112,8 @@ summary_table_wide <- summary_table_long %>%
 # Print the wide table
 print(summary_table_wide)
 ```
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 82b1c7dd9ddac96b745825b72f2e5f1c711bd4ce

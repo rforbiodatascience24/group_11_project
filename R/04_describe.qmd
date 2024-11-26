@@ -3,16 +3,35 @@
 ```{r}
 #| message: false
 library(readr)
-library(dplyr)
-library(tidyr)
+library(tidyverse)
 ```
 
-## 
+## Loading clean data
+
+```{r}
+project_path <- "~/projects/group_11_project/"
+data <- read_tsv(str_c(project_path, "/data/02_dat_clean.tsv"))
+```
+
+## Set project path
+
+```{r}
+project_path <- "~/projects/group_11_project/"
+data <- read_tsv(str_c(project_path, "/data/02_dat_clean.tsv"))
+```
+
+## Loading the data:
+
+```{r}
+data <- read_tsv(str_c(project_path, "data/02_dat_clean.tsv"))
+```
 
 ## Inspect the dataset:
 
-```{r} data}
+```{r} 
+data
 ```
+## Data describe
 
 The final dataframe contains 62 observations(rows) and 1946 variables(columns). Each observation is a colorectal cancer sample. Of the 1946 variables, 1 is the sample ID, 10 are the sample metadata, and the remaining 1935 variables are different genes whose expression is measured.
 
@@ -24,33 +43,27 @@ The variables DFS and DFS event both give information on Disease-Free Survival. 
 ```
 
 ## Describe the dataset
+```
+
+Age and DFS 'Simple statistics
+
+The relationship between age and DFS
 
 ```{r}
 # Define a vector of numeric feature names
-numeric_columns <- names(data)[sapply(data, is.numeric)]
-
-#features_num <- setdiff(numeric_columns, c("Dukes Stage", "Gender", "Location"))
-data_filtered <- data |>
-  select(-Gender, -Location,-`Dukes Stage`)
+features_num <- c("Age", "DFS")
 # Select numeric columns based on features_num
 numeric_data <- data[ , features_num, drop = FALSE]
 
-# Define custom percentiles
-percentiles <- c(0.1, 0.25, 0.5, 0.75, 0.9)
-
 # Compute summary statistics for each numeric feature
-summary_stats <- data_filtered  %>%
+summary_stats <- numeric_data |>
   summarise(across(everything(), list(
-    min = ~ min(.x, na.rm = TRUE),
-    `10%` = ~ quantile(.x, probs = 0.1, na.rm = TRUE),
-    Q1 = ~ quantile(.x, probs = 0.25, na.rm = TRUE),
-    median = ~ median(.x, na.rm = TRUE),
-    Q3 = ~ quantile(.x, probs = 0.75, na.rm = TRUE),
-    `90%` = ~ quantile(.x, probs = 0.9, na.rm = TRUE),
-    max = ~ max(.x, na.rm = TRUE),
-    mean = ~ mean(.x, na.rm = TRUE),
-    sd = ~ sd(.x, na.rm = TRUE)
-  )))
+    min = min,
+    max = max,
+    mean = mean,
+    sd = sd
+  ), na.rm = TRUE))
+
 #Format the summary statistics into a table
 summary_table_long <- summary_stats %>%
   pivot_longer(
@@ -71,3 +84,5 @@ summary_table_wide <- summary_table_long %>%
 # Print the wide table
 print(summary_table_wide)
 ```
+
+

@@ -18,11 +18,11 @@ Creating age groups:
 
 ```{r}
 #Adding agegroups:
-data <- data %>%
+data <- data |>
   mutate(Age_group = cut(Age, breaks = seq(10, 100, by = 10)))
 
 #relocating the agegroups to be place behinde age:
-data <- data %>%
+data <- data |>
   relocate(Age_group, .after = Age)
 
 ```

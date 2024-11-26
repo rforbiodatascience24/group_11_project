@@ -6,7 +6,7 @@ library(readr)
 library(tidyverse)
 ```
 
-## Set project path
+## Set project path and make data directory 
 
 ```{r}
 project_path <- "~/projects/group_11_project/"

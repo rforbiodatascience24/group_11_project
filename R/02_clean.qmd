@@ -11,18 +11,19 @@ data <- data |>
   select(-...1) |> 
   filter(str_starts(ID_REF, "GSM")) |> 
   mutate(Gender = case_when(Gender == "Male" ~ 0,
-                            Gender == "Female" ~ 1)) |>
-  pivot_longer(cols = ends_with("_at"),
-               names_to = "Gene", 
-               values_to = "expr_level") |> 
-  mutate(Gene = str_remove_all(Gene, "\\D")) |> 
-  pivot_wider(names_from = Gene, values_from = expr_level)
+                            Gender == "Female" ~ 1))
 ```
 
 Cleaning collum names:
 
 ```{r}
-data <- rename(data, age = `age (in years)`)
-data <- rename(data, DFS = `DFS (in months)`)
+data <- data |> 
+  rename(Age = `Age (in years)`,
+         DFS = `DFS (in months)`) |> 
+  pivot_longer(cols = ends_with("_at"),
+               names_to = "Gene", 
+               values_to = "expr_level") |> 
+  mutate(Gene = str_remove_all(Gene, "\\D")) |> 
+  pivot_wider(names_from = Gene, values_from = expr_level)
 
 ```

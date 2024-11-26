@@ -69,4 +69,4 @@ Inspect the dataset:
 data
 ```
 
-The final dataframe contains 1945 observations(rows)
+The final dataframe contains 1945 observations(rows) and 1945 variables(columns). Of those variables, 1 is the sample ID, 9 are the sample metadata, and the remaining 1935 variables are different genes whose expression is measured.

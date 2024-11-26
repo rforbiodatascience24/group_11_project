@@ -13,3 +13,11 @@ data <- data |>
   mutate(Gender = case_when(Gender == "Male" ~ 0,
                             Gender == "Female" ~ 1))
 ```
+
+Cleaning collum names:
+
+```{r}
+data <- rename(data, age = `age (in years)`)
+data <- rename(data, DFS = `DFS (in months)`)
+
+```

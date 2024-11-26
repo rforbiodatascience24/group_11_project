@@ -6,23 +6,43 @@ library(readr)
 library(dplyr)
 ```
 
+## Set project path
+
+```{r}
+project_path <- "~/projects/group_11_project/"
+```
+
 ## Loading the data:
 
 ```{r}
-if (!exists("data")) {
-  data <- read_tsv("../data/01_dat_load.tsv")
-}
+ data <- read_tsv(str_c(project_path, "data/02_dat_clean.tsv"))
 ```
 
-## Creating age groups:
+## Creating new variables:
 
 ```{r}
 #Adding agegroups:
 data <- data |>
   mutate(Age_group = cut(Age, breaks = seq(10, 100, by = 10)))
 
-#relocating the agegroups to be place behinde age:
+#Relocating the agegroups to be place behinde age:
 data <- data |>
   relocate(Age_group, .after = Age)
 
+#Adding numerical stages:
+data <- data |>
+  mutate(No_stage = case_when(Dukes_stage == "A" ~ 1,
+                            Dukes_stage == "B" ~ 2,
+                            Dukes_stage == "C" ~ 3,
+                            Dukes_stage == "D" ~ 4))
+#Relocating the numerical stages to be place behinde age:
+data <- data |>
+  relocate(No_stage, .after = Dukes_stage)
+
+```
+
+## Save the data
+
+```{r}
+write_tsv(data, str_c(project_path, "data/03_dat_aug.tsv"))
 ```

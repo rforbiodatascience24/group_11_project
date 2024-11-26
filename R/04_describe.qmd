@@ -9,9 +9,6 @@ library(tidyr)
 
 ## Data describe
 
-```         
-```
-
 ```{r}
 
 # Check for missing values
@@ -65,3 +62,11 @@ summary_table_wide <- summary_table_long %>%
 # Print the wide table
 print(summary_table_wide)
 ```
+
+Inspect the dataset:
+
+```{r}
+data
+```
+
+The final dataframe contains 1945 observations(rows)

@@ -10,13 +10,41 @@ library(tidyverse)
 
 ```{r}
 project_path <- "~/projects/group_11_project/"
+data_dir <- "data/_raw/"
+
+#Create folder for data:
+if (!dir.exists(str_c(project_path,data_dir))) {
+  dir.create(str_c(project_path,data_dir), recursive = TRUE)
+}
 ```
 
 ## Load data
 
 ```{r}
-expr_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Gene_Expression_Data.csv"))
-patient_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Patient_Data.csv"))
+expr_file <- "Colorectal_Cancer_Gene_Expression_Data.csv"
+patient_file <-"Colorectal_Cancer_Patient_Data.csv"
+data_url <- "https://www.kaggle.com/api/v1/datasets/download/amandam1/colorectal-cancer-patients"
+zip_file <- "raw_data.zip"
+
+#Download data and uzip
+if( !file.exists(str_c(project_path, data_dir, expr_file)) ){
+  download.file(
+    url = data_url,
+    destfile = str_c(project_path, zip_file)
+    , mode = "wb")
+  
+  unzip(str_c(project_path, zip_file),
+        exdir = str_c(project_path, data_dir))
+}
+
+#Remove the zip file
+if (file.exists(str_c(project_path, zip_file))) {
+  file.remove(str_c(project_path, zip_file))
+}
+
+#Load data into matrix
+expr_data <- read_csv(str_c(project_path, data_dir, expr_file))
+patient_data <- read_csv(str_c(project_path, data_dir, patient_file))
 ```
 
 ```{r}

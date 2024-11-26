@@ -42,12 +42,7 @@ summary_stats <- data_filtered  %>%
     mean = ~ mean(.x, na.rm = TRUE),
     sd = ~ sd(.x, na.rm = TRUE)
   )))
-=======
-## Load the data
 
-```{r}
-project_path <- "~/projects/group_11_project/"
-data <- read_tsv(str_c(project_path, "/data/03_dat_aug.tsv"))
 ```
 
 ## Data describe
@@ -68,7 +63,6 @@ summary_stats <- numeric_data |>
     sd = sd
   ), na.rm = TRUE))
 
->>>>>>> 219ff197b2d24e5d3c0b1e83dc440c788fd3b792
 #Format the summary statistics into a table
 summary_table_long <- summary_stats %>%
   pivot_longer(

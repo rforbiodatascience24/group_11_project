@@ -15,11 +15,8 @@ project_path <- "~/projects/group_11_project/"
 ## Load data
 
 ```{r}
-<<<<<<< HEAD
 data <- read_tsv("~/projects/group_11_project/data/01_dat_load.tsv")
-=======
 data <- read_tsv(str_c(project_path, "/data/01_dat_load.tsv"))
->>>>>>> 219ff197b2d24e5d3c0b1e83dc440c788fd3b792
 ```
 
 ## Cleaning row values

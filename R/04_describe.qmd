@@ -7,7 +7,6 @@ library(dplyr)
 library(tidyr)
 ```
 
-<<<<<<< HEAD
 ## Data describe
 
 ```{r}
@@ -90,7 +89,6 @@ summary_table_wide <- summary_table_long %>%
 # Print the wide table
 print(summary_table_wide)
 ```
-<<<<<<< HEAD
 
 Inspect the dataset:
 
@@ -103,5 +101,3 @@ The final dataframe contains 62 observations(rows) which are described by 64 var
 ```{r}
 patient_data
 ```
-=======
->>>>>>> 219ff197b2d24e5d3c0b1e83dc440c788fd3b792

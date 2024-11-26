@@ -9,9 +9,7 @@ library(dplyr)
 ## Loading the data:
 
 ```{r}
-if (!exists("data")) {
-  data <- read_tsv("../data/01_dat_load.tsv")
-}
+ data <- read_tsv("../data/02_dat_clean.tsv")
 ```
 
 ## Creating new variables:

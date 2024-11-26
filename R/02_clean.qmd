@@ -1,10 +1,28 @@
+## Load libraries
+
+```{r}
+#| message: false 
+library(readr) 
+library(tidyverse)
+```
+
+## Set project path
+
+```{r}
+project_path <- "~/projects/group_11_project/"
+```
+
 ## Load data
 
 ```{r}
+<<<<<<< HEAD
 data <- read_tsv("~/projects/group_11_project/data/01_dat_load.tsv")
+=======
+data <- read_tsv(str_c(project_path, "/data/01_dat_load.tsv"))
+>>>>>>> 219ff197b2d24e5d3c0b1e83dc440c788fd3b792
 ```
 
-## Cleaning rows value
+## Cleaning row values
 
 ```{r}
 data <- data |> 
@@ -27,4 +45,10 @@ data <- data |>
   mutate(Gene = str_remove_all(Gene, "\\D")) |> 
   pivot_wider(names_from = Gene, values_from = expr_level)
 
+```
+
+## Save the data
+
+```{r}
+write_tsv(data, str_c(project_path, "/data/02_dat_clean.tsv"))
 ```

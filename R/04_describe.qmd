@@ -7,6 +7,7 @@ library(dplyr)
 library(tidyr)
 ```
 
+<<<<<<< HEAD
 ## Data describe
 
 ```{r}
@@ -42,6 +43,33 @@ summary_stats <- data_filtered  %>%
     mean = ~ mean(.x, na.rm = TRUE),
     sd = ~ sd(.x, na.rm = TRUE)
   )))
+=======
+## Load the data
+
+```{r}
+project_path <- "~/projects/group_11_project/"
+data <- read_tsv(str_c(project_path, "/data/03_dat_aug.tsv"))
+```
+
+## Data describe
+
+```{r}
+# Define a vector of numeric feature names
+features_num <- c("Age (in years)", "DFS (in months)")
+# Select numeric columns based on features_num
+numeric_data <- data[ , features_num, drop = FALSE]
+
+
+# Compute summary statistics for each numeric feature
+summary_stats <- numeric_data |>
+  summarise(across(everything(), list(
+    min = min,
+    max = max,
+    mean = mean,
+    sd = sd
+  ), na.rm = TRUE))
+
+>>>>>>> 219ff197b2d24e5d3c0b1e83dc440c788fd3b792
 #Format the summary statistics into a table
 summary_table_long <- summary_stats %>%
   pivot_longer(
@@ -62,6 +90,7 @@ summary_table_wide <- summary_table_long %>%
 # Print the wide table
 print(summary_table_wide)
 ```
+<<<<<<< HEAD
 
 Inspect the dataset:
 
@@ -74,3 +103,5 @@ The final dataframe contains 62 observations(rows) which are described by 64 var
 ```{r}
 patient_data
 ```
+=======
+>>>>>>> 219ff197b2d24e5d3c0b1e83dc440c788fd3b792

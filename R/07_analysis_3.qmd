@@ -4,4 +4,34 @@ format: html
 editor: visual
 ---
 
+## Load libraries
+
+```{r}
+library(tidyverse)
+library(ggplot)
+```
+
 ## DFS_event - Location barplot
+
+```{r}
+data |>
+  group_by(DFS_event) |>
+  count(Location) |>
+  ggplot(aes(x=Location, y=n, fill=DFS_event)) +
+  geom_col()
+```
+
+left and rectum location =\> more likely that the disease will come back
+
+```{r}
+  ggplot(mapping = aes(x = Location, y = n, fill=DFS_event)) +
+  geom_col(position = "dodge", alpha=0.5, color="black") +
+  theme_minimal() +
+  geom_hline(yintercept = 0, color = "black") +  # Add black line at y = 0
+  theme(
+    legend.position = "bottom",
+    axis.text.x = element_text(angle = 10, vjust = 1, hjust=1),
+    panel.grid.major.x = element_blank(),  # Remove major vertical grid lines
+    panel.grid.minor.x = element_blank()   # Remove minor vertical grid lines
+  )
+```

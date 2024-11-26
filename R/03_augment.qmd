@@ -26,3 +26,15 @@ data <- data |>
   relocate(Age_group, .after = Age)
 
 ```
+
+```{r}
+#Adding numerical stages:
+ data <- data |>
+   mutate(No_stage = case_when(Dukes_stage == "A" ~ 1,
+                            Dukes_stage == "B" ~ 2,
+                            Dukes_stage == "C" ~ 3,
+                            Dukes_stage == "D" ~ 4))
+ #relocating the numerical stages to be place behinde age:
+ data <- data |>
+  relocate(No_stage, .after = Dukes_stage)
+```

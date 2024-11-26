@@ -28,6 +28,7 @@ data <- read_tsv(str_c(project_path, "data/02_dat_clean.tsv"))
 sum(is.na(data))  # Total number of NA values in the dataset
 
 ```
+
 ## Data describe
 
 ```{r}

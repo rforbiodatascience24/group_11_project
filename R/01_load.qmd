@@ -3,14 +3,20 @@
 ```{r}
 #| message: false
 library(readr)
+library(tidyverse)
+```
 
+## Set working directory
+
+```{r}
+project_path <- "~/projects/group_11_project/"
 ```
 
 ## Load data
 
 ```{r}
-expr_data <- read_csv("~/Projects/group_11_project/data/_raw/Colorectal_Cancer_Gene_Expression_Data.csv")
-patient_data <- read_csv("~/Projects/group_11_project/data/_raw/Colorectal_Cancer_Patient_Data.csv")
+expr_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Gene_Expression_Data.csv"))
+patient_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Patient_Data.csv"))
 
 ```
 
@@ -36,5 +42,6 @@ expr_data <- expr_data |>
 data <- patient_data |>
   inner_join(expr_data, by = "ID_REF")
 
-write_tsv(data, "~/Projects/group_11_project/data/01_dat_load.tsv")
+write_tsv(data, 
+          str_c(project_path, "data/01_dat_load.tsv"))
 ```

@@ -1,4 +1,4 @@
-Load libraries:
+## Load libraries:
 
 ```{r}
 #| message: false
@@ -6,7 +6,7 @@ library(readr)
 library(dplyr)
 ```
 
-Loading the data:
+## Loading the data:
 
 ```{r}
 if (!exists("data")) {
@@ -14,7 +14,7 @@ if (!exists("data")) {
 }
 ```
 
-Creating age groups:
+## Creating age groups:
 
 ```{r}
 #Adding agegroups:

@@ -6,7 +6,7 @@ library(readr)
 library(tidyverse)
 ```
 
-## Set project path and make data directory 
+## Set project path and make data directory
 
 ```{r}
 project_path <- "~/projects/group_11_project/"
@@ -21,10 +21,6 @@ if (!dir.exists(str_c(project_path,data_dir))) {
 ## Load data
 
 ```{r}
-<<<<<<< HEAD
-expr_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Gene_Expression_Data.csv"))
-patient_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Patient_Data.csv"))
-=======
 expr_file <- "Colorectal_Cancer_Gene_Expression_Data.csv"
 patient_file <-"Colorectal_Cancer_Patient_Data.csv"
 data_url <- "https://www.kaggle.com/api/v1/datasets/download/amandam1/colorectal-cancer-patients"
@@ -49,7 +45,6 @@ if (file.exists(str_c(project_path, zip_file))) {
 #Load data into matrix
 expr_data <- read_csv(str_c(project_path, data_dir, expr_file))
 patient_data <- read_csv(str_c(project_path, data_dir, patient_file))
->>>>>>> 82b1c7dd9ddac96b745825b72f2e5f1c711bd4ce
 ```
 
 ## Combine the two datasets

@@ -29,6 +29,18 @@ patient_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Patien
 
 ## Combine the two datasets
 
+### First make the datasets tidy
+
+There are three interrelated rules which make a dataset tidy:
+
+1.  Each variable must have its own column
+
+2.  Each observation must have its own row
+
+3.  Each value must have its own cell
+
+Currently, in the expr_data, the columns represent observations and the rows variables. So it needs to be pivoted before the datasets are combined
+
 ```{r}
 # Pivot expr_data
 expr_data <- expr_data |>
@@ -36,7 +48,11 @@ expr_data <- expr_data |>
   select(-ID_REF) |> 
   pivot_longer(-ID_GENE, names_to = "ID_REF", values_to = "Gene expression level") |> 
   pivot_wider(names_from = ID_GENE, values_from = "Gene expression level") 
+```
 
+### Now they can be combined:
+
+```{r}
 # Join the two datasets
 data <- patient_data |>
   full_join(expr_data, by = "ID_REF")

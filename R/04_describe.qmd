@@ -11,17 +11,16 @@ library(tidyr)
 
 ```{r}
 project_path <- "~/projects/group_11_project/"
-data <- read_tsv(str_c(project_path, "/data/03_dat_aug.tsv"))
+data <- read_tsv(str_c(project_path, "/data/02_dat_clean.tsv"))
 ```
 
 ## Data describe
 
 ```{r}
 # Define a vector of numeric feature names
-features_num <- c("Age (in years)", "DFS (in months)")
+features_num <- c("Age", "DFS")
 # Select numeric columns based on features_num
 numeric_data <- data[ , features_num, drop = FALSE]
-
 
 # Compute summary statistics for each numeric feature
 summary_stats <- numeric_data |>

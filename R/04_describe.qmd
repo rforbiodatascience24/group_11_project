@@ -23,15 +23,6 @@ data <- read_tsv(str_c(project_path, "data/02_dat_clean.tsv"))
 ## Data describe
 
 ```{r}
-
-# Check for missing values
-sum(is.na(data))  # Total number of NA values in the dataset
-
-```
-
-## Data describe
-
-```{r}
 # Define a vector of numeric feature names
 features_num <- c("Age", "DFS")
 # Select numeric columns based on features_num

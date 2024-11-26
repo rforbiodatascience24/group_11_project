@@ -11,12 +11,13 @@ library(tidyr)
 
 ```{r}
 project_path <- "~/projects/group_11_project/"
+data <- read_tsv(str_c(project_path, "/data/02_dat_clean.tsv"))
 ```
 
 ## Loading the data:
 
 ```{r}
-data <- read_tsv(str_c(project_path, "data/03_dat_aug.tsv"))
+data <- read_tsv(str_c(project_path, "data/02_dat_clean.tsv"))
 ```
 
 ## Data describe
@@ -27,44 +28,13 @@ data <- read_tsv(str_c(project_path, "data/03_dat_aug.tsv"))
 sum(is.na(data))  # Total number of NA values in the dataset
 
 ```
-
-```{r}
-# Define a vector of numeric feature names
-numeric_columns <- names(data)[sapply(data, is.numeric)]
-
-#features_num <- setdiff(numeric_columns, c("Dukes Stage", "Gender", "Location"))
-data_filtered <- data |>
-  select(-Gender, -Location,-`Dukes Stage`)
-# Select numeric columns based on features_num
-numeric_data <- data[ , features_num, drop = FALSE]
-
-# Define custom percentiles
-percentiles <- c(0.1, 0.25, 0.5, 0.75, 0.9)
-
-# Compute summary statistics for each numeric feature
-summary_stats <- data_filtered  %>%
-  summarise(across(everything(), list(
-    min = ~ min(.x, na.rm = TRUE),
-    `10%` = ~ quantile(.x, probs = 0.1, na.rm = TRUE),
-    Q1 = ~ quantile(.x, probs = 0.25, na.rm = TRUE),
-    median = ~ median(.x, na.rm = TRUE),
-    Q3 = ~ quantile(.x, probs = 0.75, na.rm = TRUE),
-    `90%` = ~ quantile(.x, probs = 0.9, na.rm = TRUE),
-    max = ~ max(.x, na.rm = TRUE),
-    mean = ~ mean(.x, na.rm = TRUE),
-    sd = ~ sd(.x, na.rm = TRUE)
-  )))
-
-```
-
 ## Data describe
 
 ```{r}
 # Define a vector of numeric feature names
-features_num <- c("Age (in years)", "DFS (in months)")
+features_num <- c("Age", "DFS")
 # Select numeric columns based on features_num
 numeric_data <- data[ , features_num, drop = FALSE]
-
 
 # Compute summary statistics for each numeric feature
 summary_stats <- numeric_data |>

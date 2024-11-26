@@ -3,8 +3,14 @@
 ```{r}
 #| message: false
 library(readr)
-library(dplyr)
-library(tidyr)
+library(tidyverse)
+```
+
+## Loading clean data
+
+```{r}
+project_path <- "~/projects/group_11_project/"
+data <- read_tsv(str_c(project_path, "/data/02_dat_clean.tsv"))
 ```
 
 ## Set project path
@@ -22,13 +28,24 @@ data <- read_tsv(str_c(project_path, "data/02_dat_clean.tsv"))
 
 ## Data describe
 
+
+Inspect the dataset:
+
+```{r}
+data
+
+```
+## Data describe
+
 ```{r}
 
 # Check for missing values
 sum(is.na(data))  # Total number of NA values in the dataset
-
 ```
-## Data describe
+
+Age and DFS 'Simple statistics
+
+The relationship between age and DFS
 
 ```{r}
 # Define a vector of numeric feature names
@@ -64,12 +81,6 @@ summary_table_wide <- summary_table_long %>%
 
 # Print the wide table
 print(summary_table_wide)
-```
-
-Inspect the dataset:
-
-```{r}
-data
 ```
 
 The final dataframe contains 62 observations(rows) which are described by 64 variables.

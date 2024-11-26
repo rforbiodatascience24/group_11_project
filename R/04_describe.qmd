@@ -22,6 +22,7 @@ data <- read_tsv(str_c(project_path, "data/03_dat_aug.tsv"))
 ```
 
 ## Inspect the dataset:
+
 ```{r}
 data
 ```
@@ -39,9 +40,7 @@ data |>
 
 Out of the 62 patients, 25 showed disease free survival, while 37 showed a return of the disease.
 
-
 ## Describe the dataset
-```
 
 Age and DFS 'Simple statistics
 

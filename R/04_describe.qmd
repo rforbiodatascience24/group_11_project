@@ -6,13 +6,6 @@ library(readr)
 library(tidyverse)
 ```
 
-## Loading clean data
-
-```{r}
-project_path <- "~/projects/group_11_project/"
-data <- read_tsv(str_c(project_path, "/data/02_dat_clean.tsv"))
-```
-
 ## Set project path
 
 ```{r}
@@ -20,14 +13,7 @@ project_path <- "~/projects/group_11_project/"
 data <- read_tsv(str_c(project_path, "/data/02_dat_clean.tsv"))
 ```
 
-## Loading the data:
-
-```{r}
-data <- read_tsv(str_c(project_path, "data/02_dat_clean.tsv"))
-```
-
 ## Data describe
-
 
 Inspect the dataset:
 
@@ -35,6 +21,7 @@ Inspect the dataset:
 data
 
 ```
+
 ## Data describe
 
 ```{r}
@@ -44,8 +31,6 @@ sum(is.na(data))  # Total number of NA values in the dataset
 ```
 
 Age and DFS 'Simple statistics
-
-The relationship between age and DFS
 
 ```{r}
 # Define a vector of numeric feature names

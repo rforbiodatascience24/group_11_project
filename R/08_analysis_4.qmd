@@ -13,13 +13,15 @@ project_path <- "~/projects/group_11_project/"
 data <- read_tsv(str_c(project_path, "/data/02_dat_clean.tsv"))
 ```
 
+The relationship between age and DFS
+
 ```{r}
 library(ggplot2)
 
 ggplot(data, aes(x = Age, y = DFS)) +
   geom_point() +               # Scatter plot
   labs(
-    title = "DFS vs Age",       # Plot title
+    title = "The relationship between Age and DFS",       # Plot title
     x = "Age",                  # X-axis label
     y = "DFS (months)"          # Y-axis label
   ) +

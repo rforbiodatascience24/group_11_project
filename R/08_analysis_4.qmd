@@ -19,7 +19,7 @@ The relationship between age and DFS
 library(ggplot2)
 
 ggplot(data, aes(x = Age, y = DFS)) +
-  geom_point() +               # Scatter plot
+  geom_point(color = "lightblue",size = 2) +               # Scatter plot
   labs(
     title = "The relationship between Age and DFS",       # Plot title
     x = "Age",                  # X-axis label
@@ -36,36 +36,45 @@ ggplot(data, aes(x = Age, y = DFS)) +
 # Define categorical features
 #features_cat <- c('Dukes_Stage', 'Gender', 'Location', 'DFS_event', 'Adj_Radio', 'Adj_Chem')
 pl1 <- data|>
-  ggplot(aes(x = "Dukes_stage")) +
-    geom_bar() +                       # Bar plot
-    labs(title = "Dukes_stage", x = "Dukes_stage", y = "Count") + # Labels
+  ggplot(aes(x = Dukes_stage, fill = Dukes_stage)) +
+    geom_bar(stat = "count") +                       # Bar plot
+    labs(title = "Dukes_Stage Distribution", x = "Dukes_stage", y = "Count") + # Labels
     theme_minimal() +                   # Clean theme
     theme(
       axis.text.x = element_text(angle = 45, hjust = 1) # Rotate x labels for better readability
     ) +
-    theme_bw()# Print each plot
+    theme_classic()# Print each plot
 
 ```
 
 ```{r}
 pl3<- data|>
-  ggplot(aes(x = "Location")) +
-    geom_bar() +                       # Bar plot
-    labs(title = "Location", x = "Location", y = "Count") + # Labels
+  ggplot(aes(x = Location,fill = Location)) +
+    geom_bar(stat = "count") +                       # Bar plot
+    labs(title = "Location Distribution", x = "Location", y = "Count") + # Labels
     theme_minimal() +                   # Clean theme
     theme(
       axis.text.x = element_text(angle = 45, hjust = 1) # Rotate x labels for better readability
-    ) +
+    ) 
 ```
 
 ```{r}
-pl2<- data|>
-  ggplot(aes(x = "")) +
-    geom_bar() +                       # Bar plot
-    labs(title = "Gender", x = "Gender", y = "Count") + # Labels
-    theme_minimal() +                   # Clean theme
-    theme(
-      axis.text.x = element_text(angle = 45, hjust = 1) # Rotate x labels for better readability
-    ) +
-    theme_bw()# Print each plot
+pl2 <- data |>
+  ggplot(aes(x = factor(Gender), fill = factor(Gender))) + 
+  geom_bar(stat = "count") +
+  labs(
+    title = "Gender Distribution", 
+    x = "Gender", 
+    y = "Count", 
+    fill = "Gender"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1), 
+    axis.title.x = element_text(size = 14, face = "bold"),  # Modify x-axis title font size and make it bold
+    axis.title.y = element_text(size = 14, face = "italic") # Modify y-axis title font size and make it italic
+  ) +
+  scale_x_discrete(labels = c("0" = "Male", "1" = "Female")) + 
+  scale_fill_discrete(labels = c("0" = "Male", "1" = "Female")) +
+  theme_classic()
 ```

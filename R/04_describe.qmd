@@ -81,12 +81,3 @@ summary_table_wide <- summary_table_long %>%
 # Print the wide table
 print(summary_table_wide)
 ```
-
-```{r}
-# Select patient 
-patient_data <- data[ 1:9]
-patient_data <- patient_data|>
-    mutate(Gender = case_when(Gender == 0 ~ "Male",
-                            Gender ==  1 ~ "Female"))
-patient_data
-```

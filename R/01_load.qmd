@@ -47,11 +47,66 @@ expr_data <- read_csv(str_c(project_path, data_dir, expr_file))
 patient_data <- read_csv(str_c(project_path, data_dir, patient_file))
 ```
 
-## Combine the two datasets
+## Make the data messy and dirty
 
-### First make the datasets tidy
+The data set we are using is pretty clean and tidy. To increase the complexity of the project and use the skills we've acquired throughout the course, we decided to artificially introduce some dirtiness and messiness to the data, so that we can demonstrate our ability to handle raw data. In a real-world bio data science project, this step would, of course, be unnecessary.
 
-There are three interrelated rules which make a dataset tidy:
+For the expression data set:
+
+-   We introduced 2% missing values in the gene expression level coded as N/A
+
+-   We added "gene\_" at the beginning of all the gene names
+
+```{r}
+# set a random seed to ensure reproductibility
+set.seed(123)
+
+# introduce 2% missing values in the gene expression
+# add "gene_" at the begning of all the gene names
+expr_data <- expr_data |>
+  pivot_longer(-c(ID_REF,...1), 
+               names_to = "ID", 
+               values_to = "expr_level") |> 
+  mutate(expr_level = ifelse(runif(n()) < 0.02, 
+                             "N/A", 
+                             expr_level),
+         ID_REF = str_c("gene_", ID_REF)) |> 
+  pivot_wider(names_from = ID, 
+              values_from = expr_level)
+```
+
+For the patient data set:
+
+-   We remplace 10% of "Male" by "M", and 10% of "Female" by "F"
+
+-   We merged 3 variables together
+
+-   We change the age of one patient to -2
+
+-   We mix years and months in the DFS variable
+
+```{r}
+patient_data <- patient_data |> 
+  mutate(Gender = case_when(Gender == "Male" & runif(n()) < 0.1 ~ "M",
+                            Gender == "Female" & runif(n()) < 0.1 ~ "F",
+                            TRUE ~ Gender),
+         `DFS event/Adj_Radio/Adj_Chem` = str_c(`DFS event`, 
+                                                Adj_Radio, 
+                                                Adj_Chem, 
+                                                sep = "/"),
+         `Age (in years)` = ifelse(row_number() == sample(n(), 1),
+                                   -2, 
+                                   `Age (in years)`),
+         `DFS (in years and months)` =  paste0(floor(`DFS (in months)` / 12), 
+                                     " years ", 
+                                     `DFS (in months)` %% 12, 
+                                     " months")) |> 
+  select(-`DFS event`, -Adj_Radio, -Adj_Chem, -`DFS (in months)`)
+```
+
+## Make the data sets tidy
+
+There are three interrelated rules which make a data set tidy:
 
 1.  Each variable must have its own column
 
@@ -59,18 +114,39 @@ There are three interrelated rules which make a dataset tidy:
 
 3.  Each value must have its own cell
 
-Currently, in the expr_data, the columns represent observations and the rows variables. So it needs to be pivoted before the datasets are combined
+Currently, in the expression data set, the columns represent observations and the rows variables. So it needs to be pivoted before the data sets are combined.
 
 ```{r}
 # Pivot expr_data
 expr_data <- expr_data |>
-  mutate(ID_GENE = ID_REF) |> 
-  select(-ID_REF) |> 
-  pivot_longer(-ID_GENE, names_to = "ID_REF", values_to = "Gene expression level") |> 
+  mutate(ID_GENE = ID_REF) |>
+  select(-ID_REF, -...1) |> 
+  pivot_longer(-c(ID_GENE), names_to = "ID_REF", values_to = "Gene expression level") |>
   pivot_wider(names_from = ID_GENE, values_from = "Gene expression level") 
 ```
 
-### Now they can be combined:
+Concerning the patient data set
+
+-   The column `DFS event/Adj_Radio/Adj_Chem` contains 3 variables. We need to split it into 3 distinct variables.
+
+-   The observations of column `DFS (in years and months)` contains two values (one in year, and one in month). We convert everything in month to have one value per observation.
+
+-   The column `...1` doesn't represent any meaningful variable, so we drop it.
+
+```{r}
+patient_data <- patient_data |> 
+  separate(`DFS event/Adj_Radio/Adj_Chem`, into = c("DFS event",
+                                                "Adj_Radio",
+                                                "Adj_Chem"),
+                                                sep = "/") |>
+  mutate(`DFS (in months)` = as.numeric(str_extract(`DFS (in years and months)`, 
+                                                    "\\d+(?= years)")) * 12 + 
+                             as.numeric(str_extract(`DFS (in years and months)`,
+                                                    "\\d+(?= months)"))) |> 
+  select(-`DFS (in years and months)`, -...1)
+```
+
+## Combine the two data sets
 
 ```{r}
 # Join the two datasets

@@ -31,3 +31,41 @@ ggplot(data, aes(x = Age, y = DFS)) +
     panel.grid.minor = element_line(color = "grey", size = 0.25)
   )
 ```
+
+```{r}
+# Define categorical features
+#features_cat <- c('Dukes_Stage', 'Gender', 'Location', 'DFS_event', 'Adj_Radio', 'Adj_Chem')
+pl1 <- data|>
+  ggplot(aes(x = "Dukes_stage")) +
+    geom_bar() +                       # Bar plot
+    labs(title = "Dukes_stage", x = "Dukes_stage", y = "Count") + # Labels
+    theme_minimal() +                   # Clean theme
+    theme(
+      axis.text.x = element_text(angle = 45, hjust = 1) # Rotate x labels for better readability
+    ) +
+    theme_bw()# Print each plot
+
+```
+
+```{r}
+pl3<- data|>
+  ggplot(aes(x = "Location")) +
+    geom_bar() +                       # Bar plot
+    labs(title = "Location", x = "Location", y = "Count") + # Labels
+    theme_minimal() +                   # Clean theme
+    theme(
+      axis.text.x = element_text(angle = 45, hjust = 1) # Rotate x labels for better readability
+    ) +
+```
+
+```{r}
+pl2<- data|>
+  ggplot(aes(x = "")) +
+    geom_bar() +                       # Bar plot
+    labs(title = "Gender", x = "Gender", y = "Count") + # Labels
+    theme_minimal() +                   # Clean theme
+    theme(
+      axis.text.x = element_text(angle = 45, hjust = 1) # Rotate x labels for better readability
+    ) +
+    theme_bw()# Print each plot
+```

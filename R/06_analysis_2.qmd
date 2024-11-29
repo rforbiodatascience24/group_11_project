@@ -123,8 +123,6 @@ estimates |>
   geom_vline(xintercept = 0)
 ```
 
-The above plot show the 95% confidence interval of the estimates of the expression level of the significant genes: 12 are up-regulated, whereas 8 are down-regulated.
-
 ```{r}
 estimates |> 
   mutate(gen_sig = case_when(is_significant == "no" ~ "",
@@ -151,4 +149,4 @@ estimates |>
 
 ### Conclusion
 
-Among the 2,905 genes analyzed, 43 were identified as significantly associated with the development of early metastasis. 14 genes were significantly down-regulated, while 29 genes were found to be significantly up-regulated in patients with early metastasis compared to those without it.
+Among the 1,935 genes analyzed, none were identified as significantly associated with the development of metastasis after multiple test correcting. However, out of the genes with the lowest p-value, 12 were found to be significantly up-regulated, while 8 were found to be significantly down-regulated in patients with metastasis compared to those without it.

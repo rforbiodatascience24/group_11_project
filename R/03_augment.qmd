@@ -21,7 +21,7 @@ data <- read_tsv(str_c(project_path, "data/02_dat_clean.tsv"))
 ## Creating new variables:
 
 ```{r}
-#Adding agegroups:
+#Adding age groups:
 data <- data |>
   mutate(Age_group = cut(Age, breaks = seq(10, 100, by = 10)))
 
@@ -43,22 +43,12 @@ data <- data |>
   relocate(No_stage, .after = Dukes_stage) |> 
   relocate(metastasis, .after = No_stage)
 
-<<<<<<< HEAD
 #Adding a DFS_label column, which contains the data of DFS, in categorical format (relevant for analysis_3)
 data <- data |>
   mutate(DFS_label = case_when(DFS == 0 ~ "No return of disease",
                             DFS == 1 ~ "Return of disease"))
 
-=======
-#Adding another DFS_event column, in categorical format (relevant for analysis_3)
-data <- data |>
-  mutate(DFS_event_label = case_when(DFS_event == 0 ~ "No return of disease",
-                            DFS_event == 1 ~ "Return of disease"))
->>>>>>> 7d93fd28790bc1b0f54f207cfa31f8c0046817e8
-```
-
 ## Save the data
 
-```{r}
 write_tsv(data, str_c(project_path, "data/03_dat_aug.tsv"))
 ```

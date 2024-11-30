@@ -28,7 +28,7 @@ data <- read_tsv(str_c(project_path, "data/03_dat_aug.tsv"))
 
 We start by dividing the patients into two groups by creating a new variable metastasis contains
 
-Then, we pivot the data, so we can work *per gene*, then group per gene and nest the data.
+Then, we pivot the data, so we can work *per gene*, then group per gene and nest the data.
 
 ```{r}
 data_long_nested <- data |>

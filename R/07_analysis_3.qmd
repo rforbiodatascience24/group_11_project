@@ -27,10 +27,10 @@ data <- read_tsv(str_c(project_path, "data/03_dat_aug.tsv"))
 ## DFS_event - Location barplot
 
 ```{r}
-data |>
-  group_by(DFS_event_label) |>
+dfs_loc_plot <- data |>
+  group_by(DFS_label) |>
   count(Location) |>
-  ggplot(mapping = aes(x = Location, y = n, fill=DFS_event_label)) +
+  ggplot(mapping = aes(x = Location, y = n, fill=DFS_label)) +
   geom_col(position = "dodge", alpha=0.5, color="black") +
   theme_minimal() +
   theme(
@@ -46,6 +46,11 @@ data |>
     y = "Number of samples",
     fill = NULL
   )
+
+# Save the plot
+dfs_loc_plot |> 
+  ggsave(filename = "07_analysis_3.png",
+         path = str_c(project_path, "results/"))
 ```
 
 There is a clear distinction shown for the Rectum position. The majority of samples end up exhibiting a return of the disease, more than triple the amount. This is a bigger difference than any other location, making the rectum the most aggresive location. In contrast, no difference is shown for the colon location. The left side is also somewhat aggressive, while the right mostly shows no return of disease.

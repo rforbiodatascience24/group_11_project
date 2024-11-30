@@ -1,8 +1,15 @@
 ---
 title: "Analysis 3"
-format: html
-editor: visual
+output:
+  html_document:
+    output_dir: "results"
 ---
+
+## Aim
+
+In this analysis, we will try to answer the following question
+
+**What genes are significantly up- or down-regulated between the patients with/without metastasis?**
 
 ## Load libraries
 
@@ -47,10 +54,14 @@ dfs_loc_plot <- data |>
     fill = NULL
   )
 
+dfs_loc_plot
+```
+
+There is a clear distinction shown for the Rectum position. The majority of samples end up exhibiting a return of the disease, more than triple the amount. This is a bigger difference than any other location, making the rectum the most aggresive location. In contrast, no difference is shown for the colon location. The left side is also somewhat aggressive, while the right mostly shows no return of disease.
+
+```{r}
 # Save the plot
 dfs_loc_plot |> 
   ggsave(filename = "07_analysis_3.png",
          path = str_c(project_path, "results/"))
 ```
-
-There is a clear distinction shown for the Rectum position. The majority of samples end up exhibiting a return of the disease, more than triple the amount. This is a bigger difference than any other location, making the rectum the most aggresive location. In contrast, no difference is shown for the colon location. The left side is also somewhat aggressive, while the right mostly shows no return of disease.

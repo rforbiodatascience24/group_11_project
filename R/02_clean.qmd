@@ -25,13 +25,13 @@ data <- read_tsv(str_c(project_path, "data/01_dat_load.tsv"),
 
 The rows that don't correspond to a patient (i. e. don't have a valid ID_REF that starts with GSM) can be dropped.
 
-The genders are currently denoted as Male or M and Female or F, we convert everything into 0 for male and 1 for female.
+The genders are currently denoted as Male or M and Female or F, we convert everything into Male/Female.
 
 ```{r}
 data <- data |> 
   filter(str_starts(ID_REF, "GSM")) |> 
-  mutate(Gender = case_when(Gender == "Male" | Gender == "M" ~ 0,
-                            Gender == "Female" | Gender == "F" ~ 1))
+  mutate(Gender = case_when(Gender == "M" ~ "Male",
+                            Gender == "F" ~ "Female"))
 ```
 
 One observation has a negative age. To avoid dropping the line, we are going to estimate it by the mean value of the other observations.

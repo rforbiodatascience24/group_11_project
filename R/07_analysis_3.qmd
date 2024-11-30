@@ -8,7 +8,7 @@ editor: visual
 
 ```{r}
 library(tidyverse)
-library(ggplot)
+library(ggplot2)
 ```
 
 ## DFS_event - Location barplot

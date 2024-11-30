@@ -18,7 +18,7 @@ library("ggrepel")
 ## Load data
 
 ```{r}
-project_path <- "~/projects/group_11_project/"
+project_path <- "~/projects/project_group11/"
 data <- read_tsv(str_c(project_path, "data/03_dat_aug.tsv"))
 ```
 

@@ -4,12 +4,13 @@
 #| message: false
 library(readr)
 library(dplyr)
+library(tidyverse)
 ```
 
 ## Set project path
 
 ```{r}
-project_path <- "~/projects/group_11_project/"
+project_path <- "~/projects/project_group11/"
 ```
 
 ## Loading the data:

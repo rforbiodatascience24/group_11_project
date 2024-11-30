@@ -1,35 +1,66 @@
-# Run-all quarto documents in this folder 
+# Run-all quarto documents in this folder
 
-Make sure you are in the right project path
+```{r}
+library(tidyverse)
+library(quarto)
+```
+
+Make sure you are in the right project path, you can check you project path by doing getwd() in the console
 
 ```{r}
 project_path <-"~/projects/project_group11/"
 ```
 
 ```{r}
-getwd()
-```
+library(tidyverse)
+library(fs)
+library(quarto)
 
-```{r}
 # Specify the directories
-current_dir <- "R/"
-output_dir <- "results/"
+current_dir <- path(project_path, "R")
+output_dir <- path(project_path, "results")
 
-
+# Ensure the output directory exists
+dir_create(output_dir)
 
 # List all .qmd files in the R folder, excluding this file
-qmd_files <- list.files(path = current_dir, pattern = "\\.qmd$", full.names = TRUE)
-qmd_files <- qmd_files[qmd_files != "run-all.qmd"]
+qmd_files <- dir_ls(current_dir, glob = "*.qmd") |>
+  discard(~ basename(.x) == "00_all.qmd")  # Exclude 00_all.qmd
 
 # Print the files being rendered
 cat("Rendering the following .qmd files to:", output_dir, "\n")
 print(qmd_files)
 
-# Render each .qmd file into the output directory
-lapply(qmd_files, function(file) {
-  quarto_render(
-    input = file,
-    output_options = list(output_dir = output_dir)
-  )
+# Render each .qmd file and save the results in the output directory
+qmd_files |>
+  walk(~ {
+    # Render the file
+    rendered_file <- quarto_render(input = .x)
+})
+qmd_files
+
+# Identify non .qmd and .R files
+non_qmd_r_files <- all_files |>
+  discard(~ str_detect(.x, "\\.(qmd|R)$"))
+
+# Move non .qmd or .R files to the specific directory
+non_qmd_r_files |> walk(~ {
+  target_path <- output_dir
+  file_move(.x, output_dir)
+})
+```
+
+```{r}
+# List all files in the `current_dir` directory
+all_files <- dir_ls(current_dir)  # This defines `all_files`
+
+# Identify non .qmd and .R files
+non_qmd_r_files <- all_files |>
+  discard(~ str_detect(.x, "\\.(qmd|R)$"))
+
+# Move non .qmd or .R files to the specific directory
+non_qmd_r_files |> walk(~ {
+  target_path <- output_dir
+  file_move(.x, output_dir)
 })
 ```

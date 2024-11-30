@@ -3,7 +3,7 @@
 ```{r}
 #| message: false
 library(readr)
-library(dplyr)
+library(tidyverse)
 ```
 
 ## Set project path

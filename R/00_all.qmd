@@ -12,17 +12,13 @@ library(quarto)
 Make sure you are in the right project path, you can check you project path by doing getwd() in the console
 
 ```{r}
-project_path <-"~/projects/project_group11/"
-```
-
-```{r}
 library(tidyverse)
 library(fs)
 library(quarto)
 
 # Specify the directories
-current_dir <- path(project_path, "R")
-output_dir <- path(project_path, "results")
+current_dir <- path("R")
+output_dir <- path("results")
 
 # Ensure the output directory exists
 dir_create(output_dir)
@@ -40,17 +36,6 @@ qmd_files |>
   walk(~ {
     # Render the file
     rendered_file <- quarto_render(input = .x)
-})
-qmd_files
-
-# Identify non .qmd and .R files
-non_qmd_r_files <- all_files |>
-  discard(~ str_detect(.x, "\\.(qmd|R)$"))
-
-# Move non .qmd or .R files to the specific directory
-non_qmd_r_files |> walk(~ {
-  target_path <- output_dir
-  file_move(.x, output_dir)
 })
 ```
 

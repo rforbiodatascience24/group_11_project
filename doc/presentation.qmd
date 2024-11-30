@@ -1,11 +1,6 @@
 ---
-title: "Group 11 - Project Presentation"
-author: |
-  xx
-  yy
-  zz
-  vv
-  ww
+title: "Group 11 - Gene expression in colorectal cancer"
+author: "Eleni-Sofia Tseperi (s240066),	Johanne Lund	(s233246), Marie Picquet	(s233736), Eglantine Anton	(s233242), Qiuyan Wu	(s241063)"
 format:
   revealjs:
     code-line-numbers: true
@@ -22,20 +17,18 @@ editor: visual
 library(tidyverse)
 library(here)
 library(readr)
-library("broom")
-library("here")
-library("ggrepel")
+library(broom)
+library(here)
+library(ggrepel)
 ```
 
 ## Introduction
 
 -   Background
 
-    -   xxx
+    -   Colorectal cancer (CRC) is a major cause of cancer mortality
 
-    -   xxx
-
-    -   xxx
+    -   Gene expression analysis can help identify dysregulated genes
 
 -   Goal of the project
 
@@ -43,60 +36,60 @@ library("ggrepel")
 
     -   Model xxx
 
-## Methods - Overview
+-   Data sets
 
-1.  Import
+    -   Gene expression level for 1935 genes
 
-2.  Tidy
+    -   Patient information for 62 patients
 
-3.  Clean
-
-4.  Augment
-
-5.  Analyse
-
-## Methods - Raw data
-
-::: columns
-::: {.column width="50%"}
-### Gene expression dat
-
--   Gene ID
-
--   log2 expression level
-:::
-
-::: {.column width="50%"}
-### Patient data
-
--   ID
-
--   Age
-
--   Stage and location of the disease..
-:::
-:::
+    -   Artificially made dirty and messy to increase the difficulty of the projects
 
 ## Methods - Tidying the data
 
--   Expression data
+::: columns
+::: {.column width="50%"}
+Expression data
 
-    -   The columns represent observations and the rows variables -\> pivot
+-   The columns represent observations and the rows variables
+    -   Pivot the data set
+:::
 
--   Patient data
+::: {.column width="50%"}
+Patient data
 
-    -   column `DFS event/Adj_Radio/Adj_Chem` contains 3 variables
+-   `DFS event/Adj_Radio/Adj_Chem` contains 3 variables
 
-    -   The observations of column `DFS (in years and months)` contains two values (one in year, and one in month)
+    -   Separate it into 3 distinct variables
 
--   Combine the two data sets: join
+-   Observations of column `DFS (in years and months)` contains two values
+
+    -   Convert into months to have only value per observation
+:::
+:::
+
+Combine the two data sets by joining on the patient ID.
 
 ## Methods - Cleaning the data
 
-1.  Missing values "N/A" and "NA"
-2.  Gender as "Male", "M", "Female", "F"
-3.  One patient has an Age \< 0
-4.  Column names can be shorten
+-   Missing values "N/A" and "NA"
+
+    -   Load everything as NA when opening the file
+
+-   Gender as "Male", "M", "Female", "F"
+
+    -   Convert M to Male and F to Female
+
+-   One patient has an Age \< 0
+
+    -   Substitute it by the mean value of the age of the other observations
+
+-   Long column names with several words
+
+    -   Remove "gene\_" at the beginning of all the gene names
+
+    -   Remove the units from the names
+
+    -   Replace spaces by \_
 
 ## Methods - Augment the data
 
@@ -104,7 +97,20 @@ library("ggrepel")
 
 -   Create a metastasis variable
 
+    -   Duke stage A, B, C don't involve metastasis
+
+    -   Duke stage D involve metastasis
+
 ## Results - Data description
+
+::: columns
+::: {.column width="50%"}
+![](../results/04_gender_age_group_distribution.png)
+:::
+
+::: {.column width="50%"}
+:::
+:::
 
 ## Analysis 1
 

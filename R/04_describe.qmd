@@ -18,7 +18,7 @@ library(tidyverse)
 data <- read_tsv("data/03_dat_aug.tsv")
 ```
 
-## Inspect the dataset:
+## Inspect the dataset
 
 ```{r}
 data
@@ -44,91 +44,65 @@ Age and DFS 'Simple statistics
 The relationship between age and DFS
 
 ```{r}
-# Define a vector of numeric feature names
-features_num <- c("Age", "DFS")
-# Select numeric columns based on features_num
-numeric_data <- data[ , features_num, drop = FALSE]
-
 # Compute summary statistics for each numeric feature
-summary_stats <- numeric_data |>
+data |>
+  select(Age, DFS) |> 
   summarise(across(everything(), list(
     min = min,
     max = max,
     mean = mean,
     sd = sd
-  ), na.rm = TRUE))
-
-#Format the summary statistics into a table
-summary_table_long <- summary_stats %>%
+  ), na.rm = TRUE)) |> #Format the summary statistics into a table
   pivot_longer(
     cols = everything(),
     names_to = c("Feature", "Statistic"),
     names_sep = "_",
     values_to = "Value"
-  ) %>%
-  arrange(Feature, Statistic)
-
-#Transform back to wide format
-summary_table_wide <- summary_table_long %>%
+  ) |>
+  arrange(Feature, Statistic) |> #Transform back to wide format
   pivot_wider(
     names_from = Statistic,
     values_from = Value
   )
-
-# Print the wide table
-print(summary_table_wide)
-```
-
-```{r}
-# Select patient 
-patient_data <- data[ 1:9]
-patient_data <- patient_data|>
-    mutate(Gender = case_when(Gender == 0 ~ "Male",
-                            Gender ==  1 ~ "Female"))
-patient_data
 ```
 
 ## Visualizing data
 
 ```{r}
-pl3 <- data |>
-  ggplot(aes(x = factor(Gender), fill = factor(Gender))) + 
-  geom_bar(stat = "count") +
-  labs(
-    title = "Gender Distribution", 
-    x = "Gender", 
-    y = "Count", 
-    fill = "Gender"
-  ) +
+pl <- data |>
+  count(Gender) |> 
+  ggplot(aes(x = factor(Gender),
+             y = n,
+             fill = Gender)) + 
+  geom_col(colour = "black",
+    alpha = 0.5) +
+  labs(title = "Gender Distribution", 
+       x = "Gender", 
+       y = "Count", 
+       fill = "Gender") +
   theme_minimal() +
-  theme(
-    axis.text.x = element_text(angle = 45, hjust = 1), 
-    axis.title.x = element_text(size = 14, face = "bold"),  # Modify x-axis title font size and make it bold
-    axis.title.y = element_text(size = 14, face = "italic") # Modify y-axis title font size and make it italic
-  ) +
-  scale_x_discrete(labels = c("0" = "Male", "1" = "Female")) + 
-  scale_fill_discrete(labels = c("0" = "Male", "1" = "Female")) +
-  theme_classic()
-pl3
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+        axis.title.x = element_text(size = 14, face = "bold"),
+    axis.title.y = element_text(size = 14, face = "bold"))
+
+pl |> 
+  ggsave(filename = "04_gender_distribution.png",
+         path = str_c(project_path, "results/"))
+
+pl
 ```
 
 ```{r}
-pl<- data |>
-  drop_na(Gender, Age_group)|>
-  mutate(Gender = case_when(
-    Gender == 0 ~ "Male",
-    Gender == 1 ~ "Female"
-  ))|>
+pl <- data |>
   count(Gender, Age_group)|>
- ggplot(aes(x = Age_group,
+  ggplot(aes(x = Age_group,
              y = n,
              fill = Gender)) +
-  labs(
-    title = "The Gender Distribution Across Age Groups Chart", 
-    x = "Gender", 
-    y = "Count", 
-    fill = "Gender"
-  )+
+  labs(title = "The Gender Distribution Across Age Groups Chart", 
+       x = "Gender", 
+       y = "Count", 
+       fill = "Gender"
+  ) +
   geom_col(position = position_dodge(
     preserve = "single"),
     colour = "black",
@@ -151,43 +125,71 @@ pl
 ```
 
 ```{r}
-pl1 <- data|>
-  ggplot(aes(x = Dukes_stage, fill = Dukes_stage)) +
-    geom_bar(stat = "count") +                       # Bar plot
-    labs(title = "Dukes_Stage Distribution", x = "Dukes_stage", y = "Count") + # Labels
-    theme_minimal() +                   # Clean theme
-    theme(
-      axis.text.x = element_text(angle = 45, hjust = 1) # Rotate x labels for better readability
-    ) +
-    theme_classic()# Print each plot
-
-
-pl1
-```
-
-```{r}
-pl2<- data|>
-  ggplot(aes(x = Location,fill = Location)) +
-    geom_bar(stat = "count") +                       # Bar plot
-    labs(title = "Location Distribution", x = "Location", y = "Count") + # Labels
-    theme_minimal() +                   # Clean theme
-    theme(
-      axis.text.x = element_text(angle = 45, hjust = 1) # Rotate x labels for better readability
-    ) 
-pl2
-```
-
-```{r}
-ggplot(data, aes(x = Age, y = DFS)) +
-  geom_point() +               # Scatter plot
-  labs(
-    title = "DFS vs Age",       # Plot title
-    x = "Age",                  # X-axis label
-    y = "DFS (months)"          # Y-axis label
+pl <- data|>
+  count(Dukes_stage) |> 
+  ggplot(aes(x = Dukes_stage, 
+             y = n,
+             fill = Dukes_stage)) +
+  labs(title = "Duke stage distribution", 
+       x = "Duke stage", 
+       y = "Count", 
+       fill = "Duke stage"
   ) +
-  theme_minimal() +             # Clean theme
-  theme(
-    panel.grid.major = element_line(color = "grey", size = 0.5),  # Grid lines
-    panel.grid.minor = element_line(color = "grey", size = 0.25)
-  )
+  geom_col(colour = "black",
+           alpha = 0.5) +
+  geom_hline(yintercept = 0) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, 
+                                     hjust = 1))
+
+pl |> 
+  ggsave(filename = "04_dukes_stage_distribution.png",
+         path = str_c(project_path, "results/"))
+
+
+pl
+```
+
+```{r}
+pl <- data|>
+  count(Location) |> 
+  ggplot(aes(x = Location, 
+             y = n,
+             fill = Location)) +
+  labs(title = "Location distribution", 
+       x = "Location", 
+       y = "Count", 
+       fill = "Location"
+  ) +
+  geom_col(colour = "black",
+           alpha = 0.5) +
+  theme_minimal() +
+  geom_hline(yintercept = 0) +
+  theme(axis.text.x = element_text(angle = 45, 
+                                     hjust = 1))
+
+pl |> 
+  ggsave(filename = "04_dukes_stage_distribution.png",
+         path = str_c(project_path, "results/"))
+
+
+pl
+```
+
+```{r}
+pl <- data |> 
+  ggplot(aes(x = Age, 
+             y = DFS)) +
+  geom_point() +               
+  labs(title = "DFS vs Age",
+       x = "Age",
+       y = "DFS (months)") +
+  theme_minimal()
+
+pl |> 
+  ggsave(filename = "04_DFS_age_distribution.png",
+         path = str_c(project_path, "results/"))
+
+
+pl
 ```

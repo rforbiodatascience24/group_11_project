@@ -9,6 +9,9 @@ library(tidyverse)
 ## Set project path and make data directory
 
 ```{r}
+
+project_path <- "~/projects/project_group11/"
+
 # Save project path so that all subsequent file handling can be relative to that:
 project_path <- "~/projects/group_11_project/"
 # Define relative data directory:

@@ -12,7 +12,7 @@ library(tidyverse)
 ## Set project path
 
 ```{r}
-project_path <- "~/projects/group_11_project/"
+project_path <- "~/projects/project_group11/"
 ```
 
 ## Loading the data:
@@ -89,4 +89,106 @@ patient_data <- patient_data|>
     mutate(Gender = case_when(Gender == 0 ~ "Male",
                             Gender ==  1 ~ "Female"))
 patient_data
+```
+
+## Visualizing data
+
+```{r}
+# Check for NA values in the Gender column
+sum(is.na(data$Gender))
+```
+
+```{r}
+pl3 <- data |>
+  ggplot(aes(x = factor(Gender), fill = factor(Gender))) + 
+  geom_bar(stat = "count") +
+  labs(
+    title = "Gender Distribution", 
+    x = "Gender", 
+    y = "Count", 
+    fill = "Gender"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1), 
+    axis.title.x = element_text(size = 14, face = "bold"),  # Modify x-axis title font size and make it bold
+    axis.title.y = element_text(size = 14, face = "italic") # Modify y-axis title font size and make it italic
+  ) +
+  scale_x_discrete(labels = c("0" = "Male", "1" = "Female")) + 
+  scale_fill_discrete(labels = c("0" = "Male", "1" = "Female")) +
+  theme_classic()
+pl3
+```
+
+```{r}
+pl<- data |>
+  drop_na(Gender, Age_group)|>
+  mutate(Gender = case_when(
+    Gender == 0 ~ "Male",
+    Gender == 1 ~ "Female"
+  ))|>
+  count(Gender, Age_group)|>
+ ggplot(aes(x = Age_group,
+             y = n,
+             fill = Gender)) +
+  labs(
+    title = "The Gender Distribution Across Age Groups Chart", 
+    x = "Gender", 
+    y = "Count", 
+    fill = "Gender"
+  )+
+  geom_col(position = position_dodge(
+    preserve = "single"),
+    colour = "black",
+    alpha = 0.5) +
+  geom_hline(yintercept = 0) +
+  theme_minimal() +
+  theme(legend.position = "bottom",
+        panel.grid.major.x = element_blank(),
+        plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+       axis.text.x = element_text(angle = 45, hjust = 1), 
+       axis.title.x = element_text(size = 10, face = "bold"),  # Modify x-axis title font size and make it bold
+      axis.title.y = element_text(size = 10, face = "italic") # Modify y-axis title font size and make it italic
+    )
+pl
+```
+
+```{r}
+pl1 <- data|>
+  ggplot(aes(x = Dukes_stage, fill = Dukes_stage)) +
+    geom_bar(stat = "count") +                       # Bar plot
+    labs(title = "Dukes_Stage Distribution", x = "Dukes_stage", y = "Count") + # Labels
+    theme_minimal() +                   # Clean theme
+    theme(
+      axis.text.x = element_text(angle = 45, hjust = 1) # Rotate x labels for better readability
+    ) +
+    theme_classic()# Print each plot
+pl1
+```
+
+```{r}
+pl2<- data|>
+  ggplot(aes(x = Location,fill = Location)) +
+    geom_bar(stat = "count") +                       # Bar plot
+    labs(title = "Location Distribution", x = "Location", y = "Count") + # Labels
+    theme_minimal() +                   # Clean theme
+    theme(
+      axis.text.x = element_text(angle = 45, hjust = 1) # Rotate x labels for better readability
+    ) 
+pl2
+```
+
+```{r}
+ggplot(data, aes(x = Age, y = DFS)) +
+  geom_point() +               # Scatter plot
+  labs(
+    title = "DFS vs Age",       # Plot title
+    x = "Age",                  # X-axis label
+    y = "DFS (months)"          # Y-axis label
+  ) +
+  theme_minimal() +             # Clean theme
+  theme(
+    panel.grid.major = element_line(color = "grey", size = 0.5),  # Grid lines
+    panel.grid.minor = element_line(color = "grey", size = 0.25)
+  )
 ```

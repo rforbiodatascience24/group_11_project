@@ -42,20 +42,23 @@ pca <- prcomp(cleaned_data, scale = TRUE)
 pca_scores <- pca$x
 pca_scores_tbl <- as_tibble(pca_scores)
 
+pca.var <- pca$sdev^2
+pca.var.percent <- round(pca.var/sum(pca.var)*100, digits = 2)
+
+
 ```
 
 ```{r}
-# Add row names (sample IDs) to the PCA scores
-
-
-# Add the 'gender' column from the original data
-
-# Create a scatter plot of PC1 vs PC2, with points labeled by ID_REF and colored by gender
-ggplot(pca_scores_tbl, aes(x = PC1, y = PC2)) +
+#generate PCA plot
+pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, y = PC2)) +
   geom_point() +  # Scatter plot
   geom_text(label = rownames(data)) +
   labs(x = str_c('PC1: ', pca.var.percent[1], ' %'), 
-       y = "Principal Component 2 (PC2)", 
+       y = str_c('PC2: ', pca.var.percent[2], ' %'), 
        title = "Principal component analysis (PCA)") +
   theme_minimal()
+#save pca plot
+pca_plot |> 
+  ggsave(filename = "05_pca.png",
+         path =  "../results/")
 ```

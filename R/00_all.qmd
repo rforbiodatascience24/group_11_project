@@ -1,6 +1,10 @@
-```{r setup, include=FALSE}
-knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
-```
+---
+title: "Analysis 3"
+output:
+  html_document:
+    output_dir: "../results/"
+editor: visual
+---
 
 # Run-all quarto documents in this folder
 
@@ -18,13 +22,13 @@ library(quarto)
 
 # Specify the directories
 current_dir <- path("R")
-output_dir <- path("results")
+output_dir <- path("../results")
 
 # Ensure the output directory exists
 dir_create(output_dir)
 
 # List all .qmd files in the R folder, excluding this file
-qmd_files <- dir_ls(current_dir, glob = "*.qmd") |>
+qmd_files <- dir_ls( glob = "*.qmd") |>
   discard(~ basename(.x) == "00_all.qmd")  # Exclude 00_all.qmd
 
 # Print the files being rendered
@@ -41,7 +45,7 @@ qmd_files |>
 
 ```{r}
 # List all files in the `current_dir` directory
-all_files <- dir_ls(current_dir)  # This defines `all_files`
+all_files <- dir_ls()  # This defines `all_files`
 
 # Identify non .qmd and .R files
 non_qmd_r_files <- all_files |>

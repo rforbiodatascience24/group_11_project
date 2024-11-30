@@ -1,0 +1,113 @@
+---
+title: "Group 11 - Project Presentation"
+author: |
+  xx
+  yy
+  zz
+  vv
+  ww
+format:
+  revealjs:
+    code-line-numbers: true
+    scrollable: true
+    smaller: true
+    scoll: true
+    theme: night
+    transition: slide
+    incremental: true 
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(here)
+library(readr)
+library("broom")
+library("here")
+library("ggrepel")
+```
+
+## Introduction
+
+-   Background
+
+    -   xxx
+
+    -   xxx
+
+    -   xxx
+
+-   Goal of the project
+
+    -   Investigate xxx
+
+    -   Model xxx
+
+## Methods - Overview
+
+1.  Import
+
+2.  Tidy
+
+3.  Clean
+
+4.  Augment
+
+5.  Analyse
+
+## Methods - Raw data
+
+::: columns
+::: {.column width="50%"}
+### Gene expression dat
+
+-   Gene ID
+
+-   log2 expression level
+:::
+
+::: {.column width="50%"}
+### Patient data
+
+-   ID
+
+-   Age
+
+-   Stage and location of the disease..
+:::
+:::
+
+## Methods - Tidying the data
+
+-   Expression data
+
+    -   The columns represent observations and the rows variables -\> pivot
+
+-   Patient data
+
+    -   column `DFS event/Adj_Radio/Adj_Chem` contains 3 variables
+
+    -   The observations of column `DFS (in years and months)` contains two values (one in year, and one in month)
+
+-   Combine the two data sets: join
+
+## Methods - Cleaning the data
+
+1.  Missing values "N/A" and "NA"
+2.  Gender as "Male", "M", "Female", "F"
+3.  One patient has an Age \< 0
+4.  Column names can be shorten
+
+## Methods - Augment the data
+
+-   Create an age group variable
+
+-   Create a metastasis variable
+
+## Results - Data description
+
+## Analysis 1
+
+## Analysis 2
+
+## Analysis 3

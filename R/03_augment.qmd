@@ -29,21 +29,32 @@ data <- data |>
 data <- data |>
   relocate(Age_group, .after = Age)
 
-#Adding numerical stages:
+#Adding numerical stages and metastasis:
 data <- data |>
   mutate(No_stage = case_when(Dukes_stage == "A" ~ 1,
                             Dukes_stage == "B" ~ 2,
                             Dukes_stage == "C" ~ 3,
-                            Dukes_stage == "D" ~ 4))
+                            Dukes_stage == "D" ~ 4),
+         metastasis = case_when(No_stage <= 3 ~ 0,
+                                No_stage > 3 ~ 1))
+
 #Relocating the numerical stages to be place behinde age:
 data <- data |>
-  relocate(No_stage, .after = Dukes_stage)
+  relocate(No_stage, .after = Dukes_stage) |> 
+  relocate(metastasis, .after = No_stage)
 
+<<<<<<< HEAD
 #Adding a DFS_label column, which contains the data of DFS, in categorical format (relevant for analysis_3)
 data <- data |>
   mutate(DFS_label = case_when(DFS == 0 ~ "No return of disease",
                             DFS == 1 ~ "Return of disease"))
 
+=======
+#Adding another DFS_event column, in categorical format (relevant for analysis_3)
+data <- data |>
+  mutate(DFS_event_label = case_when(DFS_event == 0 ~ "No return of disease",
+                            DFS_event == 1 ~ "Return of disease"))
+>>>>>>> 7d93fd28790bc1b0f54f207cfa31f8c0046817e8
 ```
 
 ## Save the data

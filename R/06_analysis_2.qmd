@@ -26,11 +26,10 @@ data <- read_tsv(str_c(project_path, "data/03_dat_aug.tsv"))
 
 ### Prepare the data
 
-We start by dividing the patients into two groups by creating a new variable metastasis containg
+We start by dividing the patients into two groups by creating a new variable metastasis contains
 
 -   0 for the patient without metastasis (i. e. No_stage equals to 1, 2 or 3)
-
-1 for the patients with metastis (i. e. No_stage equals to 4)
+-   1 for the patients with metastasis (i. e. No_stage equals to 4)
 
 The, we pivot the data, so we can work *per gene*, then group per gene and nest the data.
 
@@ -84,7 +83,7 @@ estimates <- data_long_nested |>
 
 ```{r}
 estimates |> 
-  group_by(is_significant) %>% 
+  group_by(is_significant) |>  
   summarise(count = n())
 ```
 
@@ -98,7 +97,7 @@ estimates <- estimates |>
                                     p.value <= 0.01 ~ "yes"))
 
 estimates |> 
-  group_by(is_significant) %>% 
+  group_by(is_significant) |> 
   summarise(count = n())
 ```
 

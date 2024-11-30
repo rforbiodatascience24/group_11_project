@@ -9,7 +9,7 @@ library(tidyverse)
 ## Set project path and make data directory
 
 ```{r}
-project_path <- "~/projects/group_11_project/"
+project_path <- "~/projects/project_group11/"
 data_dir <- "data/_raw/"
 
 #Create folder for data:

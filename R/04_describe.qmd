@@ -188,7 +188,7 @@ pl <- data |>
 
 pl |> 
   ggsave(filename = "04_DFS_age_distribution.png",
-         path = str_c(project_path, "results/"))
+         path = "results/")
 
 
 pl

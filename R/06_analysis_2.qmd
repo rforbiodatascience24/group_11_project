@@ -155,8 +155,6 @@ pl2 |>
 pl2
 ```
 
-Save the plots
-
 ### Conclusion
 
 Among the 1,935 genes analyzed, none were identified as significantly associated with the development of metastasis after multiple test correcting. However, out of the genes with the lowest p-value, 12 were found to be significantly up-regulated, while 8 were found to be significantly down-regulated in patients with metastasis compared to those without it.

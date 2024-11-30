@@ -17,7 +17,7 @@ project_path <- "~/projects/project_group11/"
 Some missing values are currently denoted as "N/A" or "NA", we need to handle this when load the file.
 
 ```{r}
-data <- read_tsv(str_c(project_path, "data/01_dat_load.tsv"),
+data <- read_tsv("data/01_dat_load.tsv",
                  na = c("N/A", "NA"))
 ```
 

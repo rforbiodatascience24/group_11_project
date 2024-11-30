@@ -1,5 +1,6 @@
 ---
 editor: visual
+knitr::opts_knit$set(root.dir = getwd())
 ---
 
 ## Load libraries
@@ -8,6 +9,7 @@ editor: visual
 #| message: false
 library(readr)
 library(tidyverse)
+getwd()
 ```
 
 ## Set project path and make data directory
@@ -21,8 +23,8 @@ project_path <-"~/projects/project_group11/"
 data_dir <- "data/_raw/"
 
 #Create folder for data:
-if (!dir.exists(str_c(project_path, data_dir))) {
-  dir.create(str_c(project_path, data_dir), recursive = TRUE)
+if (!dir.exists(data_dir)) {
+  dir.create(data_dir, recursive = TRUE)
 }
 ```
 
@@ -43,14 +45,14 @@ expr_file <- "Colorectal Cancer Gene Expression Data.csv"
 patient_file <-"Colorectal Cancer Patient Data.csv"
 
 # Download data and unzip
-if (!file.exists(str_c(project_path, data_dir, expr_file))) {
+if (!file.exists(str_c(data_dir, expr_file))) {
   download.file(
     url = data_url,
-    destfile = str_c(project_path, zip_file),
+    destfile = zip_file,
     mode = "wb"
   )
 
-  unzip(str_c(project_path, zip_file), exdir = str_c(project_path, data_dir))
+  unzip( zip_file, exdir = str_c(project_path, data_dir))
   
   # Replace spaces with underscores in file names -> we need to chnage this to tidyverse
   unzipped_files <- list.files(path = str_c(project_path, data_dir), full.names = TRUE)

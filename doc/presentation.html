@@ -10,8 +10,8 @@
 <link href="presentation_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.4.555">
 
-  <meta name="author" content="xx yy zz vv ww">
-  <title>Group 11 - Project Presentation</title>
+  <meta name="author" content="Eleni-Sofia Tseperi (s240066), Johanne Lund (s233246), Marie Picquet (s233736), Eglantine Anton (s233242), Qiuyan Wu (s241063)">
+  <title>Group 11 - Gene expression in colorectal cancer</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -327,12 +327,12 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Group 11 - Project Presentation</h1>
+  <h1 class="title">Group 11 - Gene expression in colorectal cancer</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
- 
+Eleni-Sofia Tseperi (s240066), Johanne Lund (s233246), Marie Picquet (s233736), Eglantine Anton (s233242), Qiuyan Wu (s241063) 
 </div>
 </div>
 </div>
@@ -343,81 +343,92 @@
 <ul>
 <li class="fragment"><p>Background</p>
 <ul>
-<li class="fragment"><p>xxx</p></li>
-<li class="fragment"><p>xxx</p></li>
-<li class="fragment"><p>xxx</p></li>
+<li class="fragment"><p>Colorectal cancer (CRC) is a major cause of cancer mortality</p></li>
+<li class="fragment"><p>Gene expression analysis can help identify dysregulated genes</p></li>
 </ul></li>
 <li class="fragment"><p>Goal of the project</p>
 <ul>
 <li class="fragment"><p>Investigate xxx</p></li>
 <li class="fragment"><p>Model xxx</p></li>
 </ul></li>
+<li class="fragment"><p>Data sets</p>
+<ul>
+<li class="fragment"><p>Gene expression level for 1935 genes</p></li>
+<li class="fragment"><p>Patient information for 62 patients</p></li>
+<li class="fragment"><p>Artificially made dirty and messy to increase the difficulty of the projects</p></li>
+</ul></li>
 </ul>
 </section>
-<section id="method" class="slide level2 scrollable">
-<h2>Method</h2>
-<ol type="1">
-<li class="fragment"><p>Import</p></li>
-<li class="fragment"><p>Tidy</p></li>
-<li class="fragment"><p>Clean</p></li>
-<li class="fragment"><p>Augment</p></li>
-<li class="fragment"><p>Analyse</p></li>
-</ol>
-</section>
-<section id="raw-data" class="slide level2">
-<h2>Raw data</h2>
+<section id="methods---tidying-the-data" class="slide level2">
+<h2>Methods - Tidying the data</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<h3 id="gene-expression-dat">Gene expression dat</h3>
+<p>Expression data</p>
 <ul>
-<li class="fragment"><p>Gene ID</p></li>
-<li class="fragment"><p>log2 expression level</p></li>
+<li class="fragment">The columns represent observations and the rows variables
+<ul>
+<li class="fragment">Pivot the data set</li>
+</ul></li>
 </ul>
 </div><div class="column" style="width:50%;">
-<h3 id="patient-data">Patient data</h3>
+<p>Patient data</p>
 <ul>
-<li class="fragment"><p>ID</p></li>
-<li class="fragment"><p>Age</p></li>
-<li class="fragment"><p>Stage and location of the disease..</p></li>
+<li class="fragment"><p><code>DFS event/Adj_Radio/Adj_Chem</code> contains 3 variables</p>
+<ul>
+<li class="fragment">Separate it into 3 distinct variables</li>
+</ul></li>
+<li class="fragment"><p>Observations of column <code>DFS (in years and months)</code> contains two values</p>
+<ul>
+<li class="fragment">Convert into months to have only value per observation</li>
+</ul></li>
 </ul>
 </div>
 </div>
+<p>Combine the two data sets by joining on the patient ID.</p>
 </section>
-<section id="tidy" class="slide level2">
-<h2>Tidy</h2>
+<section id="methods---cleaning-the-data" class="slide level2">
+<h2>Methods - Cleaning the data</h2>
 <ul>
-<li class="fragment"><p>Expression data</p>
+<li class="fragment"><p>Missing values “N/A” and “NA”</p>
 <ul>
-<li class="fragment">The columns represent observations and the rows variables -&gt; pivot</li>
+<li class="fragment">Load everything as NA when opening the file</li>
 </ul></li>
-<li class="fragment"><p>Patient data</p>
+<li class="fragment"><p>Gender as “Male”, “M”, “Female”, “F”</p>
 <ul>
-<li class="fragment"><p>column <code>DFS event/Adj_Radio/Adj_Chem</code> contains 3 variables</p></li>
-<li class="fragment"><p>The observations of column <code>DFS (in years and months)</code> contains two values (one in year, and one in month)</p></li>
+<li class="fragment">Convert M to Male and F to Female</li>
 </ul></li>
-<li class="fragment"><p>Combine the two data sets: join</p></li>
+<li class="fragment"><p>One patient has an Age &lt; 0</p>
+<ul>
+<li class="fragment">Substitute it by the mean value of the age of the other observations</li>
+</ul></li>
+<li class="fragment"><p>Long column names with several words</p>
+<ul>
+<li class="fragment"><p>Remove “gene_” at the beginning of all the gene names</p></li>
+<li class="fragment"><p>Remove the units from the names</p></li>
+<li class="fragment"><p>Replace spaces by _</p></li>
+</ul></li>
 </ul>
 </section>
-<section id="clean" class="slide level2 scrollable">
-<h2>Clean</h2>
+<section id="methods---augment-the-data" class="slide level2">
+<h2>Methods - Augment the data</h2>
+<ul>
+<li class="fragment"><p>Create an age group variable</p></li>
+<li class="fragment"><p>Create a metastasis variable</p>
+<ul>
+<li class="fragment"><p>Duke stage A, B, C don’t involve metastasis</p></li>
+<li class="fragment"><p>Duke stage D involve metastasis</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="results---data-description" class="slide level2">
+<h2>Results - Data description</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<ol type="1">
-<li class="fragment">Missing values “N/A” and “NA”</li>
-<li class="fragment">Gender as “Male”, “M”, “Female”, “F”</li>
-<li class="fragment">One patient has an Age &lt; 0</li>
-<li class="fragment">Column names can be shorten</li>
-</ol>
+<p><img data-src="../results/04_gender_age_group_distribution.png"></p>
 </div><div class="column" style="width:50%;">
-<pre><code></code></pre>
+
 </div>
 </div>
-</section>
-<section id="augment" class="slide level2">
-<h2>Augment</h2>
-</section>
-<section id="data-description" class="slide level2">
-<h2>Data description</h2>
 </section>
 <section id="analysis-1" class="slide level2">
 <h2>Analysis 1</h2>

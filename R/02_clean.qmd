@@ -30,8 +30,8 @@ The genders are currently denoted as Male or M and Female or F, we convert every
 ```{r}
 data <- data |> 
   filter(str_starts(ID_REF, "GSM")) |> 
-  mutate(Gender = case_when(Gender == "M" ~ "Male",
-                            Gender == "F" ~ "Female"))
+  mutate(Gender = case_when(Gender == "Male" | Gender == "M" ~ "Male",
+                            Gender == "Female" | Gender == "F" ~ "Female"))
 ```
 
 One observation has a negative age. To avoid dropping the line, we are going to estimate it by the mean value of the other observations.

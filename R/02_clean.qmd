@@ -67,17 +67,6 @@ We modify the name of the columns to make them easier to work with later during 
 data <- data |> 
   rename(Age = `Age (in years)`,
          DFS = `DFS (in months)`,
-<<<<<<< HEAD
-         Dukes_stage = `Dukes Stage`)
-  # pivot_longer(cols = ends_with("_at"),
-  #              names_to = "Gene", 
-  #              values_to = "expr_level") |> 
-  # mutate(Gene = str_remove_all(Gene, "\\D")) |> 
-  # pivot_wider(names_from = Gene, values_from = expr_level)
-
-
-
-=======
          Dukes_stage = `Dukes Stage`,
          DFS_event = `DFS event`) |> 
   pivot_longer(cols = ends_with("_at"),
@@ -86,7 +75,7 @@ data <- data |>
   mutate(Gene = str_sub(Gene, 6)) |>
   pivot_wider(names_from = Gene, 
               values_from = expr_level)
->>>>>>> c245786c98db094d776956ee12d376d893956d34
+
 ```
 
 ## Save the data

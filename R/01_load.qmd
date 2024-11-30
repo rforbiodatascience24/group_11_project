@@ -9,58 +9,40 @@ knitr::opts_knit$set(root.dir = getwd())
 #| message: false
 library(readr)
 library(tidyverse)
-getwd()
+
 ```
 
-## Set project path and make data directory
+## Set project paths
 
 ```{r}
 # Save project path so that all subsequent file handling can be relative to that:
-project_path <-"~/projects/project_group11/"
-  #this should directly take the project path 
+project_path <-"~/projects/group_11_project/"
 
 # Define relative data directory:
 data_dir <- "data/_raw/"
-
-#Create folder for data:
-if (!dir.exists(data_dir)) {
-  dir.create(data_dir, recursive = TRUE)
-}
-```
-
-## Load data
-
-```{r}
-expr_file <- "Colorectal_Cancer_Gene_Expression_Data.csv"
-patient_file <-"Colorectal_Cancer_Patient_Data.csv"
-data_url <- "https://www.kaggle.com/api/v1/datasets/download/amandam1/colorectal-cancer-patients"
-zip_file <- "raw_data.zip"
 
 # Save source link and the name of the downloaded file:
 data_url <- "https://www.kaggle.com/api/v1/datasets/download/amandam1/colorectal-cancer-patients"
 zip_file <- "raw_data.zip"
 
 # Save filenames of the contents of the downloaded zip file:
-expr_file <- "Colorectal Cancer Gene Expression Data.csv"
-patient_file <-"Colorectal Cancer Patient Data.csv"
+expr_file_original <- "Colorectal Cancer Gene Expression Data.csv"
+patient_file_original <- "Colorectal Cancer Patient Data.csv"
 
+```
+
+## Load data
+
+```{r}
 # Download data and unzip
-if (!file.exists(str_c(data_dir, expr_file))) {
+if( !file.exists(str_c(project_path, data_dir, expr_file_original)) ){
   download.file(
     url = data_url,
-    destfile = zip_file,
-    mode = "wb"
-  )
-
-  unzip( zip_file, exdir = str_c(project_path, data_dir))
+    destfile = str_c(project_path, zip_file)
+    , mode = "wb")
   
-  # Replace spaces with underscores in file names -> we need to chnage this to tidyverse
-  unzipped_files <- list.files(path = str_c(project_path, data_dir), full.names = TRUE)
-  for (file_path in unzipped_files) {
-    new_file_path <- gsub(" ", "_", file_path)
-    file.rename(from = file_path, to = new_file_path)
-  }
-  unzip(str_c(project_path, zip_file), exdir = str_c(project_path, data_dir))
+  unzip(str_c(project_path, zip_file),
+        exdir = str_c(project_path, data_dir))
 }
 
 #Remove the zip file
@@ -68,19 +50,27 @@ if (file.exists(str_c(project_path, zip_file))) {
   file.remove(str_c(project_path, zip_file))
 }
 
+
+# Verify and rename Gene Expression file
+expr_file_path <- str_c(project_path, data_dir, expr_file_original)
+if (file.exists(expr_file_path)) {
+  new_expr_file_path <- str_c(project_path, data_dir, "Colorectal_Cancer_Gene_Expression_Data.csv")
+  file.rename(from = expr_file_path, to = new_expr_file_path)
+  expr_file <- "Colorectal_Cancer_Gene_Expression_Data.csv"
+}
+
+# Verify and rename Patient file
+patient_file_path <- str_c(project_path, data_dir, patient_file_original)
+if (file.exists(patient_file_path)) {
+  new_patient_file_path <- str_c(project_path, data_dir, "Colorectal_Cancer_Patient_Data.csv")
+  file.rename(from = patient_file_path, to = new_patient_file_path)
+  patient_file <- "Colorectal_Cancer_Patient_Data.csv"
+}
+
 #Load data into matrix
 expr_data <- read_csv(str_c(project_path, data_dir, expr_file))
 patient_data <- read_csv(str_c(project_path, data_dir, patient_file))
 
-```
-
-```{r}
-# Replace spaces with underscores in file names -> we need to chnage this to tidyverse
-  unzipped_files <- list.files(path = str_c(project_path, data_dir), full.names = TRUE)
-  for (file_path in unzipped_files) {
-    new_file_path <- gsub(" ", "_", file_path)
-    file.rename(from = file_path, to = new_file_path)
-  }
 ```
 
 ## Make the data messy and dirty
@@ -113,9 +103,9 @@ expr_data <- expr_data |>
 
 For the patient data set:
 
--   We remplace 10% of "Male" by "M", and 10% of "Female" by "F"
+-   We replace 10% of "Male" by "M", and 10% of "Female" by "F"
 
--   We merged 3 variables together
+-   We merged 3 variables
 
 -   We change the age of one patient to -2
 
@@ -191,4 +181,11 @@ data <- patient_data |>
 
 write_tsv(data, 
           str_c(project_path, "data/01_dat_load.tsv"))
+```
+
+## Clean environment
+
+```{r}
+rm(list = ls())
+
 ```

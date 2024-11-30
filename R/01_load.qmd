@@ -1,3 +1,7 @@
+---
+editor: visual
+---
+
 ## Load libraries
 
 ```{r}

@@ -1,0 +1,22 @@
+---
+title: "group_11_project Presentation"
+author: "s240066,s233246,s233736,s233242,s241063"
+date: "2024-11-30"
+format: revealjs
+---
+
+# Colorectal Cancer Gene Expression
+
+## **What is Colorectal cancer?**
+
+Colorectal cancer is a disease in which malignant (cancer) cells form in the tissues of the colon or the rectum
+
+# Data Cleaning and Augmentation
+
+# Colorectal cancer patient profile
+
+# Gene Expression Analysis
+
+# Conclusion
+
+# 

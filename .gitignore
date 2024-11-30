@@ -6,5 +6,9 @@
 .txt
 .tsv
 .xlsx
+<<<<<<< HEAD
 
 data/
+=======
+data
+>>>>>>> aeac4d93490a6e225e53dfb9696841ac7727d803

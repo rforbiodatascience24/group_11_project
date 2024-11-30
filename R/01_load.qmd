@@ -3,24 +3,85 @@
 ```{r}
 #| message: false
 library(readr)
+library(tidyverse)
+```
 
+## Set project path and make data directory
+
+```{r}
+project_path <- "~/projects/group_11_project/"
+data_dir <- "data/_raw/"
+
+#Create folder for data:
+if (!dir.exists(str_c(project_path,data_dir))) {
+  dir.create(str_c(project_path,data_dir), recursive = TRUE)
+}
 ```
 
 ## Load data
 
 ```{r}
+<<<<<<< HEAD
 expr_data <- read_csv("~/projects/project_group11/data/_raw/Colorectal_Cancer_Gene_Expression_Data.csv")
 patient_data <- read_csv("~/projects/project_group11/data/_raw/Colorectal_Cancer_Patient_Data.csv")
+=======
+expr_file <- "Colorectal_Cancer_Gene_Expression_Data.csv"
+patient_file <-"Colorectal_Cancer_Patient_Data.csv"
+data_url <- "https://www.kaggle.com/api/v1/datasets/download/amandam1/colorectal-cancer-patients"
+zip_file <- "raw_data.zip"
+>>>>>>> aeac4d93490a6e225e53dfb9696841ac7727d803
 
+#Download data and uzip
+if( !file.exists(str_c(project_path, data_dir, expr_file)) ){
+  download.file(
+    url = data_url,
+    destfile = str_c(project_path, zip_file)
+    , mode = "wb")
+  
+  unzip(str_c(project_path, zip_file),
+        exdir = str_c(project_path, data_dir))
+}
+
+#Remove the zip file
+if (file.exists(str_c(project_path, zip_file))) {
+  file.remove(str_c(project_path, zip_file))
+}
+
+#Load data into matrix
+expr_data <- read_csv(str_c(project_path, data_dir, expr_file))
+patient_data <- read_csv(str_c(project_path, data_dir, patient_file))
 ```
 
-```{r}
-# FPKM normalized gene expression data:
-# expr_data <- read_tsv("https://www.ncbi.nlm.nih.gov/geo/download/?type=rnaseq_counts&acc=GSE50760&format=file&file=GSE50760_norm_counts_FPKM_GRCh38.p13_NCBI.tsv.gz")
+## Combine the two datasets
 
-# Human gene annotation data:
-# annotation <- read_tsv("https://www.ncbi.nlm.nih.gov/geo/download/?format=file&type=rnaseq_counts&file=Human.GRCh38.p13.annot.tsv.gz")
+### First make the datasets tidy
+
+There are three interrelated rules which make a dataset tidy:
+
+1.  Each variable must have its own column
+
+2.  Each observation must have its own row
+
+3.  Each value must have its own cell
+
+Currently, in the expr_data, the columns represent observations and the rows variables. So it needs to be pivoted before the datasets are combined
+
+```{r}
+# Pivot expr_data
+expr_data <- expr_data |>
+  mutate(ID_GENE = ID_REF) |> 
+  select(-ID_REF) |> 
+  pivot_longer(-ID_GENE, names_to = "ID_REF", values_to = "Gene expression level") |> 
+  pivot_wider(names_from = ID_GENE, values_from = "Gene expression level") 
 ```
 
+### Now they can be combined:
+
 ```{r}
+# Join the two datasets
+data <- patient_data |>
+  full_join(expr_data, by = "ID_REF")
+
+write_tsv(data, 
+          str_c(project_path, "data/01_dat_load.tsv"))
 ```

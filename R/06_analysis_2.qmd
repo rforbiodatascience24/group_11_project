@@ -1,0 +1,154 @@
+## Load data
+
+```{r}
+project_path <- "~/projects/group_11_project/"
+data <- read_tsv(str_c(project_path, "data/03_dat_aug.tsv"))
+```
+
+## try with no_stage
+
+```{r}
+data_long <- data |>
+  mutate(metastasis = case_when(No_stage <= 3 ~ 0,
+                                No_stage > 3 ~ 1)) |> 
+  select(ends_with("_at"), metastasis) |> 
+  pivot_longer(cols = ends_with("_at"), names_to = "gene", values_to = "log2_expr_level")
+  # mutate(log2_expr_level = log2(log2_expr_level))
+
+data_long_nested <- data_long |> 
+  group_by(gene) |> 
+  nest() |> 
+  ungroup()
+
+data_long_nested <- data_long_nested |> 
+  group_by(gene) |> 
+  mutate(model_object = map(.x = data,
+                   .f = ~lm(formula = log2_expr_level ~ metastasis,
+                            data = .x))) |> 
+  ungroup() |> 
+  mutate(model_object_tidy = map(.x = model_object,
+                                 .f = ~tidy(x =.x,
+                                            conf.int = TRUE,
+                                            conf.level = 0.95)))
+
+estimates <- data_long_nested |> 
+  unnest(model_object_tidy) |> 
+  filter(term == "metastasis") |> 
+  select("gene", "p.value", "estimate", "conf.low", "conf.high") |> 
+  mutate(q.value = p.adjust(p.value),
+         is_significant = case_when(q.value > 0.05 ~ "no",
+                                    q.value <= 0.05 ~ "yes"))
+```
+
+## try with gender
+
+```{r}
+data_long <- data |>
+  select(ends_with("_at"), Gender) |> 
+  pivot_longer(cols = ends_with("_at"), names_to = "gene", values_to = "log2_expr_level") |> 
+  mutate(log2_expr_level = log2(log2_expr_level))
+
+data_long_nested <- data_long |> 
+  group_by(gene) |> 
+  nest() |> 
+  ungroup()
+
+data_long_nested <- data_long_nested |> 
+  group_by(gene) |> 
+  mutate(model_object = map(.x = data,
+                   .f = ~lm(formula = log2_expr_level ~ Gender,
+                            data = .x))) |> 
+  ungroup() |> 
+  mutate(model_object_tidy = map(.x = model_object,
+                                 .f = ~tidy(x =.x,
+                                            conf.int = TRUE,
+                                            conf.level = 0.95)))
+
+estimates <- data_long_nested |> 
+  unnest(model_object_tidy) |> 
+  filter(term == "Gender") |> 
+  select("gene", "p.value", "estimate", "conf.low", "conf.high") |> 
+  mutate(q.value = p.adjust(p.value),
+         is_significant = case_when(q.value > 0.05 ~ "no",
+                                    q.value <= 0.05 ~ "yes"))
+```
+
+## without using p.adjust
+
+```{r}
+data_long <- data |>
+  mutate(metastasis = case_when(No_stage <= 3 ~ 0,
+                                No_stage > 3 ~ 1)) |> 
+  select(ends_with("_at"), metastasis) |> 
+  pivot_longer(cols = ends_with("_at"), names_to = "gene", values_to = "log2_expr_level")
+  # mutate(log2_expr_level = log2(log2_expr_level))
+
+data_long_nested <- data_long |> 
+  group_by(gene) |> 
+  nest() |> 
+  ungroup()
+
+data_long_nested <- data_long_nested |> 
+  group_by(gene) |> 
+  mutate(model_object = map(.x = data,
+                   .f = ~lm(formula = log2_expr_level ~ metastasis,
+                            data = .x))) |> 
+  ungroup() |> 
+  mutate(model_object_tidy = map(.x = model_object,
+                                 .f = ~tidy(x =.x,
+                                            conf.int = TRUE,
+                                            conf.level = 0.95)))
+```
+
+```{r}
+estimates <- data_long_nested |> 
+  unnest(model_object_tidy) |> 
+  filter(term == "metastasis") |> 
+  select("gene", "p.value", "estimate", "conf.low", "conf.high") |> 
+  mutate(q.value = p.adjust(p.value),
+         is_significant = case_when(q.value > 0.05 ~ "no",
+                                    q.value <= 0.05 ~ "yes"))
+```
+
+## Plots
+
+```{r}
+estimates |> 
+  filter(is_significant == "yes") |>
+  mutate(gene = fct_reorder(gene, estimate)) |> 
+  ggplot(aes(x = estimate,
+             y = gene)) +
+  geom_point() +
+  geom_errorbarh(aes(xmax = conf.low, 
+                     xmin = conf.high)) +
+  labs(x = "Estimates (95%Cls)",
+       y = "",
+       title = "Genes Associated with Early Metastasis in Small Node-Negative Breast Carcinoma",
+       caption = "Data from DOI:10:1002/gcc.20820") +
+  theme_minimal(base_size = 10) +
+  geom_vline(xintercept = 0)
+```
+
+```{r}
+estimates |> 
+  mutate(gen_sig = case_when(is_significant == "no" ~ "",
+                             is_significant == "yes" ~ gene)) |> 
+  ggplot(aes(x = estimate,
+             y = -log10(p.value),
+             color = is_significant,
+             label = gen_sig)) +
+  geom_text_repel(size = 2, 
+                  max.overlaps = Inf) +
+  geom_point(alpha = 0.5, 
+             size = 1,
+             show.legend = FALSE) +
+  labs(x = "Estimates (95%Cls)",
+       y = "-log10(p)",
+       title = "Genes Associated with Early Metastasis in Small Node-Negative Breast Carcinoma",
+       subtitle = "Genes highlighted in turuqoise were significant after multiple testing correction",
+       caption = "Data from DOI:10:1002/gcc.20820") +
+  theme_minimal(base_size = 10) +
+  theme(legend.position = "none",
+        plot.subtitle = element_text(hjust = 1)) +
+  geom_hline(yintercept = 0)
+```

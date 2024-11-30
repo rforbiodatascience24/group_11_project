@@ -11,7 +11,7 @@ library(tidyverse)
 ## Set project path
 
 ```{r}
-project_path <- "~/projects/project_group11/"
+project_path <- "~/projects/group_11_project/"
 ```
 
 ## Loading the data:
@@ -93,11 +93,6 @@ patient_data
 ## Visualizing data
 
 ```{r}
-# Check for NA values in the Gender column
-sum(is.na(data$Gender))
-```
-
-```{r}
 pl3 <- data |>
   ggplot(aes(x = factor(Gender), fill = factor(Gender))) + 
   geom_bar(stat = "count") +
@@ -147,8 +142,13 @@ pl<- data |>
         plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
        axis.text.x = element_text(angle = 45, hjust = 1), 
        axis.title.x = element_text(size = 10, face = "bold"),  # Modify x-axis title font size and make it bold
-      axis.title.y = element_text(size = 10, face = "italic") # Modify y-axis title font size and make it italic
+      axis.title.y = element_text(size = 10, face = "bold") # Modify y-axis title font size and make it italic
     )
+
+pl |> 
+  ggsave(filename = "04_gender_age_group_distribution.png",
+         path = str_c(project_path, "results/"))
+
 pl
 ```
 
@@ -162,6 +162,8 @@ pl1 <- data|>
       axis.text.x = element_text(angle = 45, hjust = 1) # Rotate x labels for better readability
     ) +
     theme_classic()# Print each plot
+
+
 pl1
 ```
 

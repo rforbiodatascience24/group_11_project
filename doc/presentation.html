@@ -340,15 +340,93 @@
 </section>
 <section id="introduction" class="slide level2">
 <h2>Introduction</h2>
+<ul>
+<li class="fragment"><p>Background</p>
+<ul>
+<li class="fragment"><p>xxx</p></li>
+<li class="fragment"><p>xxx</p></li>
+<li class="fragment"><p>xxx</p></li>
+</ul></li>
+<li class="fragment"><p>Goal of the project</p>
+<ul>
+<li class="fragment"><p>Investigate xxx</p></li>
+<li class="fragment"><p>Model xxx</p></li>
+</ul></li>
+</ul>
 </section>
-<section id="materials-and-methods" class="slide level2">
-<h2>Materials and Methods</h2>
+<section id="method" class="slide level2 scrollable">
+<h2>Method</h2>
+<ol type="1">
+<li class="fragment"><p>Import</p></li>
+<li class="fragment"><p>Tidy</p></li>
+<li class="fragment"><p>Clean</p></li>
+<li class="fragment"><p>Augment</p></li>
+<li class="fragment"><p>Analyse</p></li>
+</ol>
 </section>
-<section id="results" class="slide level2">
-<h2>Results</h2>
+<section id="raw-data" class="slide level2">
+<h2>Raw data</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="gene-expression-dat">Gene expression dat</h3>
+<ul>
+<li class="fragment"><p>Gene ID</p></li>
+<li class="fragment"><p>log2 expression level</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h3 id="patient-data">Patient data</h3>
+<ul>
+<li class="fragment"><p>ID</p></li>
+<li class="fragment"><p>Age</p></li>
+<li class="fragment"><p>Stage and location of the disease..</p></li>
+</ul>
+</div>
+</div>
 </section>
-<section id="discussion" class="slide level2">
-<h2>Discussion</h2>
+<section id="tidy" class="slide level2">
+<h2>Tidy</h2>
+<ul>
+<li class="fragment"><p>Expression data</p>
+<ul>
+<li class="fragment">The columns represent observations and the rows variables -&gt; pivot</li>
+</ul></li>
+<li class="fragment"><p>Patient data</p>
+<ul>
+<li class="fragment"><p>column <code>DFS event/Adj_Radio/Adj_Chem</code> contains 3 variables</p></li>
+<li class="fragment"><p>The observations of column <code>DFS (in years and months)</code> contains two values (one in year, and one in month)</p></li>
+</ul></li>
+<li class="fragment"><p>Combine the two data sets: join</p></li>
+</ul>
+</section>
+<section id="clean" class="slide level2 scrollable">
+<h2>Clean</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ol type="1">
+<li class="fragment">Missing values “N/A” and “NA”</li>
+<li class="fragment">Gender as “Male”, “M”, “Female”, “F”</li>
+<li class="fragment">One patient has an Age &lt; 0</li>
+<li class="fragment">Column names can be shorten</li>
+</ol>
+</div><div class="column" style="width:50%;">
+<pre><code></code></pre>
+</div>
+</div>
+</section>
+<section id="augment" class="slide level2">
+<h2>Augment</h2>
+</section>
+<section id="data-description" class="slide level2">
+<h2>Data description</h2>
+</section>
+<section id="analysis-1" class="slide level2">
+<h2>Analysis 1</h2>
+</section>
+<section id="analysis-2" class="slide level2">
+<h2>Analysis 2</h2>
+</section>
+<section id="analysis-3" class="slide level2">
+<h2>Analysis 3</h2>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
@@ -565,6 +643,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

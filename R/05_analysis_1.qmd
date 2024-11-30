@@ -1,6 +1,10 @@
-```{r setup, include=FALSE}
-knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
-```
+---
+title: "Principal component analysis"
+format:
+  html:
+    output_dir: "../results/"
+editor: visual
+---
 
 ## Principal component analysis (PCA):
 
@@ -12,32 +16,46 @@ library(readr)
 library(tidyverse)
 library(broom)
 library(cowplot)
+library(dplyr)
+library(tidyr)
 
 ```
 
 load data:
 
 ```{r}
-data <- read_tsv("data/03_dat_aug.tsv")
+data <- read_tsv("../data/03_dat_aug.tsv")
 data <- data |>
   column_to_rownames(var = "ID_REF")
 ```
 
 ```{r}
-pca <- data |>
-  select(where(is.numeric))|> 
-  prcomp(scale = TRUE)
+# Handle missing data (if any)
+cleaned_data <- data |>
+  select(ends_with("_at"))|>
+  mutate(across(where(is.numeric), ~ ifelse(is.na(.), mean(., na.rm = TRUE), .)))
 
+# Perform PCA
+pca <- prcomp(cleaned_data, scale = TRUE)
+
+#save pca scores:
 pca_scores <- pca$x
-
 pca_scores_tbl <- as_tibble(pca_scores)
 
 ```
 
 ```{r}
-ggplot(pca_scores_tbl, aes(PC1, PC2)) +
-  geom_point() +
-  geom_text(label = rownames(pca.dat)) +
-  labs(x = paste0('PC1: ', pca.var.percent[1], ' %'),
-       y = paste0('PC2: ', pca.var.percent[2], ' %'))
+# Add row names (sample IDs) to the PCA scores
+
+
+# Add the 'gender' column from the original data
+
+# Create a scatter plot of PC1 vs PC2, with points labeled by ID_REF and colored by gender
+ggplot(pca_scores_tbl, aes(x = PC1, y = PC2)) +
+  geom_point() +  # Scatter plot
+  geom_text(label = rownames(data)) +
+  labs(x = str_c('PC1: ', pca.var.percent[1], ' %'), 
+       y = "Principal Component 2 (PC2)", 
+       title = "Principal component analysis (PCA)") +
+  theme_minimal()
 ```

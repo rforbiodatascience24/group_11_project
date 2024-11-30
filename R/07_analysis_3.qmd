@@ -2,12 +2,9 @@
 title: "Analysis 3"
 output:
   html_document:
-    output_dir: "results"
+    output_dir: "../results/"
+editor: visual
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
-```
 
 ## Aim
 
@@ -26,7 +23,7 @@ library(ggplot2)
 ## Loading the data:
 
 ```{r}
-data <- read_tsv("data/03_dat_aug.tsv")
+data <- read_tsv("../data/03_dat_aug.tsv")
 ```
 
 ## Analysis
@@ -68,7 +65,7 @@ dfs_loc_plot
 # Save the plot
 dfs_loc_plot |> 
   ggsave(filename = "07_analysis_3.png",
-         path =  "results/")
+         path =  "../results/")
 ```
 
 ## Results

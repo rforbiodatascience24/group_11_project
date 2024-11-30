@@ -2,7 +2,7 @@
 title: "Load raw data and make it tidy"
 format:
   html:
-    embed-resources: true
+    output_dir: "../results"
 editor: visual
 ---
 

@@ -2,7 +2,7 @@
 title: "Describtion of data"
 format:
   html:
-    embed-resources: true
+    output_dir: "../results/"
 editor: visual
 ---
 

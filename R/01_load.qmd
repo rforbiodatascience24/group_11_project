@@ -1,7 +1,6 @@
----
-editor: visual
-knitr::opts_knit$set(root.dir = getwd())
----
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
 
 ## Load libraries
 
@@ -15,19 +14,21 @@ library(tidyverse)
 ## Set project paths
 
 ```{r}
+
 # Save project path so that all subsequent file handling can be relative to that:
 project_path <-"~/projects/group_11_project/"
 
 # Define relative data directory:
 data_dir <- "data/_raw/"
 
-# Save source link and the name of the downloaded file:
+# Save url and name for download:
 data_url <- "https://www.kaggle.com/api/v1/datasets/download/amandam1/colorectal-cancer-patients"
 zip_file <- "raw_data.zip"
 
 # Save filenames of the contents of the downloaded zip file:
 expr_file_original <- "Colorectal Cancer Gene Expression Data.csv"
 patient_file_original <- "Colorectal Cancer Patient Data.csv"
+
 
 ```
 
@@ -41,13 +42,13 @@ if( !file.exists(str_c(project_path, data_dir, expr_file_original)) ){
     destfile = str_c(project_path, zip_file)
     , mode = "wb")
   
-  unzip(str_c(project_path, zip_file),
-        exdir = str_c(project_path, data_dir))
+  unzip(str_c(project_path, zip_file), exdir = data_dir)
+
 }
 
 #Remove the zip file
-if (file.exists(str_c(project_path, zip_file))) {
-  file.remove(str_c(project_path, zip_file))
+if (file.exists(zip_file)) {
+  file.remove(zip_file)
 }
 
 
@@ -68,8 +69,8 @@ if (file.exists(patient_file_path)) {
 }
 
 #Load data into matrix
-expr_data <- read_csv(str_c(project_path, data_dir, expr_file))
-patient_data <- read_csv(str_c(project_path, data_dir, patient_file))
+expr_data <- read_csv(str_c(data_dir, expr_file))
+patient_data <- read_csv(str_c(data_dir, patient_file))
 
 ```
 
@@ -180,7 +181,7 @@ data <- patient_data |>
   full_join(expr_data, by = "ID_REF")
 
 write_tsv(data, 
-          str_c(project_path, "data/01_dat_load.tsv"))
+          "data/01_dat_load.tsv")
 ```
 
 ## Clean environment

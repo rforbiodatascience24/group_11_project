@@ -1,3 +1,7 @@
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
 ## Principal component analysis (PCA):
 
 load libraries:
@@ -14,7 +18,7 @@ library(cowplot)
 load data:
 
 ```{r}
-data <- read_tsv("../data/03_dat_aug.tsv")
+data <- read_tsv("data/03_dat_aug.tsv")
 data <- data |>
   column_to_rownames(var = "ID_REF")
 ```

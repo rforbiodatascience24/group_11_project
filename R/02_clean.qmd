@@ -1,15 +1,13 @@
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
 ## Load libraries
 
 ```{r}
 #| message: false 
 library(readr) 
 library(tidyverse)
-```
-
-## Set project path
-
-```{r}
-project_path <- "~/projects/project_group11/"
 ```
 
 ## Load data
@@ -81,5 +79,5 @@ data <- data |>
 ## Save the data
 
 ```{r}
-write_tsv(data, str_c(project_path, "data/02_dat_clean.tsv"))
+write_tsv(data, "data/02_dat_clean.tsv")
 ```

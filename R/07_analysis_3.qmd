@@ -5,6 +5,10 @@ output:
     output_dir: "results"
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
 ## Aim
 
 In this analysis, we will try to answer the following question
@@ -19,16 +23,10 @@ library(dplyr)
 library(ggplot2)
 ```
 
-## Set project path
-
-```{r}
-project_path <- "~/projects/group_11_project/"
-```
-
 ## Loading the data:
 
 ```{r}
-data <- read_tsv(str_c(project_path, "data/03_dat_aug.tsv"))
+data <- read_tsv("data/03_dat_aug.tsv")
 ```
 
 ## Analysis
@@ -70,7 +68,7 @@ dfs_loc_plot
 # Save the plot
 dfs_loc_plot |> 
   ggsave(filename = "07_analysis_3.png",
-         path = str_c(project_path, "results/"))
+         path =  "results/")
 ```
 
 ## Results

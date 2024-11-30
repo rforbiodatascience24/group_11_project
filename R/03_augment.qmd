@@ -1,3 +1,7 @@
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
 ## Load libraries:
 
 ```{r}
@@ -7,16 +11,10 @@ library(dplyr)
 library(tidyverse)
 ```
 
-## Set project path
-
-```{r}
-project_path <- "~/projects/project_group11/"
-```
-
 ## Loading the data:
 
 ```{r}
-data <- read_tsv(str_c(project_path, "data/02_dat_clean.tsv"))
+data <- read_tsv("data/02_dat_clean.tsv")
 ```
 
 ## Creating new variables:
@@ -51,5 +49,5 @@ data <- data |>
 
 ## Save the data
 
-write_tsv(data, str_c(project_path, "data/03_dat_aug.tsv"))
+write_tsv(data, "data/03_dat_aug.tsv")
 ```

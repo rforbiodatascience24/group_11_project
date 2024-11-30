@@ -1,4 +1,6 @@
-## 
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
 
 ---
 title: "Analysis 4"
@@ -20,6 +22,5 @@ library(tidyr)
 ## Loading clean data
 
 ```{r}
-project_path <- "~/projects/project_group11/"
-data <- read_tsv(str_c(project_path, "/data/03_dat_aug.tsv"))
+data <- read_tsv("data/03_dat_aug.tsv")
 ```

@@ -1,7 +1,6 @@
----
-editor: visual
-knitr::opts_knit$set(root.dir = getwd())
----
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
 
 ## Load libraries
 
@@ -9,16 +8,11 @@ knitr::opts_knit$set(root.dir = getwd())
 #| message: false
 library(readr)
 library(tidyverse)
-getwd()
 ```
 
 ## Set project path and make data directory
 
 ```{r}
-# Save project path so that all subsequent file handling can be relative to that:
-project_path <-"~/projects/project_group11/"
-  #this should directly take the project path 
-
 # Define relative data directory:
 data_dir <- "data/_raw/"
 
@@ -31,12 +25,8 @@ if (!dir.exists(data_dir)) {
 ## Load data
 
 ```{r}
-expr_file <- "Colorectal_Cancer_Gene_Expression_Data.csv"
-patient_file <-"Colorectal_Cancer_Patient_Data.csv"
-data_url <- "https://www.kaggle.com/api/v1/datasets/download/amandam1/colorectal-cancer-patients"
-zip_file <- "raw_data.zip"
-
-# Save source link and the name of the downloaded file:
+#expr_file <- "Colorectal_Cancer_Gene_Expression_Data.csv"
+#patient_file <-"Colorectal_Cancer_Patient_Data.csv"
 data_url <- "https://www.kaggle.com/api/v1/datasets/download/amandam1/colorectal-cancer-patients"
 zip_file <- "raw_data.zip"
 
@@ -52,35 +42,27 @@ if (!file.exists(str_c(data_dir, expr_file))) {
     mode = "wb"
   )
 
-  unzip( zip_file, exdir = str_c(project_path, data_dir))
-  
-  # Replace spaces with underscores in file names -> we need to chnage this to tidyverse
-  unzipped_files <- list.files(path = str_c(project_path, data_dir), full.names = TRUE)
-  for (file_path in unzipped_files) {
-    new_file_path <- gsub(" ", "_", file_path)
-    file.rename(from = file_path, to = new_file_path)
-  }
-  unzip(str_c(project_path, zip_file), exdir = str_c(project_path, data_dir))
+  unzip( zip_file, exdir = data_dir)
 }
 
 #Remove the zip file
-if (file.exists(str_c(project_path, zip_file))) {
-  file.remove(str_c(project_path, zip_file))
+if (file.exists(zip_file)) {
+  file.remove(zip_file)
 }
 
 #Load data into matrix
-expr_data <- read_csv(str_c(project_path, data_dir, expr_file))
-patient_data <- read_csv(str_c(project_path, data_dir, patient_file))
+expr_data <- read_csv(str_c(data_dir, expr_file))
+patient_data <- read_csv(str_c(data_dir, patient_file))
 
 ```
 
 ```{r}
 # Replace spaces with underscores in file names -> we need to chnage this to tidyverse
-  unzipped_files <- list.files(path = str_c(project_path, data_dir), full.names = TRUE)
-  for (file_path in unzipped_files) {
-    new_file_path <- gsub(" ", "_", file_path)
-    file.rename(from = file_path, to = new_file_path)
-  }
+#  unzipped_files <- list.files(path =  data_dir, full.names = TRUE)
+#  for (file_path in unzipped_files) {
+#    new_file_path <- gsub(" ", "_", file_path)
+#    file.rename(from = file_path, to = new_file_path)
+#  }
 ```
 
 ## Make the data messy and dirty
@@ -190,5 +172,5 @@ data <- patient_data |>
   full_join(expr_data, by = "ID_REF")
 
 write_tsv(data, 
-          str_c(project_path, "data/01_dat_load.tsv"))
+          "data/01_dat_load.tsv")
 ```

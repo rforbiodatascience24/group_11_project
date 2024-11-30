@@ -1,3 +1,7 @@
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
 ## Aim
 
 In this analysis, we will try to answer the following question
@@ -18,8 +22,7 @@ library("ggrepel")
 ## Load data
 
 ```{r}
-project_path <- "~/projects/project_group11/"
-data <- read_tsv(str_c(project_path, "data/03_dat_aug.tsv"))
+data <- read_tsv("data/03_dat_aug.tsv")
 ```
 
 ## Analysis
@@ -119,7 +122,7 @@ pl1 <- estimates |>
 # Save the plot
 pl1 |> 
   ggsave(filename = "06_analysis_metastasis_regulation.png",
-         path = str_c(project_path, "results/"))
+         path = "results/")
 
 pl1
 ```
@@ -150,7 +153,7 @@ pl2 <- estimates |>
 # save the plot
 pl2 |> 
   ggsave(filename = "06_analysis_volcano.png",
-         path = str_c(project_path, "results/"))
+         path ="results/")
 
 pl2
 ```

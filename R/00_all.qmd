@@ -1,3 +1,7 @@
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
 # Run-all quarto documents in this folder
 
 ```{r}

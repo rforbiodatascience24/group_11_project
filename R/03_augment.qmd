@@ -39,6 +39,11 @@ data <- data |>
 data <- data |>
   relocate(No_stage, .after = Dukes_stage)
 
+#Adding a DFS_label column, which contains the data of DFS, in categorical format (relevant for analysis_3)
+data <- data |>
+  mutate(DFS_label = case_when(DFS == 0 ~ "No return of disease",
+                            DFS == 1 ~ "Return of disease"))
+
 ```
 
 ## Save the data

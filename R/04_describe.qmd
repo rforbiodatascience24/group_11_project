@@ -93,11 +93,6 @@ patient_data
 ## Visualizing data
 
 ```{r}
-# Check for NA values in the Gender column
-sum(is.na(data$Gender))
-```
-
-```{r}
 pl3 <- data |>
   ggplot(aes(x = factor(Gender), fill = factor(Gender))) + 
   geom_bar(stat = "count") +

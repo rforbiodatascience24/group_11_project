@@ -8,7 +8,10 @@ editor: visual
 
 ```{r}
 library(tidyverse)
+<<<<<<< HEAD
+=======
 library(dplyr)
+>>>>>>> cc63337ce81029a18fc414491f2eed3d91c8f2c2
 library(ggplot2)
 ```
 

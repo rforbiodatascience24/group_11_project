@@ -7,5 +7,4 @@
 .tsv
 .xlsx
 
-data/
-
+data/*

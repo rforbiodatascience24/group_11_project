@@ -3,13 +3,17 @@
 ```{r}
 #| message: false
 library(readr)
+<<<<<<< HEAD
+library(dplyr)
+=======
+>>>>>>> cc63337ce81029a18fc414491f2eed3d91c8f2c2
 library(tidyverse)
 ```
 
 ## Set project path
 
 ```{r}
-project_path <- "~/projects/group_11_project/"
+project_path <- "~/projects/project_group11/"
 ```
 
 ## Loading the data:

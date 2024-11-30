@@ -27,24 +27,22 @@ if (!dir.exists(str_c(project_path,data_dir))) {
 ## Load data
 
 ```{r}
-expr_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Gene_Expression_Data.csv"))
-patient_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Patient_Data.csv"))
-
-expr_file <- "Colorectal_Cancer_Gene_Expression_Data.csv"
-patient_file <-"Colorectal_Cancer_Patient_Data.csv"
+# Save source link and the name of the downloaded file:
 data_url <- "https://www.kaggle.com/api/v1/datasets/download/amandam1/colorectal-cancer-patients"
 zip_file <- "raw_data.zip"
 
+# Save filenames of the contents of the downloaded zip file:
+expr_file <- "Colorectal Cancer Gene Expression Data.csv"
+patient_file <-"Colorectal Cancer Patient Data.csv"
 
-#Download data and uzip
-if( !file.exists(str_c(project_path, data_dir, expr_file)) ){
+# Download data and unzip
+if (!file.exists(str_c(project_path, data_dir, expr_file))) {
   download.file(
     url = data_url,
-    destfile = str_c(project_path, zip_file)
-    , mode = "wb")
-  
-  unzip(str_c(project_path, zip_file),
-        exdir = str_c(project_path, data_dir))
+    destfile = str_c(project_path, zip_file),
+    mode = "wb"
+  )
+  unzip(str_c(project_path, zip_file), exdir = str_c(project_path, data_dir))
 }
 
 #Remove the zip file
@@ -55,6 +53,16 @@ if (file.exists(str_c(project_path, zip_file))) {
 #Load data into matrix
 expr_data <- read_csv(str_c(project_path, data_dir, expr_file))
 patient_data <- read_csv(str_c(project_path, data_dir, patient_file))
+
+```
+
+```{r}
+# Replace spaces with underscores in file names -> we need to chnage this to tidyverse
+  unzipped_files <- list.files(path = str_c(project_path, data_dir), full.names = TRUE)
+  for (file_path in unzipped_files) {
+    new_file_path <- gsub(" ", "_", file_path)
+    file.rename(from = file_path, to = new_file_path)
+  }
 ```
 
 ## Make the data messy and dirty

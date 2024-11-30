@@ -8,30 +8,49 @@ editor: visual
 
 ```{r}
 library(tidyverse)
-library(ggplot)
+library(dplyr)
+library(ggplot2)
+```
+
+## Set project path
+
+```{r}
+project_path <- "~/projects/group_11_project/"
+```
+
+## Loading the data:
+
+```{r}
+data <- read_tsv(str_c(project_path, "data/03_dat_aug.tsv"))
 ```
 
 ## DFS_event - Location barplot
 
 ```{r}
-data |>
-  group_by(DFS_event) |>
+dfs_loc_plot <- data |>
+  group_by(DFS_label) |>
   count(Location) |>
-  ggplot(aes(x=Location, y=n, fill=DFS_event)) +
-  geom_col()
-```
-
-left and rectum location =\> more likely that the disease will come back
-
-```{r}
-  ggplot(mapping = aes(x = Location, y = n, fill=DFS_event)) +
+  ggplot(mapping = aes(x = Location, y = n, fill=DFS_label)) +
   geom_col(position = "dodge", alpha=0.5, color="black") +
   theme_minimal() +
-  geom_hline(yintercept = 0, color = "black") +  # Add black line at y = 0
   theme(
-    legend.position = "bottom",
+    legend.position = "right",
     axis.text.x = element_text(angle = 10, vjust = 1, hjust=1),
-    panel.grid.major.x = element_blank(),  # Remove major vertical grid lines
-    panel.grid.minor.x = element_blank()   # Remove minor vertical grid lines
+    panel.grid.major.x = element_blank(),  # Remove major vertical grid lines for a cleaner graph
+    panel.grid.minor.x = element_blank()   # Remove minor vertical grid lines for a cleaner graph
+  ) +
+  scale_y_continuous(breaks = seq(0, 20, by=2)) + # Show more ticks on the y axis to make the graph easier to read
+  labs(
+    title = "Distribution of Disease-Free Survival Events by Sample Location",
+    x = "Location of sample",
+    y = "Number of samples",
+    fill = NULL
   )
+
+# Save the plot
+dfs_loc_plot |> 
+  ggsave(filename = "07_analysis_3.png",
+         path = str_c(project_path, "results/"))
 ```
+
+There is a clear distinction shown for the Rectum position. The majority of samples end up exhibiting a return of the disease, more than triple the amount. This is a bigger difference than any other location, making the rectum the most aggresive location. In contrast, no difference is shown for the colon location. The left side is also somewhat aggressive, while the right mostly shows no return of disease.

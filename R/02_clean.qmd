@@ -75,6 +75,7 @@ data <- data |>
   mutate(Gene = str_sub(Gene, 6)) |>
   pivot_wider(names_from = Gene, 
               values_from = expr_level)
+
 ```
 
 ## Save the data

@@ -6,7 +6,6 @@ library(readr)
 library(dplyr)
 library(tidyr)
 library(tidyverse)
-library(tidyverse)
 ```
 
 ## Set project path

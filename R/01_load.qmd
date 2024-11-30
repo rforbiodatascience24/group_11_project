@@ -1,6 +1,10 @@
-```{r setup, include=FALSE}
-knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
-```
+---
+title: "Load raw data and make it tidy"
+format:
+  html:
+    embed-resources: true
+editor: visual
+---
 
 ## Load libraries
 
@@ -42,13 +46,14 @@ if( !file.exists(str_c(project_path, data_dir, expr_file_original)) ){
     destfile = str_c(project_path, zip_file)
     , mode = "wb")
   
-  unzip(str_c(project_path, zip_file), exdir = data_dir)
+  unzip(str_c(project_path, zip_file),
+        exdir = str_c(project_path, data_dir))
 
 }
 
 #Remove the zip file
-if (file.exists(zip_file)) {
-  file.remove(zip_file)
+if (file.exists(str_c(project_path, zip_file))) {
+  file.remove(str_c(project_path, zip_file))
 }
 
 
@@ -69,8 +74,8 @@ if (file.exists(patient_file_path)) {
 }
 
 #Load data into matrix
-expr_data <- read_csv(str_c(data_dir, expr_file))
-patient_data <- read_csv(str_c(data_dir, patient_file))
+expr_data <- read_csv(str_c(project_path, data_dir, expr_file))
+patient_data <- read_csv(str_c(project_path, data_dir, patient_file))
 
 ```
 
@@ -180,8 +185,7 @@ patient_data <- patient_data |>
 data <- patient_data |>
   full_join(expr_data, by = "ID_REF")
 
-write_tsv(data, 
-          "data/01_dat_load.tsv")
+write_tsv(data, str_c(project_path,"data/01_dat_load.tsv"))
 ```
 
 ## Clean environment

@@ -1,6 +1,10 @@
-```{r setup, include=FALSE}
-knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
-```
+---
+title: "Describtion of data"
+format:
+  html:
+    embed-resources: true
+editor: visual
+---
 
 ## Load libraries
 
@@ -15,7 +19,7 @@ library(tidyverse)
 ## Loading the data:
 
 ```{r}
-data <- read_tsv("data/03_dat_aug.tsv")
+data <- read_tsv("../data/03_dat_aug.tsv")
 ```
 
 ## Inspect the dataset
@@ -87,7 +91,7 @@ pl <- data |>
 
 pl |> 
   ggsave(filename = "04_gender_distribution.png",
-         path ="results/")
+         path ="../results/")
 
 pl
 ```
@@ -119,7 +123,7 @@ pl <- data |>
 
 pl |> 
   ggsave(filename = "04_gender_age_group_distribution.png",
-         path = "results/")
+         path = "../results/")
 
 pl
 ```
@@ -144,7 +148,7 @@ pl <- data|>
 
 pl |> 
   ggsave(filename = "04_dukes_stage_distribution.png",
-         path = "results/")
+         path = "../results/")
 
 
 pl
@@ -170,7 +174,7 @@ pl <- data|>
 
 pl |> 
   ggsave(filename = "04_dukes_stage_distribution.png",
-         path =  "results/")
+         path =  "../results/")
 
 
 pl
@@ -188,7 +192,7 @@ pl <- data |>
 
 pl |> 
   ggsave(filename = "04_DFS_age_distribution.png",
-         path = "results/")
+         path = "../results/")
 
 
 pl

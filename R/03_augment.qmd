@@ -1,6 +1,10 @@
-```{r setup, include=FALSE}
-knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
-```
+---
+title: "Augment data"
+format:
+  html:
+    embed-resources: true
+editor: visual
+---
 
 ## Load libraries:
 
@@ -14,7 +18,7 @@ library(tidyverse)
 ## Loading the data:
 
 ```{r}
-data <- read_tsv("data/02_dat_clean.tsv")
+data <- read_tsv("../data/02_dat_clean.tsv")
 ```
 
 ## Creating new variables:
@@ -49,5 +53,5 @@ data <- data |>
 
 ## Save the data
 
-write_tsv(data, "data/03_dat_aug.tsv")
+write_tsv(data, "../data/03_dat_aug.tsv")
 ```

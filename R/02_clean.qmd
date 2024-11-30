@@ -1,6 +1,10 @@
-```{r setup, include=FALSE}
-knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
-```
+---
+title: "Clean data"
+format:
+  html:
+    embed-resources: true
+editor: visual
+---
 
 ## Load libraries
 
@@ -15,7 +19,7 @@ library(tidyverse)
 Some missing values are currently denoted as "N/A" or "NA", we need to handle this when load the file.
 
 ```{r}
-data <- read_tsv("data/01_dat_load.tsv",
+data <- read_tsv("../data/01_dat_load.tsv",
                  na = c("N/A", "NA"))
 ```
 
@@ -79,5 +83,11 @@ data <- data |>
 ## Save the data
 
 ```{r}
-write_tsv(data, "data/02_dat_clean.tsv")
+write_tsv(data, "../data/02_dat_clean.tsv")
+```
+
+## Clean environment
+
+```{r}
+rm(list = ls())
 ```

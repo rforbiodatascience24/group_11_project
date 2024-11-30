@@ -87,7 +87,7 @@ pl <- data |>
 
 pl |> 
   ggsave(filename = "04_gender_distribution.png",
-         path = str_c(project_path, "results/"))
+         path ="results/")
 
 pl
 ```
@@ -144,7 +144,7 @@ pl <- data|>
 
 pl |> 
   ggsave(filename = "04_dukes_stage_distribution.png",
-         path = str_c(project_path, "results/"))
+         path = "results/")
 
 
 pl
@@ -170,7 +170,7 @@ pl <- data|>
 
 pl |> 
   ggsave(filename = "04_dukes_stage_distribution.png",
-         path = str_c(project_path, "results/"))
+         path =  "results/")
 
 
 pl
@@ -180,7 +180,7 @@ pl
 pl <- data |> 
   ggplot(aes(x = Age, 
              y = DFS)) +
-  geom_point() +               
+  geom_point(color ="lightblue") +               
   labs(title = "DFS vs Age",
        x = "Age",
        y = "DFS (months)") +

@@ -23,9 +23,6 @@ if (!dir.exists(str_c(project_path,data_dir))) {
 ## Load data
 
 ```{r}
-expr_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Gene_Expression_Data.csv"))
-patient_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Patient_Data.csv"))
-
 expr_file <- "Colorectal_Cancer_Gene_Expression_Data.csv"
 patient_file <-"Colorectal_Cancer_Patient_Data.csv"
 data_url <- "https://www.kaggle.com/api/v1/datasets/download/amandam1/colorectal-cancer-patients"

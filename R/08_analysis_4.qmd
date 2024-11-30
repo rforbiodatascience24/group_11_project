@@ -1,31 +1,25 @@
+## 
+
+---
+title: "Analysis 4"
+format: html
+editor: visual
+---
+
 ## Load libraries
 
 ```{r}
 #| message: false
 library(readr)
 library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
 ```
 
 ## Loading clean data
 
 ```{r}
-project_path <- "~/projects/group_11_project/"
-data <- read_tsv(str_c(project_path, "/data/02_dat_clean.tsv"))
-```
-
-```{r}
-library(ggplot2)
-
-ggplot(data, aes(x = Age, y = DFS)) +
-  geom_point() +               # Scatter plot
-  labs(
-    title = "DFS vs Age",       # Plot title
-    x = "Age",                  # X-axis label
-    y = "DFS (months)"          # Y-axis label
-  ) +
-  theme_minimal() +             # Clean theme
-  theme(
-    panel.grid.major = element_line(color = "grey", size = 0.5),  # Grid lines
-    panel.grid.minor = element_line(color = "grey", size = 0.25)
-  )
+project_path <- "~/projects/project_group11/"
+data <- read_tsv(str_c(project_path, "/data/03_dat_aug.tsv"))
 ```

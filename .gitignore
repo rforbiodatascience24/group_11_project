@@ -6,4 +6,5 @@
 .txt
 .tsv
 .xlsx
-data
+
+data/*

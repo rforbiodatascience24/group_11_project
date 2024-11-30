@@ -9,32 +9,65 @@ library(tidyverse)
 ## Set project path
 
 ```{r}
-project_path <- "~/projects/group_11_project/"
+project_path <- "~/projects/project_group11/"
 ```
 
 ## Load data
 
+Some missing values are currently denoted as "N/A" or "NA", we need to handle this when load the file.
+
 ```{r}
-#data <- read_tsv("~/projects/group_11_project/data/01_dat_load.tsv")
-data <- read_tsv(str_c(project_path, "data/01_dat_load.tsv"))
+data <- read_tsv(str_c(project_path, "data/01_dat_load.tsv"),
+                 na = c("N/A", "NA"))
 ```
 
 ## Cleaning row values
 
+The rows that don't correspond to a patient (i. e. don't have a valid ID_REF that starts with GSM) can be dropped.
+
+The genders are currently denoted as Male or M and Female or F, we convert everything into Male/Female.
+
 ```{r}
 data <- data |> 
-  select(-...1) |> 
   filter(str_starts(ID_REF, "GSM")) |> 
-  mutate(Gender = case_when(Gender == "Male" ~ 0,
-                            Gender == "Female" ~ 1))
+  mutate(Gender = case_when(Gender == "Male" | Gender == "M" ~ "Male",
+                            Gender == "Female" | Gender == "F" ~ "Female"))
+```
+
+One observation has a negative age. To avoid dropping the line, we are going to estimate it by the mean value of the other observations.
+
+```{r}
+mean_age <- data |>
+  filter(`Age (in years)` >= 0) |> 
+  summarize(Mean_Age = round(mean(`Age (in years)`, na.rm = TRUE))) |> 
+  pull(Mean_Age)
+
+data <- data |> 
+  mutate(`Age (in years)` = case_when(`Age (in years)` < 0 ~ mean_age,
+                                      `Age (in years)` >= 0 ~ `Age (in years)`))
 ```
 
 ## Cleaning column names
+
+We modify the name of the columns to make them easier to work with later during the project
+
+-   The variables that have several words in their name are shorten into one word
+
+    -   `Age (in years)` becomes `Age`
+
+    -   `DFS (in months)` becomes `DFS`
+
+    -   `Dukes Stage` becomes `Dukes_stage`
+
+    -   `DFS event` becomes `DFS_event`
+
+-   "\_gene" is removed at the beginning of all the genes names to make them shorter
 
 ```{r}
 data <- data |> 
   rename(Age = `Age (in years)`,
          DFS = `DFS (in months)`,
+<<<<<<< HEAD
          Dukes_stage = `Dukes Stage`)
   # pivot_longer(cols = ends_with("_at"),
   #              names_to = "Gene", 
@@ -44,6 +77,16 @@ data <- data |>
 
 
 
+=======
+         Dukes_stage = `Dukes Stage`,
+         DFS_event = `DFS event`) |> 
+  pivot_longer(cols = ends_with("_at"),
+               names_to = "Gene",
+               values_to = "expr_level") |>
+  mutate(Gene = str_sub(Gene, 6)) |>
+  pivot_wider(names_from = Gene, 
+              values_from = expr_level)
+>>>>>>> c245786c98db094d776956ee12d376d893956d34
 ```
 
 ## Save the data

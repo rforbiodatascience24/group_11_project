@@ -45,3 +45,13 @@ editor: visual
 -   presentation.qmd: Your final Quarto Presentation of your project
 
 -   presentation.html: Self-contained HTML5 presentation (just as the course slides)
+
+# Old dataset
+
+```{r}
+# FPKM normalized gene expression data:
+# expr_data <- read_tsv("https://www.ncbi.nlm.nih.gov/geo/download/?type=rnaseq_counts&acc=GSE50760&format=file&file=GSE50760_norm_counts_FPKM_GRCh38.p13_NCBI.tsv.gz")
+
+# Human gene annotation data:
+# annotation <- read_tsv("https://www.ncbi.nlm.nih.gov/geo/download/?format=file&type=rnaseq_counts&file=Human.GRCh38.p13.annot.tsv.gz")
+```

@@ -1,16 +1,16 @@
-# Data analysis on gene Expression Analysis of Colorectal Cancer samples
+# Data analysis on Gene Expression Analysis of Colorectal Cancer samples
 
 ## Project Contributors:
 
 -   Group 11
 
-    | Name                 | Student ID | Github ID      |
-    |----------------------|------------|----------------|
-    | Eleni-Sofia Tseperi  | s240066    | elenitsep      |
-    | Johanne Lund         | s233246    | Yoyoyohanne    |
-    | Marie Picquet        | s233736    | mariep00       |
-    | Eglantine Anton      | s233242    | EglantineAnton |
-    | Qiuyan Wu            | s241063    | s241063        |
+    | Name                | Student ID | Github ID      |
+    |---------------------|------------|----------------|
+    | Eleni-Sofia Tseperi | s240066    | elenitsep      |
+    | Johanne Lund        | s233246    | Yoyoyohanne    |
+    | Marie Picquet       | s233736    | mariep00       |
+    | Eglantine Anton     | s233242    | EglantineAnton |
+    | Qiuyan Wu           | s241063    | s241063        |
 
 ## Data Retrieval:
 

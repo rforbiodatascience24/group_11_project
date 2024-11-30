@@ -1,0 +1,39 @@
+## Principal component analysis (PCA):
+
+load libraries:
+
+```{r}
+#| message: false 
+library(readr)
+library(tidyverse)
+library(broom)
+library(cowplot)
+
+```
+
+load data:
+
+```{r}
+data <- read_tsv("../data/03_dat_aug.tsv")
+data <- data |>
+  column_to_rownames(var = "ID_REF")
+```
+
+```{r}
+pca <- data |>
+  select(where(is.numeric))|> 
+  prcomp(scale = TRUE)
+
+pca_scores <- pca$x
+
+pca_scores_tbl <- as_tibble(pca_scores)
+
+```
+
+```{r}
+ggplot(pca_scores_tbl, aes(PC1, PC2)) +
+  geom_point() +
+  geom_text(label = rownames(pca.dat)) +
+  labs(x = paste0('PC1: ', pca.var.percent[1], ' %'),
+       y = paste0('PC2: ', pca.var.percent[2], ' %'))
+```

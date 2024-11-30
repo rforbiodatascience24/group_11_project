@@ -1,8 +1,15 @@
 ---
 title: "Analysis 3"
-format: html
-editor: visual
+output:
+  html_document:
+    output_dir: "results"
 ---
+
+## Aim
+
+In this analysis, we will try to answer the following question
+
+**What genes are significantly up- or down-regulated between the patients with/without metastasis?**
 
 ## Load libraries
 
@@ -24,7 +31,15 @@ project_path <- "~/projects/group_11_project/"
 data <- read_tsv(str_c(project_path, "data/03_dat_aug.tsv"))
 ```
 
-## DFS_event - Location barplot
+## Analysis
+
+### Prepare and select the data
+
+We start by grouping the samples based on their Disease Free Survival event, i.e. whether or not the disease showed a return or not. To make the grouping and visualization better, we first mutated the column to create a new, DFS_label column, containing the same data but in a categorical format.
+
+After separating, we counted how many samples were in each location for each of the two groups. Then we created a column plot with ggplot2:
+
+### Plotting
 
 ```{r}
 dfs_loc_plot <- data |>
@@ -47,10 +62,17 @@ dfs_loc_plot <- data |>
     fill = NULL
   )
 
+# Show plot
+dfs_loc_plot
+```
+
+```{r}
 # Save the plot
 dfs_loc_plot |> 
   ggsave(filename = "07_analysis_3.png",
          path = str_c(project_path, "results/"))
 ```
+
+## Results
 
 There is a clear distinction shown for the Rectum position. The majority of samples end up exhibiting a return of the disease, more than triple the amount. This is a bigger difference than any other location, making the rectum the most aggresive location. In contrast, no difference is shown for the colon location. The left side is also somewhat aggressive, while the right mostly shows no return of disease.

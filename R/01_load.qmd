@@ -9,7 +9,12 @@ library(tidyverse)
 ## Set project path and make data directory
 
 ```{r}
+
 project_path <- "~/projects/project_group11/"
+
+# Save project path so that all subsequent file handling can be relative to that:
+project_path <- "~/projects/group_11_project/"
+# Define relative data directory:
 data_dir <- "data/_raw/"
 
 #Create folder for data:
@@ -21,8 +26,8 @@ if (!dir.exists(str_c(project_path,data_dir))) {
 ## Load data
 
 ```{r}
-expr_data <- read_csv("~/projects/project_group11/data/_raw/Colorectal_Cancer_Gene_Expression_Data.csv")
-patient_data <- read_csv("~/projects/project_group11/data/_raw/Colorectal_Cancer_Patient_Data.csv")
+expr_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Gene_Expression_Data.csv"))
+patient_data <- read_csv(str_c(project_path, "data/_raw/Colorectal_Cancer_Patient_Data.csv"))
 
 expr_file <- "Colorectal_Cancer_Gene_Expression_Data.csv"
 patient_file <-"Colorectal_Cancer_Patient_Data.csv"

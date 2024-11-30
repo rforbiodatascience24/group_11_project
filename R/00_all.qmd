@@ -1,20 +1,20 @@
 # Run-all quarto documents in this folder
 
+## Put below the absolute path of the project:
+
 ```{r}
-library(tidyverse)
+project_path <-"~/projects/group_11_project/"
+```
+
+## Load libraries
+
+```{r}
+library(tidyverse) 
+library(fs) 
 library(quarto)
 ```
 
-Make sure you are in the right project path, you can check you project path by doing getwd() in the console
-
 ```{r}
-project_path <-"~/projects/project_group11/"
-```
-
-```{r}
-library(tidyverse)
-library(fs)
-library(quarto)
 
 # Specify the directories
 current_dir <- path(project_path, "R")

@@ -35,8 +35,7 @@ data <- data |>
 data <- data |> 
   rename(Age = `Age (in years)`,
          DFS = `DFS (in months)`,
-         Dukes_stage = `Dukes Stage`)|> 
-  column_to_rownames(var = "ID_REF")
+         Dukes_stage = `Dukes Stage`)
   # pivot_longer(cols = ends_with("_at"),
   #              names_to = "Gene", 
   #              values_to = "expr_level") |> 

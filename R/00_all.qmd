@@ -1,0 +1,35 @@
+# Run-all quarto documents in this folder 
+
+Make sure you are in the right project path
+
+```{r}
+project_path <-"~/projects/project_group11/"
+```
+
+```{r}
+getwd()
+```
+
+```{r}
+# Specify the directories
+current_dir <- "R/"
+output_dir <- "results/"
+
+
+
+# List all .qmd files in the R folder, excluding this file
+qmd_files <- list.files(path = current_dir, pattern = "\\.qmd$", full.names = TRUE)
+qmd_files <- qmd_files[qmd_files != "run-all.qmd"]
+
+# Print the files being rendered
+cat("Rendering the following .qmd files to:", output_dir, "\n")
+print(qmd_files)
+
+# Render each .qmd file into the output directory
+lapply(qmd_files, function(file) {
+  quarto_render(
+    input = file,
+    output_options = list(output_dir = output_dir)
+  )
+})
+```

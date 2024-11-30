@@ -10,13 +10,15 @@ library(tidyverse)
 
 ```{r}
 # Save project path so that all subsequent file handling can be relative to that:
-project_path <- "~/projects/group_11_project/"
+project_path <-"~/projects/project_group11/"
+  #this should directly take the project path 
+
 # Define relative data directory:
 data_dir <- "data/_raw/"
 
 #Create folder for data:
-if (!dir.exists(str_c(project_path,data_dir))) {
-  dir.create(str_c(project_path,data_dir), recursive = TRUE)
+if (!dir.exists(str_c(project_path, data_dir))) {
+  dir.create(str_c(project_path, data_dir), recursive = TRUE)
 }
 ```
 
@@ -28,16 +30,22 @@ patient_file <-"Colorectal_Cancer_Patient_Data.csv"
 data_url <- "https://www.kaggle.com/api/v1/datasets/download/amandam1/colorectal-cancer-patients"
 zip_file <- "raw_data.zip"
 
-
-#Download data and uzip
-if( !file.exists(str_c(project_path, data_dir, expr_file)) ){
+# Download data and unzip
+if (!file.exists(str_c(project_path, data_dir, expr_file))) {
   download.file(
     url = data_url,
-    destfile = str_c(project_path, zip_file)
-    , mode = "wb")
+    destfile = str_c(project_path, zip_file),
+    mode = "wb"
+  )
   
-  unzip(str_c(project_path, zip_file),
-        exdir = str_c(project_path, data_dir))
+  unzip(str_c(project_path, zip_file), exdir = str_c(project_path, data_dir))
+  
+  # Replace spaces with underscores in file names -> we need to chnage this to tidyverse
+  unzipped_files <- list.files(path = str_c(project_path, data_dir), full.names = TRUE)
+  for (file_path in unzipped_files) {
+    new_file_path <- gsub(" ", "_", file_path)
+    file.rename(from = file_path, to = new_file_path)
+  }
 }
 
 #Remove the zip file

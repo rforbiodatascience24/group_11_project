@@ -1,3 +1,20 @@
+## Aim
+
+In this analysis, we will try to answer the following question
+
+**What genes are significantly up- or down-regulated between the patients with/without metastasis?**
+
+## Load library
+
+```{r}
+library("tidyverse")
+library("dplyr")
+library("readr")
+library("tibble")
+library("broom")
+library("ggrepel")
+```
+
 ## Load data
 
 ```{r}
@@ -5,89 +22,37 @@ project_path <- "~/projects/group_11_project/"
 data <- read_tsv(str_c(project_path, "data/03_dat_aug.tsv"))
 ```
 
-## try with no_stage
+## Analysis
+
+### Prepare the data
+
+We start by dividing the patients into two groups by creating a new variable metastasis containg
+
+-   0 for the patient without metastasis (i. e. No_stage equals to 1, 2 or 3)
+
+1 for the patients with metastis (i. e. No_stage equals to 4)
+
+The, we pivot the data, so we can work *per gene*, then group per gene and nest the data.
 
 ```{r}
-data_long <- data |>
+data_long_nested <- data |>
   mutate(metastasis = case_when(No_stage <= 3 ~ 0,
                                 No_stage > 3 ~ 1)) |> 
   select(ends_with("_at"), metastasis) |> 
-  pivot_longer(cols = ends_with("_at"), names_to = "gene", values_to = "log2_expr_level")
-  # mutate(log2_expr_level = log2(log2_expr_level))
-
-data_long_nested <- data_long |> 
+  pivot_longer(cols = ends_with("_at"), 
+               names_to = "gene", 
+               values_to = "log2_expr_level") |> 
   group_by(gene) |> 
   nest() |> 
   ungroup()
 
-data_long_nested <- data_long_nested |> 
-  group_by(gene) |> 
-  mutate(model_object = map(.x = data,
-                   .f = ~lm(formula = log2_expr_level ~ metastasis,
-                            data = .x))) |> 
-  ungroup() |> 
-  mutate(model_object_tidy = map(.x = model_object,
-                                 .f = ~tidy(x =.x,
-                                            conf.int = TRUE,
-                                            conf.level = 0.95)))
-
-estimates <- data_long_nested |> 
-  unnest(model_object_tidy) |> 
-  filter(term == "metastasis") |> 
-  select("gene", "p.value", "estimate", "conf.low", "conf.high") |> 
-  mutate(q.value = p.adjust(p.value),
-         is_significant = case_when(q.value > 0.05 ~ "no",
-                                    q.value <= 0.05 ~ "yes"))
 ```
 
-## try with gender
+### Fitting Models
+
+We fit a linear model to each gene. Then, we tidy the fitted model, including getting confidence intervals.
 
 ```{r}
-data_long <- data |>
-  select(ends_with("_at"), Gender) |> 
-  pivot_longer(cols = ends_with("_at"), names_to = "gene", values_to = "log2_expr_level") |> 
-  mutate(log2_expr_level = log2(log2_expr_level))
-
-data_long_nested <- data_long |> 
-  group_by(gene) |> 
-  nest() |> 
-  ungroup()
-
-data_long_nested <- data_long_nested |> 
-  group_by(gene) |> 
-  mutate(model_object = map(.x = data,
-                   .f = ~lm(formula = log2_expr_level ~ Gender,
-                            data = .x))) |> 
-  ungroup() |> 
-  mutate(model_object_tidy = map(.x = model_object,
-                                 .f = ~tidy(x =.x,
-                                            conf.int = TRUE,
-                                            conf.level = 0.95)))
-
-estimates <- data_long_nested |> 
-  unnest(model_object_tidy) |> 
-  filter(term == "Gender") |> 
-  select("gene", "p.value", "estimate", "conf.low", "conf.high") |> 
-  mutate(q.value = p.adjust(p.value),
-         is_significant = case_when(q.value > 0.05 ~ "no",
-                                    q.value <= 0.05 ~ "yes"))
-```
-
-## without using p.adjust
-
-```{r}
-data_long <- data |>
-  mutate(metastasis = case_when(No_stage <= 3 ~ 0,
-                                No_stage > 3 ~ 1)) |> 
-  select(ends_with("_at"), metastasis) |> 
-  pivot_longer(cols = ends_with("_at"), names_to = "gene", values_to = "log2_expr_level")
-  # mutate(log2_expr_level = log2(log2_expr_level))
-
-data_long_nested <- data_long |> 
-  group_by(gene) |> 
-  nest() |> 
-  ungroup()
-
 data_long_nested <- data_long_nested |> 
   group_by(gene) |> 
   mutate(model_object = map(.x = data,
@@ -100,7 +65,12 @@ data_long_nested <- data_long_nested |>
                                             conf.level = 0.95)))
 ```
 
+### Wrangeling
+
+We extract the model parameters, correct for multiple testing and add and indicator for significant findings
+
 ```{r}
+
 estimates <- data_long_nested |> 
   unnest(model_object_tidy) |> 
   filter(term == "metastasis") |> 
@@ -110,7 +80,31 @@ estimates <- data_long_nested |>
                                     q.value <= 0.05 ~ "yes"))
 ```
 
-## Plots
+### Inspection and approximation
+
+```{r}
+estimates |> 
+  group_by(is_significant) %>% 
+  summarise(count = n())
+```
+
+When looking at the results after correction for multiple testing, we can see that no genes are significantly up- or down-regulated between patients with and without metastasis.
+
+Therefore, for the remainder of our analysis, we will skip the correction for multiple testing and focus on the genes with the lowest p-values (\<0.01). This approach has significant limitations, as we risk detecting genes that appear to be significantly regulated purely by random chance. However, our goal here is simply to demonstrate our ability in data representation within the context of this course, rather than to obtain definitive or real results.
+
+```{r}
+estimates <- estimates |>  
+  mutate(is_significant = case_when(p.value > 0.01 ~ "no",
+                                    p.value <= 0.01 ~ "yes"))
+
+estimates |> 
+  group_by(is_significant) %>% 
+  summarise(count = n())
+```
+
+We will now consider that 20 genes out of the 1935 initial ones can be considered significant.
+
+### Plots
 
 ```{r}
 estimates |> 
@@ -123,8 +117,8 @@ estimates |>
                      xmin = conf.high)) +
   labs(x = "Estimates (95%Cls)",
        y = "",
-       title = "Genes Associated with Early Metastasis in Small Node-Negative Breast Carcinoma",
-       caption = "Data from DOI:10:1002/gcc.20820") +
+       title = "Genes Associated with Metastasis in Colorectal Cancer",
+       caption = "Data from https://www.kaggle.com/datasets/amandam1/colorectal-cancer-patients/data") +
   theme_minimal(base_size = 10) +
   geom_vline(xintercept = 0)
 ```
@@ -144,11 +138,15 @@ estimates |>
              show.legend = FALSE) +
   labs(x = "Estimates (95%Cls)",
        y = "-log10(p)",
-       title = "Genes Associated with Early Metastasis in Small Node-Negative Breast Carcinoma",
-       subtitle = "Genes highlighted in turuqoise were significant after multiple testing correction",
-       caption = "Data from DOI:10:1002/gcc.20820") +
+       title = "Genes Associated with Metastasis in Colorectal Cancer",
+       subtitle = "Genes highlighted in turuqoise were considered significant (but without multiple testing correction)",
+       caption = "Data from https://www.kaggle.com/datasets/amandam1/colorectal-cancer-patients/data") +
   theme_minimal(base_size = 10) +
   theme(legend.position = "none",
         plot.subtitle = element_text(hjust = 1)) +
   geom_hline(yintercept = 0)
 ```
+
+### Conclusion
+
+Among the 1,935 genes analyzed, none were identified as significantly associated with the development of metastasis after multiple test correcting. However, out of the genes with the lowest p-value, 12 were found to be significantly up-regulated, while 8 were found to be significantly down-regulated in patients with metastasis compared to those without it.

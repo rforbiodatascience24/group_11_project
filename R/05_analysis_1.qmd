@@ -32,7 +32,7 @@ data <- data |>
 ```{r}
 # Handle missing data (if any)
 cleaned_data <- data |>
-  select(ends_with("_at"))|>
+  select(where(is.numeric))|> 
   mutate(across(where(is.numeric), ~ ifelse(is.na(.), mean(., na.rm = TRUE), .)))
 
 # Perform PCA
@@ -50,15 +50,79 @@ pca.var.percent <- round(pca.var/sum(pca.var)*100, digits = 2)
 
 ```{r}
 #generate PCA plot
-pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, y = PC2)) +
+pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, y = PC2, color = data$Age_group)) +
   geom_point() +  # Scatter plot
   geom_text(label = rownames(data)) +
   labs(x = str_c('PC1: ', pca.var.percent[1], ' %'), 
        y = str_c('PC2: ', pca.var.percent[2], ' %'), 
-       title = "Principal component analysis (PCA)") +
+       title = "Principal component analysis (PCA)",
+       color = "Age groups") +
   theme_minimal()
+
+pca_plot
+
 #save pca plot
 pca_plot |> 
-  ggsave(filename = "05_pca.png",
+  ggsave(filename = "05_pca_age.png",
          path =  "../results/")
+```
+
+```{r}
+pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, y = PC2, color = data$Dukes_stage)) +
+  geom_point() +  # Scatter plot
+  geom_text(label = rownames(data)) +
+  labs(x = str_c('PC1: ', pca.var.percent[1], ' %'), 
+       y = str_c('PC2: ', pca.var.percent[2], ' %'), 
+       title = "Principal component analysis (PCA)",
+       color = "Dukes stage") +
+  theme_minimal()
+
+pca_plot
+
+#save pca plot
+pca_plot |> 
+  ggsave(filename = "05_pca_Dukes_stages.png",
+         path =  "../results/")
+```
+
+```{r}
+pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, y = PC2, color = data$Location)) +
+  geom_point() +  # Scatter plot
+  geom_text(label = rownames(data)) +
+  labs(x = str_c('PC1: ', pca.var.percent[1], ' %'), 
+       y = str_c('PC2: ', pca.var.percent[2], ' %'), 
+       title = "Principal component analysis (PCA)",
+       color = "Location") +
+  theme_minimal()
+
+pca_plot
+
+#save pca plot
+pca_plot |> 
+  ggsave(filename = "05_pca_location.png",
+         path =  "../results/")
+```
+
+```{r}
+pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, y = PC2, color = data$Gender)) +
+  geom_point() +  # Scatter plot
+  geom_text(label = rownames(data)) +
+  labs(x = str_c('PC1: ', pca.var.percent[1], ' %'), 
+       y = str_c('PC2: ', pca.var.percent[2], ' %'), 
+       title = "Principal component analysis (PCA)",
+       color = "Location") +
+  theme_minimal()
+
+pca_plot
+
+#save pca plot
+pca_plot |> 
+  ggsave(filename = "05_pca_gender.png",
+         path =  "../results/")
+```
+
+## Clean environment
+
+```{r}
+rm(list = ls())
 ```

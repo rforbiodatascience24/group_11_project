@@ -58,7 +58,9 @@ Link to the project presentation :
 
 ## Run Analysis
 
-You can run the whole process in R script : \~/projects/group_11_project/R/99_proj_func.R
+You can run the entire process in an R script: 00_all.qmd
+
+The R script is located at \~/projects/group_11_project/R/00_all.qmd
 
 ## Project Structure
 

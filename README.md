@@ -58,15 +58,14 @@ Link to the project presentation :
 
 ## Run Analysis
 
-You can run the entire process in an R script: 00_all.qmd
-
-The R script is located at \~/projects/group_11_project/R/00_all.qmd
+You can run the whole process in R script : \~/projects/group_11_project/R/99_proj_func.R
 
 ## Project Structure
 
 | Path       | Description                  |
 |------------|------------------------------|
-| `data/`    | Raw input data               |
+| `data/_raw`| Raw input data               |
+| `data/`    | Wrangled data files          |
 | `doc/`     | Presentation                 |
 | `R/`       | R scripts for analysis       |
 | `results/` | Output files (plots, tables) |

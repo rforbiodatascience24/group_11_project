@@ -35,9 +35,7 @@ data <- read_tsv("../data/03_dat_aug.tsv")
 
 ### Prepare the data
 
-We start by dividing the patients into two groups by creating a new variable metastasis contains
-
-Then, we pivot the data, so we can work *per gene*, then group per gene and nest the data.
+We pivot the data, so we can work *per gene*, then group per gene and nest the data.
 
 ```{r}
 data_long_nested <- data |>
@@ -70,7 +68,7 @@ data_long_nested <- data_long_nested |>
 
 ### Wrangling
 
-We extract the model parameters, correct for multiple testing and add and indicator for significant findings
+We extract the model parameters, correct for multiple testing and add an indicator for significant findings
 
 ```{r}
 
@@ -129,7 +127,8 @@ pl1 <- estimates |>
 # Save the plot
 pl1 |> 
   ggsave(filename = "06_analysis_metastasis_regulation.png",
-         path = "../results/")
+         path = "../results/",
+         bg = "white")
 
 pl1
 ```
@@ -161,7 +160,8 @@ pl2 <- estimates |>
 # save the plot
 pl2 |> 
   ggsave(filename = "06_analysis_volcano.png",
-         path ="../results/")
+         path ="../results/",
+         bg = "white")
 
 pl2
 ```

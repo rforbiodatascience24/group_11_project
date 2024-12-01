@@ -49,64 +49,98 @@ library(ggrepel)
 (incl run-all file), raw, load, making dirty
 
 ## Methods - Tidy, clean & augment
-
+::::: columns
 ### Tidy
-
-::: columns
-::: {.column width="50%"}
+::: {.column width="50%" height="auto" style="font-size: 22px"}
 Expression data
 
 -   The columns represent observations and the rows variables
     -   Pivot the data set
+```{r}
+#| echo: true
+#| eval: false
+expr_data <- expr_data |>
+  mutate(ID_GENE = ID_REF) |>
+  select(-ID_REF, -...1) |> 
+  pivot_longer(-c(ID_GENE), 
+               names_to = "ID_REF", 
+               values_to = "Gene expression level") |>
+  pivot_wider(names_from = ID_GENE, 
+              values_from = "Gene expression level") 
+```
+
 :::
 
-::: {.column width="50%"}
+::: {.column width="50%" height="auto" style="font-size: 22px"}
 Patient data
 
--   `DFS event/Adj_Radio/Adj_Chem` contains 3 variables
-
-    -   Separate it into 3 distinct variables
+-    Separate  `DFS event/Adj_Radio/Adj_Chem` into 3 distinct variables
 
 -   Observations of column `DFS (in years and months)` contains two values
 
-    -   Convert into months to have only value per observation
+    -   Convert into months to have only value per observation 
 :::
+::: {.column width="100%" height="auto" style="font-size: 22px"}
+Combine the two data sets by joining on the patient ID.
 :::
 
 ### Clean
 
-Combine the two data sets by joining on the patient ID.
+:::: columns
+::: {.column width="100%" height="auto" style="font-size: 22px"}
+-   Handle Missing Values
 
--   Missing values "N/A" and "NA"
+    -   Convert all missing values "N/A" and "NA"such cases to `NA` when opening the file
 
-    -   Load everything as NA when opening the file
-
--   Gender as "Male", "M", "Female", "F"
+-   Standardize Gender Labels
 
     -   Convert M to Male and F to Female
 
--   One patient has an Age \< 0
+-   Fix Invalid Age Values
 
-    -   Substitute it by the mean value of the age of the other observations
+    -   One patient has an age `< 0` and replace it with the mean of the valid ages.
 
--   Long column names with several words
+-   Simplify Column Names
 
     -   Remove "gene\_" at the beginning of all the gene names
 
-    -   Remove the units from the names
-
-    -   Replace spaces by \_
+    -   Remove the units from the names and replace spaces by \_
+:::
+::::
 
 ### Augment
 
--   Create an age group variable
+:::: columns
+::: {.column width="100%" height="auto" style="font-size: 22px"}
+-   Create an `age_group` variable
+```{r}
+#| echo: true
+#| eval: false
+data <- data |>mutate(Age_group = cut(Age, breaks = seq(10, 100, by = 10)))
+```
+-   Create a `metastasis` variable
+```{r}
+#| echo: true
+#| eval: false
+data <- data |>
+  mutate(No_stage = case_when(Dukes_stage == "A" ~ 1,
+                            Dukes_stage == "B" ~ 2,
+                            Dukes_stage == "C" ~ 3,
+                            Dukes_stage == "D" ~ 4),
+         metastasis = case_when(No_stage <= 3 ~ 0,
+                                No_stage > 3 ~ 1))
+```
 
--   Create a metastasis variable
-
-    -   Duke stage A, B, C don't involve metastasis
-
-    -   Duke stage D involve metastasis
-
+-   Create an `DFS_label` variable
+```{r}
+#| echo: true
+#| eval: false
+data <- data |>
+  mutate(DFS_label = case_when(DFS_event == 0 ~ "No return of disease",
+                            DFS_event == 1 ~ "Return of disease"), .after = DFS_event)
+:::
+::::
+:::::
 ## Methods - Describe
 
 ## Results - Data description

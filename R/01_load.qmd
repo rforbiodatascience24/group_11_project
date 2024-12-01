@@ -130,7 +130,7 @@ patient_data <- patient_data |>
          `Age (in years)` = ifelse(row_number() == sample(n(), 1),
                                    -2, 
                                    `Age (in years)`),
-         `DFS (in years and months)` =  paste0(floor(`DFS (in months)` / 12), 
+         `DFS (in years and months)` =  str_c(floor(`DFS (in months)` / 12), 
                                                " years ", 
                                                `DFS (in months)` %% 12, 
                                                " months")) |> 

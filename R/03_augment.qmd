@@ -18,6 +18,7 @@ library(tidyverse)
 ## Loading the data:
 
 ```{r}
+#| message: false 
 data <- read_tsv("../data/02_dat_clean.tsv")
 ```
 
@@ -49,7 +50,8 @@ data <- data |>
 #Adding a DFS_label column, which contains the data of DFS, in categorical format (relevant for analysis_3)
 data <- data |>
   mutate(DFS_label = case_when(DFS_event == 0 ~ "No return of disease",
-                            DFS_event == 1 ~ "Return of disease"), .after = DFS_event)
+                               DFS_event == 1 ~ "Return of disease"), 
+         .after = DFS_event)
 
 ## Save the data
 

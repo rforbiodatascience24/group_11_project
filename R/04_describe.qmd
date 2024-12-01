@@ -19,6 +19,7 @@ library(tidyverse)
 ## Loading the data:
 
 ```{r}
+#| message: false 
 data <- read_tsv("../data/03_dat_aug.tsv")
 ```
 
@@ -48,46 +49,48 @@ Age and DFS 'Simple statistics
 The relationship between age and DFS
 
 ```{r}
+#| message: false 
+#| warning: false 
 # Compute summary statistics for each numeric feature
 data |>
-  select(Age, DFS) |> 
-  summarise(across(everything(), list(
-    min = min,
-    max = max,
-    mean = mean,
-    sd = sd
-  ), na.rm = TRUE)) |> #Format the summary statistics into a table
-  pivot_longer(
-    cols = everything(),
-    names_to = c("Feature", "Statistic"),
-    names_sep = "_",
-    values_to = "Value"
-  ) |>
+  select(Age, DFS) |>
+  #Format the summary statistics into a table
+  summarise(across(everything(), list(min = min,
+                                      max = max,
+                                      mean = mean,
+                                      sd = sd), 
+                   na.rm = TRUE)) |>
+  pivot_longer(cols = everything(),
+               names_to = c("Feature", "Statistic"),
+               names_sep = "_",
+               values_to = "Value") |>
   arrange(Feature, Statistic) |> #Transform back to wide format
-  pivot_wider(
-    names_from = Statistic,
-    values_from = Value
-  )
+  pivot_wider(names_from = Statistic,
+              values_from = Value)
 ```
 
 ## Visualizing data
 
 ```{r}
+#| message: false 
 pl <- data |>
   count(Gender) |> 
   ggplot(aes(x = factor(Gender),
              y = n,
              fill = Gender)) + 
   geom_col(colour = "black",
-    alpha = 0.5) +
+           alpha = 0.5) +
   labs(title = "Gender Distribution", 
        x = "Gender", 
        y = "Count", 
        fill = "Gender") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
-        axis.title.x = element_text(size = 14, face = "bold"),
-    axis.title.y = element_text(size = 14, face = "bold"))
+  theme(axis.text.x = element_text(angle = 45,
+                                   hjust = 1), 
+        axis.title.x = element_text(size = 14, 
+                                    face = "bold"),
+        axis.title.y = element_text(size = 14, 
+                                    face = "bold"))
 
 pl |> 
   ggsave(filename = "04_gender_distribution.png",
@@ -97,6 +100,7 @@ pl
 ```
 
 ```{r}
+#| message: false 
 pl <- data |>
   count(Gender, Age_group)|>
   ggplot(aes(x = Age_group,
@@ -105,21 +109,23 @@ pl <- data |>
   labs(title = "The Gender Distribution Across Age Groups Chart", 
        x = "Gender", 
        y = "Count", 
-       fill = "Gender"
-  ) +
-  geom_col(position = position_dodge(
-    preserve = "single"),
-    colour = "black",
-    alpha = 0.5) +
+       fill = "Gender") +
+  geom_col(position = position_dodge(preserve = "single"),
+           colour = "black",
+           alpha = 0.5) +
   geom_hline(yintercept = 0) +
   theme_minimal() +
   theme(legend.position = "bottom",
         panel.grid.major.x = element_blank(),
-        plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
-       axis.text.x = element_text(angle = 45, hjust = 1), 
-       axis.title.x = element_text(size = 10, face = "bold"),  # Modify x-axis title font size and make it bold
-      axis.title.y = element_text(size = 10, face = "bold") # Modify y-axis title font size and make it italic
-    )
+        plot.title = element_text(hjust = 0.5, 
+                                  size = 16, 
+                                  face = "bold"),
+       axis.text.x = element_text(angle = 45, 
+                                  hjust = 1), 
+       axis.title.x = element_text(size = 10, 
+                                   face = "bold"),
+       axis.title.y = element_text(size = 10, 
+                                   face = "bold"))
 
 pl |> 
   ggsave(filename = "04_gender_age_group_distribution.png",
@@ -129,6 +135,7 @@ pl
 ```
 
 ```{r}
+#| message: false 
 pl <- data|>
   count(Dukes_stage) |> 
   ggplot(aes(x = Dukes_stage, 
@@ -137,14 +144,13 @@ pl <- data|>
   labs(title = "Duke stage distribution", 
        x = "Duke stage", 
        y = "Count", 
-       fill = "Duke stage"
-  ) +
+       fill = "Duke stage") +
   geom_col(colour = "black",
            alpha = 0.5) +
   geom_hline(yintercept = 0) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, 
-                                     hjust = 1))
+                                   hjust = 1))
 
 pl |> 
   ggsave(filename = "04_dukes_stage_distribution.png",
@@ -155,6 +161,7 @@ pl
 ```
 
 ```{r}
+#| message: false 
 pl <- data|>
   count(Location) |> 
   ggplot(aes(x = Location, 
@@ -163,14 +170,13 @@ pl <- data|>
   labs(title = "Location distribution", 
        x = "Location", 
        y = "Count", 
-       fill = "Location"
-  ) +
+       fill = "Location") +
   geom_col(colour = "black",
            alpha = 0.5) +
   theme_minimal() +
   geom_hline(yintercept = 0) +
   theme(axis.text.x = element_text(angle = 45, 
-                                     hjust = 1))
+                                   hjust = 1))
 
 pl |> 
   ggsave(filename = "04_dukes_stage_distribution.png",
@@ -181,6 +187,7 @@ pl
 ```
 
 ```{r}
+#| message: false 
 pl <- data |> 
   ggplot(aes(x = Age, 
              y = DFS)) +

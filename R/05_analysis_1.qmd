@@ -24,6 +24,7 @@ library(tidyr)
 load data:
 
 ```{r}
+#| message: false 
 data <- read_tsv("../data/03_dat_aug.tsv")
 data <- data |>
   column_to_rownames(var = "ID_REF")
@@ -69,7 +70,9 @@ pca_plot |>
 ```
 
 ```{r}
-pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, y = PC2, color = data$Dukes_stage)) +
+pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, 
+                                       y = PC2, 
+                                       color = data$Dukes_stage)) +
   geom_point() +  # Scatter plot
   geom_smooth(method = "lm") +
   geom_text(label = rownames(data)) +
@@ -88,7 +91,9 @@ pca_plot |>
 ```
 
 ```{r}
-pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, y = PC2, color = data$Location)) +
+pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, 
+                                       y = PC2, 
+                                       color = data$Location)) +
   geom_point() +  # Scatter plot
   geom_smooth(method = "lm") +
   geom_text(label = rownames(data)) +
@@ -107,7 +112,9 @@ pca_plot |>
 ```
 
 ```{r}
-pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, y = PC2, color = data$Gender)) +
+pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, 
+                                       y = PC2, 
+                                       color = data$Gender)) +
   geom_point() +  # Scatter plot
   geom_smooth(method = "lm") +
   geom_text(label = rownames(data)) +

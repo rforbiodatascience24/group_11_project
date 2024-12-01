@@ -1,5 +1,5 @@
 ---
-title: "up- or down-regulated"
+title: "Up- or down-regulated genes"
 format:
   html:
     output_dir: "../results"
@@ -15,6 +15,7 @@ In this analysis, we will try to answer the following question
 ## Load library
 
 ```{r}
+#| message: false 
 library("tidyverse")
 library("dplyr")
 library("readr")
@@ -26,6 +27,7 @@ library("ggrepel")
 ## Load data
 
 ```{r}
+#| message: false 
 data <- read_tsv("../data/03_dat_aug.tsv")
 ```
 
@@ -108,6 +110,7 @@ We will now consider that 20 genes out of the 1935 initial ones can be considere
 ### Plots
 
 ```{r}
+#| message: false 
 pl1 <- estimates |> 
   filter(is_significant == "yes") |>
   mutate(gene = fct_reorder(gene, estimate)) |> 
@@ -132,6 +135,7 @@ pl1
 ```
 
 ```{r}
+#| message: false 
 pl2 <- estimates |> 
   mutate(gen_sig = case_when(is_significant == "no" ~ "",
                              is_significant == "yes" ~ gene)) |> 

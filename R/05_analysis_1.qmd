@@ -8,7 +8,7 @@ editor: visual
 
 ## Principal component analysis (PCA):
 
-load libraries:
+Load libraries:
 
 ```{r}
 #| message: false 
@@ -21,13 +21,15 @@ library(tidyr)
 
 ```
 
-load data:
+Load data:
 
 ```{r}
 data <- read_tsv("../data/03_dat_aug.tsv")
 data <- data |>
   column_to_rownames(var = "ID_REF")
 ```
+
+Prepare data for PCA and run PCA
 
 ```{r}
 # Handle missing data (if any)
@@ -38,88 +40,123 @@ cleaned_data <- data |>
 # Perform PCA
 pca <- prcomp(cleaned_data, scale = TRUE)
 
-#save pca scores:
-pca_scores <- pca$x
-pca_scores_tbl <- as_tibble(pca_scores)
-
-pca.var <- pca$sdev^2
-pca.var.percent <- round(pca.var/sum(pca.var)*100, digits = 2)
-
+pca_aug <- pca |>
+  augment(data)
 
 ```
 
 ```{r}
-#generate PCA plot
-pca_plot <- ggplot(pca_scores_tbl, mapping = aes(x = PC1, y = PC2, color = data$Age_group)) +
-  geom_point() +  # Scatter plot
-  geom_smooth(method = "lm") +
-  geom_text(label = rownames(data)) +
-  labs(x = str_c('PC1: ', pca.var.percent[1], ' %'), 
-       y = str_c('PC2: ', pca.var.percent[2], ' %'), 
-       title = "Principal component analysis (PCA)",
-       color = "Age groups") +
-  theme_minimal()
-
-pca_plot
-
-#save pca plot
-pca_plot |> 
-  ggsave(filename = "05_pca_age.png",
+scree_plot<- pca |>
+  tidy("pcs") |> 
+  mutate(percent = percent * 100) |> 
+  ggplot(aes(x = PC,
+             y = percent)) +
+  geom_hline(yintercept = 0) +
+  geom_col(colour = "black",
+           alpha = 0.5) +
+  theme_bw(base_size = 20) +
+  theme(panel.grid.minor.x = element_blank(),
+        panel.grid.major.x = element_blank()) +
+  labs(title = "Scree Plot of PCA of Data",
+       y = "Percent %")
+scree_plot
+#Save plot
+scree_plot |> 
+  ggsave(filename = "05_pca_scree_plot.png",
          path =  "../results/")
+
+
 ```
 
 ```{r}
-pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, y = PC2, color = data$Dukes_stage)) +
-  geom_point() +  # Scatter plot
+pca_plot_axes_labels <- pca |>
+  tidy("eigenvalues") |>
+  mutate(lbl = str_c("PC", PC, ": VE = ", round(percent*100,2), "%")) |> 
+  pull("lbl")
+```
+
+```{r}
+#code plot
+pca_plot <- pca_aug |> 
+  ggplot(aes(x = .fittedPC1,
+             y = .fittedPC2,
+             label = .rownames,
+             colour = Dukes_stage,)) +
   geom_smooth(method = "lm") +
-  geom_text(label = rownames(data)) +
-  labs(x = str_c('PC1: ', pca.var.percent[1], ' %'), 
-       y = str_c('PC2: ', pca.var.percent[2], ' %'), 
-       title = "Principal component analysis (PCA)",
-       color = "Dukes stage") +
+  geom_point() +
+  geom_text(colour = "black",
+            size = 1.5,
+            max.overlaps = Inf) +
+  coord_fixed() +
+  labs(
+    title = "PCA: Scores Plot of Colorectal Cancer",
+    x = pluck(pca_plot_axes_labels, 1),
+    y = pluck(pca_plot_axes_labels, 2),
+    colour = "Duke stages") +
   theme_minimal()
 
+#load plot
 pca_plot
 
-#save pca plot
+#Save plot
 pca_plot |> 
   ggsave(filename = "05_pca_Dukes_stages.png",
          path =  "../results/")
 ```
 
 ```{r}
-pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, y = PC2, color = data$Location)) +
-  geom_point() +  # Scatter plot
+#code plot
+pca_plot <- pca_aug |> 
+  ggplot(aes(x = .fittedPC1,
+             y = .fittedPC2,
+             label = .rownames,
+             colour = Location,)) +
   geom_smooth(method = "lm") +
-  geom_text(label = rownames(data)) +
-  labs(x = str_c('PC1: ', pca.var.percent[1], ' %'), 
-       y = str_c('PC2: ', pca.var.percent[2], ' %'), 
-       title = "Principal component analysis (PCA)",
-       color = "Location") +
+  geom_point() +
+  geom_text(colour = "black",
+            size = 1.5,
+            max.overlaps = Inf) +
+  coord_fixed() +
+  labs(
+    title = "PCA: Scores Plot of Colorectal Cancer",
+    x = pluck(pca_plot_axes_labels, 1),
+    y = pluck(pca_plot_axes_labels, 2),
+    colour = "Location") +
   theme_minimal()
 
+#load plot
 pca_plot
 
-#save pca plot
+#Save plot
 pca_plot |> 
   ggsave(filename = "05_pca_location.png",
          path =  "../results/")
 ```
 
 ```{r}
-pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, y = PC2, color = data$Gender)) +
-  geom_point() +  # Scatter plot
+#code plot
+pca_plot <- pca_aug |> 
+  ggplot(aes(x = .fittedPC1,
+             y = .fittedPC2,
+             label = .rownames,
+             colour = Gender,)) +
   geom_smooth(method = "lm") +
-  geom_text(label = rownames(data)) +
-  labs(x = str_c('PC1: ', pca.var.percent[1], ' %'), 
-       y = str_c('PC2: ', pca.var.percent[2], ' %'), 
-       title = "Principal component analysis (PCA)",
-       color = "Location") +
+  geom_point() +
+  geom_text(colour = "black",
+            size = 1.5,
+            max.overlaps = Inf) +
+  coord_fixed() +
+  labs(
+    title = "PCA: Scores Plot of Colorectal Cancer",
+    x = pluck(pca_plot_axes_labels, 1),
+    y = pluck(pca_plot_axes_labels, 2),
+    colour = "Location") +
   theme_minimal()
 
+#load plot
 pca_plot
 
-#save pca plot
+#Save plot
 pca_plot |> 
   ggsave(filename = "05_pca_gender.png",
          path =  "../results/")

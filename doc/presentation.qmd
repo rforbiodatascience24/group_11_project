@@ -44,7 +44,13 @@ library(ggrepel)
 
     -   Artificially made dirty and messy to increase the difficulty of the projects
 
-## Methods - Tidying the data
+## Methods overview
+
+(incl run-all file), raw, load, making dirty
+
+## Methods - Tidy, clean & augment
+
+### Tidy
 
 ::: columns
 ::: {.column width="50%"}
@@ -67,9 +73,9 @@ Patient data
 :::
 :::
 
-Combine the two data sets by joining on the patient ID.
+### Clean
 
-## Methods - Cleaning the data
+Combine the two data sets by joining on the patient ID.
 
 -   Missing values "N/A" and "NA"
 
@@ -91,7 +97,7 @@ Combine the two data sets by joining on the patient ID.
 
     -   Replace spaces by \_
 
-## Methods - Augment the data
+### Augment
 
 -   Create an age group variable
 
@@ -101,19 +107,16 @@ Combine the two data sets by joining on the patient ID.
 
     -   Duke stage D involve metastasis
 
+## Methods - Describe
+
 ## Results - Data description
 
-::: columns
-::: {.column width="50%"}
-![](../results/04_gender_age_group_distribution.png)
-:::
+## Methods - Analysis 1
 
-::: {.column width="50%"}
-:::
-:::
+## Methods - Analysis 2
 
-## Analysis 1
+## Methods - Analysis 3
 
-## Analysis 2
+## Results - Analysis 1 & 2
 
-## Analysis 3
+## Results - Analysis 3 & discussion

@@ -50,8 +50,9 @@ pca.var.percent <- round(pca.var/sum(pca.var)*100, digits = 2)
 
 ```{r}
 #generate PCA plot
-pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, y = PC2, color = data$Age_group)) +
+pca_plot <- ggplot(pca_scores_tbl, mapping = aes(x = PC1, y = PC2, color = data$Age_group)) +
   geom_point() +  # Scatter plot
+  geom_smooth(method = "lm") +
   geom_text(label = rownames(data)) +
   labs(x = str_c('PC1: ', pca.var.percent[1], ' %'), 
        y = str_c('PC2: ', pca.var.percent[2], ' %'), 
@@ -70,6 +71,7 @@ pca_plot |>
 ```{r}
 pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, y = PC2, color = data$Dukes_stage)) +
   geom_point() +  # Scatter plot
+  geom_smooth(method = "lm") +
   geom_text(label = rownames(data)) +
   labs(x = str_c('PC1: ', pca.var.percent[1], ' %'), 
        y = str_c('PC2: ', pca.var.percent[2], ' %'), 
@@ -88,6 +90,7 @@ pca_plot |>
 ```{r}
 pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, y = PC2, color = data$Location)) +
   geom_point() +  # Scatter plot
+  geom_smooth(method = "lm") +
   geom_text(label = rownames(data)) +
   labs(x = str_c('PC1: ', pca.var.percent[1], ' %'), 
        y = str_c('PC2: ', pca.var.percent[2], ' %'), 
@@ -106,6 +109,7 @@ pca_plot |>
 ```{r}
 pca_plot <- ggplot(pca_scores_tbl, aes(x = PC1, y = PC2, color = data$Gender)) +
   geom_point() +  # Scatter plot
+  geom_smooth(method = "lm") +
   geom_text(label = rownames(data)) +
   labs(x = str_c('PC1: ', pca.var.percent[1], ' %'), 
        y = str_c('PC2: ', pca.var.percent[2], ' %'), 

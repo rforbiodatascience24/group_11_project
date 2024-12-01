@@ -56,16 +56,18 @@ Link to the project presentation :
 
 <https://github.com/rforbiodatascience24/group_11_project/blob/main/doc/presentation.html>,
 
-## Run Analysis
+## Run the Analysis
 
-You can run the whole process in R script : \~/projects/group_11_project/R/99_proj_func.R
+You can run the entire process in an R script: 00_all.qmd
+
+R script path: \~/projects/group_11_project/R/00_all.qmd
 
 ## Project Structure
 
-| Path       | Description                  |
-|------------|------------------------------|
-| `data/_raw`| Raw input data               |
-| `data/`    | Wrangled data files          |
-| `doc/`     | Presentation                 |
-| `R/`       | R scripts for analysis       |
-| `results/` | Output files (plots, tables) |
+| Path        | Description                  |
+|-------------|------------------------------|
+| `data/_raw` | Raw input data               |
+| `data/`     | Wrangled data files          |
+| `doc/`      | Presentation                 |
+| `R/`        | R scripts for analysis       |
+| `results/`  | Output files (plots, tables) |

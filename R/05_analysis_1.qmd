@@ -24,6 +24,7 @@ library(tidyr)
 Load data:
 
 ```{r}
+#| message: false 
 data <- read_tsv("../data/03_dat_aug.tsv")
 data <- data |>
   column_to_rownames(var = "ID_REF")
@@ -111,6 +112,7 @@ pca_plot <- pca_aug |>
              y = .fittedPC2,
              label = .rownames,
              colour = Location,)) +
+  geom_point() +  # Scatter plot
   geom_smooth(method = "lm") +
   geom_point() +
   geom_text(colour = "black",

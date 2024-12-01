@@ -19,6 +19,7 @@ library(tidyverse)
 Some missing values are currently denoted as "N/A" or "NA", we need to handle this when load the file.
 
 ```{r}
+#| message: false 
 data <- read_tsv("../data/01_dat_load.tsv",
                  na = c("N/A", "NA"))
 ```

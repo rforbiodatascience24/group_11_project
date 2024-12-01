@@ -8,18 +8,17 @@ editor: visual
 
 # Run-all quarto documents in this folder
 
+Libraries
+
 ```{r}
 library(tidyverse)
 library(quarto)
+library(fs)
 ```
 
 Make sure you are in the right project path, you can check you project path by doing getwd() in the console
 
 ```{r}
-library(tidyverse)
-library(fs)
-library(quarto)
-
 # Specify the directories
 current_dir <- path("R")
 output_dir <- path("../results")

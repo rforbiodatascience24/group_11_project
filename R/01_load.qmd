@@ -20,7 +20,7 @@ library(tidyverse)
 ```{r}
 
 # Save project path so that all subsequent file handling can be relative to that:
-project_path <-"~/projects/group_11_project/"
+project_path <-"../"
 
 # Define relative data directory:
 data_dir <- "data/_raw/"

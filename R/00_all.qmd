@@ -51,9 +51,24 @@ all_files <- dir_ls()  # This defines `all_files`
 non_qmd_r_files <- all_files |>
   discard(~ str_detect(.x, "\\.(qmd|R)$"))
 
-# Move non .qmd or .R files to the specific directory
-non_qmd_r_files |> walk(~ {
+
+#Delete the folders
+folders_to_delete <- non_qmd_r_files |>
+  discard(~ str_detect(.x, "\\.html$"))
+
+walk(folders_to_delete, ~ {
+    dir_delete(.x) # Deletes the directory and its contents
+})
+
+
+# Move non .html files to the specific directory
+result_files <- non_qmd_r_files |>
+  discard(~ .x %in% folders_to_delete)
+
+result_files |> walk(~ {
   target_path <- output_dir
   file_move(.x, output_dir)
 })
+
+
 ```

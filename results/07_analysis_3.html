@@ -98,8 +98,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="aim" class="level2">
 <h2 class="anchored" data-anchor-id="aim">Aim</h2>
-<p>In this analysis, we will try to answer the following question</p>
-<p><strong>What genes are significantly up- or down-regulated between the patients with/without metastasis?</strong></p>
+<p>In this analysis, we will try to answer the following question:</p>
+<p>Is there a correlation between Disease-Free Survival and tumor location?</p>
 </section>
 <section id="load-libraries" class="level2">
 <h2 class="anchored" data-anchor-id="load-libraries">Load libraries</h2>
@@ -108,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.2     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ forcats   1.0.0     ✔ stringr   1.5.0
 ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
 ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
 ✔ purrr     1.0.2     
@@ -166,7 +166,7 @@ dbl (1942): Age, No_stage, metastasis, DFS_event, Adj_Radio, Adj_Chem, DFS, ...
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Location of sample"</span>,</span>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of samples"</span>,</span>
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="cn">NULL</span>,</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Data from https://www.kaggle.com/datasets/amandam1/colorectal-cancer-patients/data"</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Data: https://www.kaggle.com/datasets/amandam1/colorectal-cancer-patients/data"</span></span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Show plot</span></span>
@@ -192,7 +192,7 @@ dbl (1942): Age, No_stage, metastasis, DFS_event, Adj_Radio, Adj_Chem, DFS, ...
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
-<p>There is a clear distinction shown for the Rectum position. The majority of samples end up exhibiting a return of the disease, more than triple the amount. This is a bigger difference than any other location, making the rectum the most aggresive location. In contrast, no difference is shown for the colon location. The left side is also somewhat aggressive, while the right mostly shows no return of disease.</p>
+<p>There is a clear distinction shown for the Rectum position. The majority of samples end up exhibiting a return of the disease, more than triple the amount. This is a bigger difference than any other location, making the rectum the most aggressive location. In contrast, no difference is shown for the colon location. The left side is also somewhat aggressive, while the right mostly shows no return of disease.</p>
 </section>
 
 </main>

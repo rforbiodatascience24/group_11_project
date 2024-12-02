@@ -1,5 +1,5 @@
 ---
-title: "Group 11 - Gene expression in colorectal cancer"
+title: "Group 11 - Gene Expression in Colorectal Cancer"
 author: "Eleni-Sofia Tseperi (s240066),	Johanne Lund	(s233246), Marie Picquet	(s233736), Eglantine Anton	(s233242), Qiuyan Wu	(s241063)"
 format:
   revealjs:
@@ -32,17 +32,13 @@ library(ggrepel)
 
 -   Goal of the project
 
-    -   Investigate xxx
-
-    -   Model xxx
+    -   Investigate if the gene expression data can be used to build predictive models for CRC diagnosis
 
 -   Data sets
 
     -   Gene expression level for 1935 genes
 
     -   Patient information for 62 patients
-
-    -   Artificially made dirty and messy to increase the difficulty of the projects
 
 ## Methods overview
 

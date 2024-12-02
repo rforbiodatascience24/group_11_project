@@ -93,13 +93,29 @@ editor: visual
 
 ## Data Description
 
-The data was explored:
+::: columns
+::: {.column width="50%"}
+-   Data Exploration:
 
+    -   Statistics for the numerical data:
+
+-   
+
+    -   Visualization of the categorical data:
+:::
+
+::: {.column width="50%"}
 ![](images/table04.png)
 
-![](images/04_DFS_age_distribution.png)
+![](images/04_gender_distribution.png){width="1523" height="128"}
 
-![](images/04_gender_age_group_distribution.png)
+![](images/04_gender_age_group_distribution-01.png){width="758" height="45"}
+
+![](images/04_dukes_stage_distribution-02.png){width="288" height="59"}
+
+![](images/04_DFS_age_distribution-01.png){width="563" height="42"}
+:::
+:::
 
 ::: columns
 ::: {.column width="50%"}

@@ -69,7 +69,6 @@ library(ggrepel)
 ::: {.column align="center" width="100%" height="auto" style="font-size: 22px" align="center"}
 :::
 
-<<<<<<< HEAD
 # Combine the two data sets by joining on the patient ID
 
 ```         
@@ -82,13 +81,10 @@ library(ggrepel)
 
 ::: {.column width="50%" style="font-size: 22px"} Clean
 
-::: columns
-::: {.column width="50%" height="auto" style="font-size: 22px"}
-# **Cleaning row value**
-=======
+::: columns ::: {.column width="50%" height="auto" style="font-size: 22px"} \# **Cleaning row value**
+
 ::: {.column width="50%" style="font-size: 22px"}
 ### Clean
->>>>>>> a6ef4eaad3f0f75912f5098dd0021c7b26b9ab3d
 
 -   Cleaning row value
 
@@ -120,9 +116,9 @@ library(ggrepel)
 
 -   Create `age_group`, `metastasis` and `DFS_label` variable
 :::
+
 :::
 
-<<<<<<< HEAD
 ## Methods - Describe
 
 ::: columns
@@ -168,9 +164,8 @@ data <- data |>
 # \## Methods - Describe
 
 ## Results - Data description
-=======
+
 ## Data description
->>>>>>> a6ef4eaad3f0f75912f5098dd0021c7b26b9ab3d
 
 ## Principal Component Analysis
 

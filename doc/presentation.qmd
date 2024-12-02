@@ -51,106 +51,43 @@ library(ggrepel)
 ## Methods - Tidy, clean & augment
 
 ::: columns
+::: {.column width="50%" style="font-size: 22px"}
 ### Tidy
 
-::: {.column width="50%" height="auto" style="font-size: 22px"}
-Expression data
+-   Expression data
 
--   The columns represent observations and the rows variables
+    -   The columns represent observations and the rows variables -\> Pivot the data set
 
-    -   Pivot the data set
+-   Patient data
 
-    ```{r}
-    #| echo: true
-    #| eval: false
-    expr_data <- expr_data |>
-      mutate(ID_GENE = ID_REF) |>
-      select(-ID_REF, -...1) |> 
-      pivot_longer(-c(ID_GENE), 
-                   names_to = "ID_REF", 
-                   values_to = "Gene expression level") |>
-      pivot_wider(names_from = ID_GENE, 
-                  values_from = "Gene expression level") 
-    ```
+    -   Separate `DFS event/Adj_Radio/Adj_Chem` into 3 distinct variables
+
+    -   Convert `DFS (in years and months)` into months to have only value per observation
+
+-   Combine the two data sets by joining on the patient ID
 :::
 
-::: {.column width="50%" height="auto" style="font-size: 22px"}
-Patient data
+::: {.column width="50%" style="font-size: 22px"}
+Clean
 
--   Separate `DFS event/Adj_Radio/Adj_Chem` into 3 distinct variables
+-   Cleaning row value
 
--   Convert `DFS (in years and months)` into months to have only value per observation
+    -   Handle Missing Values ("NA" and "N/A")
+
+    -   Standardize Gender Labels
+
+    -   Fix Invalid Age Values
+
+    -   Remove empty row
+
+-   Cleaning column names
+
+    -   Make the name shorter (remove units, spaces...)
+
+Augment
+
+-   Create `age_group`, `metastasis` and `DFS_label` variable
 :::
-
-Combine the two data sets by joining on the patient ID
-:::
-
-### Clean
-
-::: columns
-::: {.column width="50%" height="auto" style="font-size: 22px"}
-**Cleaning row value**
-
--   Handle Missing Values
-
--   Standardize Gender Labels
-
--   Fix Invalid Age Values
-
--   Removed rows where ID_REF does not start with GSM
-:::
-
-::: {.column width="50%" height="auto" style="font-size: 22px"}
-**Cleaning column names**
-
--   Remove `gene\_` at the beginning of all the gene names
-
--   Remove the units from the names:
-
--   Replace spaces by \_:
-:::
-:::
-
-### Augment
-
-::: columns
-::: {.column width="30%" height="auto" style="font-size: 22px"}
--   Create an `age_group` variable
-
-```{r}
-#| echo: true
-#| eval: false
-data <- data |>mutate(Age_group = cut(Age, breaks = seq(10, 100, by = 10)))
-```
-:::
-
-::: {.column width="30%" height="auto" style="font-size: 22px"}
--   Create a `metastasis` variable
-
-```{r}
-#| echo: true
-#| eval: false
-data <- data |>
-  mutate(No_stage = case_when(Dukes_stage == "A" ~ 1,
-                            Dukes_stage == "B" ~ 2,
-                            Dukes_stage == "C" ~ 3,
-                            Dukes_stage == "D" ~ 4),
-         metastasis = case_when(No_stage <= 3 ~ 0,
-                                No_stage > 3 ~ 1))
-```
-:::
-
-::: {.column width="30%" height="auto" style="font-size: 22px"}
--   Create an `DFS_label` variable
-:::
-
-```{r}
-#| echo: true
-#| eval: false
-data <- data |>
-  mutate(DFS_label = case_when(DFS_event == 0 ~ "No return of disease",
-                            DFS_event == 1 ~ "Return of disease"), .after = DFS_event)
-```
 :::
 
 ## Methods - Describe

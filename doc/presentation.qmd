@@ -105,14 +105,13 @@ source: <https://r4bds.github.io/>
     -   Statistics for the numerical variables
     -   Visualization of the categorical variables
 
-![](images/04_gender_age_group_distribution-02.png){width="443"}
+![](../results/04_gender_age_group_distribution.png){width="443"}
 :::
 
 ::: {.column width="50%"}
-
 ![](images/table04.png)
 
-![](images/04_dukes_stage_distribution-02.png){width="466" height="321"}
+![](../results/04_dukes_stage_distribution.png){width="466" height="321"}
 :::
 :::
 

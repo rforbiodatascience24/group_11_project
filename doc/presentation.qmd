@@ -7,7 +7,7 @@ format:
     scrollable: true
     smaller: true
     scoll: true
-    theme: night
+    theme: simple
     transition: slide
     incremental: true 
 editor: visual

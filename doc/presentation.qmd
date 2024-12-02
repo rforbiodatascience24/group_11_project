@@ -95,11 +95,11 @@ editor: visual
 ::: {.column width="50%"}
 -   Data Exploration:
 
-    -   Statistics for the numerical data:
+    -   Statistics for the numerical variables:
 
 -   
 
-    -   Visualization of the categorical data:
+    -   Visualization of the categorical varables:
 :::
 
 ::: {.column width="50%"}

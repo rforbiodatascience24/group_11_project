@@ -93,9 +93,7 @@ editor: visual
 
 ## Data Description
 
-should somewhere say the what the variables of the metadata are (gender, age, blabla)
-
-idk if you want to have it here or in the introduction or idk, but we should describe the raw data a bit
+The data was explored:
 
 ## 
 

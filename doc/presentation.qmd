@@ -179,4 +179,10 @@ estimates <- data_long_nested |>
 
 ## Analysis 3 results
 
-## Discussion
+## Conclusion: 
+
+-   No clear clustering
+
+-   No significantly expressed genes
+
+-   Correlation between the Dukes Stages and the location of the Tumor

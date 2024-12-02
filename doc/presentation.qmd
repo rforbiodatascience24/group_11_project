@@ -98,15 +98,82 @@ idk if you want to have it here or in the introduction or idk, but we should des
 
 ## Analyses:
 
-1.  pca
-2.  sfsd
-3.  das
+1.  Principal Component Analysis
+2.  Gene regulation and metastasis analysis
+3.  Disease-Free Survival in relation to Tumor Location
 
-methods for pca
+### PCA
+
+-   clean
+
+-   Calculation of the different Principal components
+
+-   Visualation the data in a 2D scatterplot
+
+-   Searching for tendencies, and potential clustering of the data.
+
+    ```{r}
+    #| echo: true
+    #| eval: false
+    #| code-line-numbers: "5-6|8-11|13-14|16-18|20-25|27-41|"
+
+    # Load data
+    data <- read_tsv("../data/03_dat_aug.tsv")
+      
+    # Handle missing data (if any)
+    cleaned_data <- data |>
+      select(where(is.numeric))|> 
+      mutate(across(where(is.numeric), ~ ifelse(is.na(.), mean(., na.rm = TRUE), .)))
+
+    # Perform PCA
+    pca <- prcomp(cleaned_data, scale = TRUE)
+
+    #Augment PCA
+    pca_aug <- pca |>
+      augment(data)
+
+    # precentage of variance:
+    pca_plot_axes_labels <- pca |>
+      tidy("eigenvalues") |>
+      mutate(lbl = str_c("PC", PC, ": VE = ", round(percent*100,2), "%")) |> 
+      pull("lbl")
+
+    #Scree plot generating 
+    scree_plot<- pca |>
+      tidy("pcs") |> 
+      mutate(percent = percent * 100) |> 
+      ggplot(aes(x = PC,
+                 y = percent)) +
+      geom_hline(yintercept = 0) +
+      geom_col(colour = "black",
+               alpha = 0.5) +
+      theme_bw(base_size = 20) +
+      theme(panel.grid.minor.x = element_blank(),
+            panel.grid.major.x = element_blank()) +
+      labs(title = "Scree Plot of PCA of Data",
+           y = "Percent %")
+
+    #code plot
+    pca_plot <- pca_aug |> 
+      ggplot(aes(x = .fittedPC1,
+                 y = .fittedPC2,
+                 colour = Location,)) +
+      geom_point() +  # Scatter plot
+      geom_smooth(method = "lm") +
+      geom_point() +
+      coord_fixed() +
+      labs(
+        title = "PCA: Scores Plot of Colorectal Cancer",
+        x = pluck(pca_plot_axes_labels, 1),
+        y = pluck(pca_plot_axes_labels, 2),
+        colour = "Location") +
+      theme_minimal()
+
+
+
+    ```
 
 ## Principal Component Analysis
-
-We are finding tendencies in the data, looking at its spread, and trying to visualise the clustering of Duke stages, gender, or location of the tumour.
 
 ::: columns
 ::: {.column width="50%"}

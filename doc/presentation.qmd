@@ -70,7 +70,7 @@ source: <https://r4bds.github.io/>
 
     -   Convert `DFS (in years and months)` into months to have only value per observation
 
--   Combine the two data sets by joining on the patient ID
+-   Combine the two data sets by joining on the `ID_REF`
 :::
 
 ::: {.column width="50%" style="font-size: 22px"}
@@ -84,7 +84,7 @@ source: <https://r4bds.github.io/>
 
     -   Fix Invalid Age Value
 
-    -   Remove empty row
+    -   Remove empty row(GSM)
 
 -   Cleaning column names
 

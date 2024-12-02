@@ -46,8 +46,6 @@ Out of the 62 patients, 25 showed disease free survival, while 37 showed a retur
 
 Age and DFS 'Simple statistics
 
-The relationship between age and DFS
-
 ```{r}
 #| message: false 
 #| warning: false 
@@ -70,6 +68,10 @@ data |>
 ```
 
 ## Visualizing data
+
+The Gender Distribution
+
+In the 62 cases, males are the majority, with their number being nearly three times that of females.
 
 ```{r}
 #| message: false 
@@ -98,6 +100,10 @@ pl |>
 
 pl
 ```
+
+The Gender Distribution Across Age Groups Chart
+
+The 62 cases are primarily concentrated among individuals over 40 years old.
 
 ```{r}
 #| message: false 
@@ -134,6 +140,8 @@ pl |>
 pl
 ```
 
+Duke stage distribution
+
 ```{r}
 #| message: false 
 pl <- data|>
@@ -160,6 +168,10 @@ pl |>
 pl
 ```
 
+Location distribution
+
+The lesion locations of the 62 cases are primarily concentrated in the left, right, and rectum, while the colon is less .
+
 ```{r}
 #| message: false 
 pl <- data|>
@@ -185,6 +197,8 @@ pl |>
 
 pl
 ```
+
+DFS and age distribution
 
 ```{r}
 #| message: false 

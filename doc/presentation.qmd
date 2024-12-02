@@ -25,7 +25,7 @@ editor: visual
 
     -   Investigate if the gene expression data can be used to build predictive models for CRC diagnosis
 
--   Data:
+-   Dataset:
 
     -   62 colorectal cancer samples
 
@@ -38,8 +38,6 @@ editor: visual
 -   The run-all file 00_all.qmd is used to run the entire project
 
 ![](images/Overview_img.png)
-
--   The analysis is done on gene expression data of colorectal cancer samples
 
 -   Data is loaded from Kaggle into the folder /data/\_raw
 
@@ -119,7 +117,7 @@ editor: visual
 
 ::: columns
 ::: {.column width="50%"}
-### Analysis
+## Analysis
 
 1.  Principal Component Analysis
 2.  Gene regulation and metastasis analysis
@@ -129,7 +127,7 @@ editor: visual
 
 -   Calculation of the different Principal components
 
--   Visualation the data in a 2D scatterplot
+-   Visualization the data in a 2D scatter plot
 
 -   Searching for tendencies, and potential clustering of the data.
 :::

@@ -29,23 +29,29 @@ editor: visual
 
 ## Methods
 
--   The run-all file 00_all.qmd is used to run the entire project
+::: columns
+::: {.column width="50%" style="font-size: 20px"}
+![](images/clipboard-1429180154.png)
 
-![](images/Overview_img.png)
+source: <https://r4bds.github.io/>
+:::
+
+::: {.column width="50%"}
+-   The run-all file 00_all.qmd is used to run the entire project
 
 -   Data is loaded from Kaggle into the folder /data/\_raw
 
     -   Patient Metadata File
 
-        -   62 colorectal cancer samples
-
-        -   8 variables
+        -   62 colorectal cancer samples/8 variables
 
     -   Gene Expression Data File
 
         -   Gene expression level for 1935 genes
 
     -   Artificially made dirty and messy to increase the difficulty of the projects
+:::
+:::
 
 ## Methods
 
@@ -95,29 +101,25 @@ editor: visual
 ::: {.column width="50%"}
 -   Data Exploration:
 
-    -   Statistics for the numerical variables:
+    -   Statistics for the numerical variables
+    -   Visualization of the categorical variables
 
--   
-
-    -   Visualization of the categorical varables:
+![](images/04_gender_age_group_distribution-02.png){width="443"}
 :::
 
 ::: {.column width="50%"}
+
 ![](images/table04.png)
 
-![](images/04_gender_distribution.png){width="1523" height="128"}
-
-![](images/04_gender_age_group_distribution-01.png){width="758" height="45"}
-
-![](images/04_dukes_stage_distribution-02.png){width="288" height="59"}
-
-![](images/04_DFS_age_distribution-01.png){width="563" height="42"}
+![](images/04_dukes_stage_distribution-02.png){width="466" height="321"}
 :::
 :::
+
+## Analysis
 
 ::: columns
 ::: {.column width="50%"}
-## Analysis
+### 
 
 1.  Principal Component Analysis
 2.  Gene regulation and metastasis analysis
@@ -306,7 +308,7 @@ dfs_loc_plot <- data |>
 :::
 :::
 
-## Conclusion:
+## Conclusion
 
 -   No clear clustering
 

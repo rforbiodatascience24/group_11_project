@@ -415,30 +415,33 @@ Group 11: Eleni-Sofia Tseperi (s240066), Johanne Lund (s233246), Marie Picquet (
 <ul>
 <li class="fragment">Investigate if the gene expression data can be used to build predictive models for CRC diagnosis</li>
 </ul></li>
-<li class="fragment"><p>Data:</p>
-<ul>
-<li class="fragment"><p>62 colorectal cancer samples</p>
-<ul>
-<li class="fragment"><p>Gene expression level for 1935 genes</p></li>
-<li class="fragment"><p>Patient metadata on 8 variables</p></li>
-</ul></li>
-</ul></li>
+<li class="fragment"><p>Data source: Dataset taken from Kaggle</p></li>
 </ul>
 </section>
 <section id="methods" class="slide level2">
 <h2>Methods</h2>
+<div class="columns">
+<div class="column" style="font-size: 20px">
+<p><img data-src="images/clipboard-1429180154.png"></p>
+<p>source: <a href="https://r4bds.github.io/" class="uri">https://r4bds.github.io/</a></p>
+</div><div class="column" style="width:50%;">
 <ul>
-<li class="fragment">The run-all file 00_all.qmd is used to run the entire project</li>
-</ul>
-
-<img data-src="images/Overview_img.png" class="r-stretch"><ul>
-<li class="fragment"><p>The analysis is done on gene expression data of colorectal cancer samples</p></li>
+<li class="fragment"><p>The run-all file 00_all.qmd is used to run the entire project</p></li>
 <li class="fragment"><p>Data is loaded from Kaggle into the folder /data/_raw</p>
 <ul>
-<li class="fragment"><p>1 Gene Expression Data File and 1 Patient Metadata File</p></li>
+<li class="fragment"><p>Patient Metadata File</p>
+<ul>
+<li class="fragment">62 colorectal cancer samples/8 variables</li>
+</ul></li>
+<li class="fragment"><p>Gene Expression Data File</p>
+<ul>
+<li class="fragment">Gene expression level for 1935 genes</li>
+</ul></li>
 <li class="fragment"><p>Artificially made dirty and messy to increase the difficulty of the projects</p></li>
 </ul></li>
 </ul>
+</div>
+</div>
 </section>
 <section id="methods-1" class="slide level2">
 <h2>Methods</h2>
@@ -481,14 +484,27 @@ Group 11: Eleni-Sofia Tseperi (s240066), Johanne Lund (s233246), Marie Picquet (
 </section>
 <section id="data-description" class="slide level2">
 <h2>Data Description</h2>
-<p>should somewhere say the what the variables of the metadata are (gender, age, blabla)</p>
-<p>idk if you want to have it here or in the introduction or idk, but we should describe the raw data a bit</p>
-</section>
-<section id="section" class="slide level2 scrollable">
-<h2></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<h3 id="analysis">Analysis</h3>
+<ul>
+<li class="fragment"><p>Data Exploration:</p>
+<ul>
+<li class="fragment">Statistics for the numerical variables</li>
+<li class="fragment">Visualization of the categorical variables</li>
+</ul></li>
+</ul>
+<p><img data-src="images/04_gender_age_group_distribution-02.png" width="443"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="images/table04.png"></p>
+<p><img data-src="images/04_dukes_stage_distribution-02.png" width="466" height="321"></p>
+</div>
+</div>
+</section>
+<section id="analysis" class="slide level2 scrollable">
+<h2>Analysis</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="section"></h3>
 <ol type="1">
 <li class="fragment">Principal Component Analysis</li>
 <li class="fragment">Gene regulation and metastasis analysis</li>
@@ -497,12 +513,12 @@ Group 11: Eleni-Sofia Tseperi (s240066), Johanne Lund (s233246), Marie Picquet (
 <h3 id="pca">PCA</h3>
 <ul>
 <li class="fragment"><p>Calculation of the different Principal components</p></li>
-<li class="fragment"><p>Visualation the data in a 2D scatterplot</p></li>
+<li class="fragment"><p>Visualization the data in a 2D scatter plot</p></li>
 <li class="fragment"><p>Searching for tendencies, and potential clustering of the data.</p></li>
 </ul>
 </div><div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1" data-code-line-numbers="1-2|4-7|9-10|12-14|16-20|22-35|37-50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># Load data</span></span>
+<div class="sourceCode cell-code" id="cb1" data-code-line-numbers="5-18|20-25|27-41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># Load data</span></span>
 <span id="cb1-2"><a href=""></a>data <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"../data/03_dat_aug.tsv"</span>)</span>
 <span id="cb1-3"><a href=""></a></span>
 <span id="cb1-4"><a href=""></a><span class="co"># Handle missing data (if any)</span></span>
@@ -656,7 +672,7 @@ Group 11: Eleni-Sofia Tseperi (s240066), Johanne Lund (s233246), Marie Picquet (
 </div>
 </section>
 <section id="conclusion" class="slide level2">
-<h2>Conclusion:</h2>
+<h2>Conclusion</h2>
 <ul>
 <li class="fragment"><p>No clear clustering</p></li>
 <li class="fragment"><p>No significantly expressed genes</p></li>

@@ -42,7 +42,15 @@ library(ggrepel)
 
 ## Methods overview
 
-(incl run-all file), raw, load, making dirty
+-   The run-all file 00_all.qmd is used to run the entire project
+
+![](images/Overview_img.png)
+
+-   Data is loaded from Kaggle into the folder /data/\_raw
+
+    -   1 Patient Data File and 1 Gene Expression Data File
+
+    -   Artificially made dirty and messy to increase the difficulty of the projects
 
 ## Methods - Tidy, clean & augment
 

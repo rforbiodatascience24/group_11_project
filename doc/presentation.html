@@ -498,11 +498,11 @@ Group 11: Eleni-Sofia Tseperi (s240066), Johanne Lund (s233246), Marie Picquet (
 <p>We are finding tendencies in the data, looking at its spread, and trying to visualise the clustering of Duke stages, gender, or location of the tumour.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img data-src="images/05_pca_scree_plot.png" width="530" height="306"></p>
-<p><img data-src="images/05_pca_gender.png" width="537" height="320"></p>
+<p><img data-src="../results/05_pca_scree_plot.png" width="530" height="306"></p>
+<p><img data-src="../results/05_pca_gender.png" width="537" height="320"></p>
 </div><div class="column" style="width:50%;">
-<p><img data-src="images/05_pca_Dukes_stages.png"></p>
-<p><img data-src="images/05_pca_location.png" width="520" height="275"></p>
+<p><img data-src="../results/05_pca_Dukes_stages.png"></p>
+<p><img data-src="../results/05_pca_location.png" width="520" height="275"></p>
 </div>
 </div>
 </section>
@@ -560,11 +560,39 @@ Group 11: Eleni-Sofia Tseperi (s240066), Johanne Lund (s233246), Marie Picquet (
 <li class="fragment"><p>20 genes (12 up regulated, 8 down regulated)</p></li>
 </ul>
 
-<img data-src="images/06_analysis_volcano-03.png" class="r-stretch"></section>
+<img data-src="../results/06_analysis_volcano.png" class="r-stretch"></section>
 <section id="analysis-of-disease-free-survival-in-relation-to-tumor-location" class="slide level2">
 <h2>Analysis of Disease-Free Survival in relation to Tumor Location</h2>
-
-<img data-src="../results/07_analysis_3.png" class="r-stretch"></section>
+<div class="columns">
+<div class="column" style="font-size: 22px">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2" data-code-line-numbers="2|3|4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>dfs_loc_plot <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href=""></a>  <span class="fu">group_by</span>(DFS_label) <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href=""></a>  <span class="fu">count</span>(Location) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href=""></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Location, <span class="at">y =</span> n, <span class="at">fill=</span>DFS_label)) <span class="sc">+</span></span>
+<span id="cb2-5"><a href=""></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>, <span class="at">alpha=</span><span class="fl">0.5</span>, <span class="at">color=</span><span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb2-6"><a href=""></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb2-7"><a href=""></a>  <span class="fu">theme</span>(</span>
+<span id="cb2-8"><a href=""></a>    <span class="at">legend.position =</span> <span class="st">"right"</span>,</span>
+<span id="cb2-9"><a href=""></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">10</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust=</span><span class="dv">1</span>),</span>
+<span id="cb2-10"><a href=""></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),  <span class="co"># Remove major vertical grid lines for a cleaner graph</span></span>
+<span id="cb2-11"><a href=""></a>    <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>()   <span class="co"># Remove minor vertical grid lines for a cleaner graph</span></span>
+<span id="cb2-12"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb2-13"><a href=""></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="at">by=</span><span class="dv">2</span>)) <span class="sc">+</span> <span class="co"># Show more ticks on the y axis to make the graph easier to read</span></span>
+<span id="cb2-14"><a href=""></a>  <span class="fu">labs</span>(</span>
+<span id="cb2-15"><a href=""></a>    <span class="at">title =</span> <span class="st">"Distribution of Disease-Free Survival Events by Sample Location"</span>,</span>
+<span id="cb2-16"><a href=""></a>    <span class="at">subtitle =</span> <span class="st">"Analysis of colorectal cancer samples"</span>,</span>
+<span id="cb2-17"><a href=""></a>    <span class="at">x =</span> <span class="st">"Location of sample"</span>,</span>
+<span id="cb2-18"><a href=""></a>    <span class="at">y =</span> <span class="st">"Number of samples"</span>,</span>
+<span id="cb2-19"><a href=""></a>    <span class="at">fill =</span> <span class="cn">NULL</span>,</span>
+<span id="cb2-20"><a href=""></a>    <span class="at">caption =</span> <span class="st">"Data: https://www.kaggle.com/datasets/amandam1/colorectal-cancer-patients/data"</span></span>
+<span id="cb2-21"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="font-size: 22px">
+<p><img data-src="../results/07_analysis_3.png"></p>
+</div>
+</div>
+</section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion:</h2>
 <ul>

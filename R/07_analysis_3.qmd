@@ -8,9 +8,9 @@ editor: visual
 
 ## Aim
 
-In this analysis, we will try to answer the following question
+In this analysis, we will try to answer the following question:
 
-**What genes are significantly up- or down-regulated between the patients with/without metastasis?**
+Is there a correlation between Disease-Free Survival and tumor location?
 
 ## Load libraries
 
@@ -56,7 +56,7 @@ dfs_loc_plot <- data |>
     x = "Location of sample",
     y = "Number of samples",
     fill = NULL,
-    caption = "Data from https://www.kaggle.com/datasets/amandam1/colorectal-cancer-patients/data"
+    caption = "Data: https://www.kaggle.com/datasets/amandam1/colorectal-cancer-patients/data"
   )
 
 # Show plot
@@ -72,4 +72,4 @@ dfs_loc_plot |>
 
 ## Results
 
-There is a clear distinction shown for the Rectum position. The majority of samples end up exhibiting a return of the disease, more than triple the amount. This is a bigger difference than any other location, making the rectum the most aggresive location. In contrast, no difference is shown for the colon location. The left side is also somewhat aggressive, while the right mostly shows no return of disease.
+There is a clear distinction shown for the Rectum position. The majority of samples end up exhibiting a return of the disease, more than triple the amount. This is a bigger difference than any other location, making the rectum the most aggressive location. In contrast, no difference is shown for the colon location. The left side is also somewhat aggressive, while the right mostly shows no return of disease.

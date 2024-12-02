@@ -8,7 +8,7 @@ editor: visual
 
 # Run-all quarto documents in this folder
 
-This scipt is running the entire program, by running all the quarto documents in the folder and rendering them to .html.
+This script is running the entire program, by running all the quarto documents in the folder and rendering them to .html.
 
 ```{r}
 # Load libraries

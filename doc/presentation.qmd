@@ -13,6 +13,7 @@ format:
 editor: visual
 ---
 
+
 ## Introduction
 
 -   Background:
@@ -88,7 +89,6 @@ editor: visual
 -   Create `age_group`, `metastasis` and `DFS_label` variable
 :::
 :::
-
 
 ## Data Description
 
@@ -185,7 +185,40 @@ estimates <- data_long_nested |>
 
 ## Analysis of Disease-Free Survival in relation to Tumor Location
 
+::: columns
+::: {.column width="50%" style="font-size: 22px"}
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "2|3|4"
+dfs_loc_plot <- data |>
+  group_by(DFS_label) |>
+  count(Location) |>
+  ggplot(mapping = aes(x = Location, y = n, fill=DFS_label)) +
+  geom_col(position = "dodge", alpha=0.5, color="black") +
+  theme_minimal() +
+  theme(
+    legend.position = "right",
+    axis.text.x = element_text(angle = 10, vjust = 1, hjust=1),
+    panel.grid.major.x = element_blank(),  # Remove major vertical grid lines for a cleaner graph
+    panel.grid.minor.x = element_blank()   # Remove minor vertical grid lines for a cleaner graph
+  ) +
+  scale_y_continuous(breaks = seq(0, 20, by=2)) + # Show more ticks on the y axis to make the graph easier to read
+  labs(
+    title = "Distribution of Disease-Free Survival Events by Sample Location",
+    subtitle = "Analysis of colorectal cancer samples",
+    x = "Location of sample",
+    y = "Number of samples",
+    fill = NULL,
+    caption = "Data: https://www.kaggle.com/datasets/amandam1/colorectal-cancer-patients/data"
+  )
+```
+:::
+
+::: {.column width="50%" style="font-size: 22px"}
 ![](../results/07_analysis_3.png)
+:::
+:::
 
 ## Conclusion:
 

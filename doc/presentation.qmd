@@ -98,15 +98,15 @@ We are finding tendencies in the data, looking at its spread, and trying to visu
 
 ::: columns
 ::: {.column width="50%"}
-![](images/05_pca_scree_plot.png){width="272" height="20"}
+![](images/05_pca_scree_plot.png){width="530" height="306"}
 
-![](images/05_pca_gender.png){width="246" height="20"}
+![](images/05_pca_gender.png){width="537" height="320"}
 :::
 
 ::: {.column width="50%"}
 ![](images/05_pca_Dukes_stages.png)
 
-![](images/05_pca_location.png){width="253" height="20"}
+![](images/05_pca_location.png){width="520" height="275"}
 :::
 :::
 
@@ -174,23 +174,5 @@ estimates <- data_long_nested |>
 ## Analysis 3
 
 ## Analysis 3 results
-
-::: columns
-::: {.column width="50%" style="font-size: 22px"}
-Analysis 1
-:::
-
-::: {.column width="50%" style="font-size: 22px"}
-Analysis 2
-
--   No gene found to be significant after multiple testing
-
--   Use the genes with p\<0.01 for the plot
-
--   20 genes (12 up regulated, 8 down regulated)
-
-![](images/06_analysis_volcano-02.png)
-:::
-:::
 
 ## Discussion

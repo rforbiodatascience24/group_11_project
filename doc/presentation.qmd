@@ -94,23 +94,21 @@ Augment
 
 ## Results - Data description
 
-## Methods - Analysis 1
-
-### Principal component analysis (PCA)
+## Principal Component Analysis
 
 We are finding tendencies in the data, looking at its spread, and trying to visualise the clustering of Duke stages, gender, or location of the tumour.
 
 ::: columns
 ::: {.column width="50%"}
-![](images/05_pca_scree_plot-01.png)
+![](images/05_pca_scree_plot.png){width="272" height="20"}
 
-![](images/05_pca_gender.png)
+![](images/05_pca_gender.png){width="246" height="20"}
 :::
 
 ::: {.column width="50%"}
 ![](images/05_pca_Dukes_stages.png)
 
-![](images/05_pca_location.png)
+![](images/05_pca_location.png){width="253" height="20"}
 :::
 :::
 

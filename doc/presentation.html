@@ -453,6 +453,7 @@ Eleni-Sofia Tseperi (s240066), Johanne Lund (s233246), Marie Picquet (s233736), 
 <li class="fragment"><p>Handle Missing Values (“NA” and “N/A”)</p></li>
 <li class="fragment"><p>Standardize Gender Labels</p></li>
 <li class="fragment"><p>Fix Invalid Age Values</p></li>
+<<<<<<< HEAD
 <li class="fragment"><p>Remove empty row</p></li>
 </ul></li>
 <li class="fragment"><p>Cleaning column names</p>
@@ -464,6 +465,49 @@ Eleni-Sofia Tseperi (s240066), Johanne Lund (s233246), Marie Picquet (s233736), 
 <ul>
 <li class="fragment">Create <code>age_group</code>, <code>metastasis</code> and <code>DFS_label</code> variable</li>
 </ul>
+=======
+<li class="fragment"><p>Removed rows where ID_REF does not start with GSM</p></li>
+</ul>
+</div><div class="column" height="auto" style="font-size: 22px">
+<p><strong>Cleaning column names</strong></p>
+<ul>
+<li class="fragment"><p>Remove <code>gene\_</code> at the beginning of all the gene names</p></li>
+<li class="fragment"><p>Remove the units from the names:</p></li>
+<li class="fragment"><p>Replace spaces by _:</p></li>
+</ul>
+</div>
+</div>
+<h3 id="augment">Augment</h3>
+<div class="columns">
+<div class="column" height="auto" style="font-size: 22px">
+<ul>
+<li class="fragment">Create an <code>age_group</code> variable</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span><span class="fu">mutate</span>(<span class="at">Age_group =</span> <span class="fu">cut</span>(Age, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">10</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" height="auto" style="font-size: 22px">
+<ul>
+<li class="fragment">Create a <code>metastasis</code> variable</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">No_stage =</span> <span class="fu">case_when</span>(Dukes_stage <span class="sc">==</span> <span class="st">"A"</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb3-3"><a href=""></a>                            Dukes_stage <span class="sc">==</span> <span class="st">"B"</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb3-4"><a href=""></a>                            Dukes_stage <span class="sc">==</span> <span class="st">"C"</span> <span class="sc">~</span> <span class="dv">3</span>,</span>
+<span id="cb3-5"><a href=""></a>                            Dukes_stage <span class="sc">==</span> <span class="st">"D"</span> <span class="sc">~</span> <span class="dv">4</span>),</span>
+<span id="cb3-6"><a href=""></a>         <span class="at">metastasis =</span> <span class="fu">case_when</span>(No_stage <span class="sc">&lt;=</span> <span class="dv">3</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb3-7"><a href=""></a>                                No_stage <span class="sc">&gt;</span> <span class="dv">3</span> <span class="sc">~</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" height="auto" style="font-size: 22px">
+<ul>
+<li class="fragment">Create an <code>DFS_label</code> variable</li>
+</ul>
+</div><div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">DFS_label =</span> <span class="fu">case_when</span>(DFS_event <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"No return of disease"</span>,</span>
+<span id="cb4-3"><a href=""></a>                            DFS_event <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Return of disease"</span>), <span class="at">.after =</span> DFS_event)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+>>>>>>> a171ff850660a660483865502e2bf53cda2d8e2e
 </div>
 </div>
 </section>
@@ -473,17 +517,16 @@ Eleni-Sofia Tseperi (s240066), Johanne Lund (s233246), Marie Picquet (s233736), 
 <section id="results---data-description" class="slide level2">
 <h2>Results - Data description</h2>
 </section>
-<section id="methods---analysis-1" class="slide level2">
-<h2>Methods - Analysis 1</h2>
-<h3 id="principal-component-analysis-pca">Principal component analysis (PCA)</h3>
+<section id="principal-component-analysis" class="slide level2">
+<h2>Principal Component Analysis</h2>
 <p>We are finding tendencies in the data, looking at its spread, and trying to visualise the clustering of Duke stages, gender, or location of the tumour.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img data-src="images/05_pca_scree_plot-01.png"></p>
-<p><img data-src="images/05_pca_gender.png"></p>
+<p><img data-src="images/05_pca_scree_plot.png" width="272" height="20"></p>
+<p><img data-src="images/05_pca_gender.png" width="246" height="20"></p>
 </div><div class="column" style="width:50%;">
 <p><img data-src="images/05_pca_Dukes_stages.png"></p>
-<p><img data-src="images/05_pca_location.png"></p>
+<p><img data-src="images/05_pca_location.png" width="253" height="20"></p>
 </div>
 </div>
 </section>

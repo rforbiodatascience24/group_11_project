@@ -115,8 +115,74 @@ Combine the two data sets by joining on the patient ID.
 
 ## Methods - Analysis 2
 
+### Aim
+
+Identify genes that are significantly up- or down-regulated between the patients with/without metastasis
+
+::: columns
+::: {.column width="50%"}
+1.  Pivot the data
+2.  Group per gene and nest the data
+3.  Fit a linear model per gene
+4.  Tidy the fitted model and get confidence intervals
+5.  Extract the model parameters and correct for multiple testing
+:::
+
+::: {.column width="50%"}
+```{r}
+#| eval: false
+data_long_nested <- data |>
+  select(ends_with("_at"), metastasis) |> 
+  pivot_longer(cols = ends_with("_at"), 
+               names_to = "gene", 
+               values_to = "log2_expr_level") |> 
+  group_by(gene) |> 
+  nest() |> 
+  ungroup()
+
+data_long_nested <- data_long_nested |> 
+  group_by(gene) |> 
+  mutate(model_object = map(.x = data,
+                   .f = ~lm(formula = log2_expr_level ~ metastasis,
+                            data = .x))) |> 
+  ungroup() |> 
+  mutate(model_object_tidy = map(.x = model_object,
+                                 .f = ~tidy(x =.x,
+                                            conf.int = TRUE,
+                                            conf.level = 0.95)))
+
+estimates <- data_long_nested |> 
+  unnest(model_object_tidy) |> 
+  filter(term == "metastasis") |> 
+  select("gene", "p.value", "estimate", "conf.low", "conf.high") |> 
+  mutate(q.value = p.adjust(p.value),
+         is_significant = case_when(q.value > 0.05 ~ "no",
+                                    q.value <= 0.05 ~ "yes"))
+
+```
+:::
+:::
+
 ## Methods - Analysis 3
 
 ## Results - Analysis 1 & 2
 
-## Results - Analysis 3 & discussion
+::: columns
+::: {.column width="50%"}
+Analysis 1
+:::
+
+::: {.column width="50%"}
+Analysis 2
+
+-   No gene found to be signicant after multiple testing
+
+-   Use the genes with p\<0.01 for the plot
+
+-   20 genes (12 up regulated, 8 down regulated)
+
+![](images/06_analysis_volcano-01.png)
+:::
+:::
+
+## Results analysis 3 & Discussion

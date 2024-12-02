@@ -359,8 +359,13 @@ Eleni-Sofia Tseperi (s240066), Johanne Lund (s233246), Marie Picquet (s233736), 
 </ul></li>
 </ul>
 </section>
-<section id="methods---tidying-the-data" class="slide level2">
-<h2>Methods - Tidying the data</h2>
+<section id="methods-overview" class="slide level2">
+<h2>Methods overview</h2>
+<p>(incl run-all file), raw, load, making dirty</p>
+</section>
+<section id="methods---tidy-clean-augment" class="slide level2">
+<h2>Methods - Tidy, clean &amp; augment</h2>
+<h3 id="tidy">Tidy</h3>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>Expression data</p>
@@ -384,10 +389,8 @@ Eleni-Sofia Tseperi (s240066), Johanne Lund (s233246), Marie Picquet (s233736), 
 </ul>
 </div>
 </div>
+<h3 id="clean">Clean</h3>
 <p>Combine the two data sets by joining on the patient ID.</p>
-</section>
-<section id="methods---cleaning-the-data" class="slide level2">
-<h2>Methods - Cleaning the data</h2>
 <ul>
 <li class="fragment"><p>Missing values “N/A” and “NA”</p>
 <ul>
@@ -408,9 +411,7 @@ Eleni-Sofia Tseperi (s240066), Johanne Lund (s233246), Marie Picquet (s233736), 
 <li class="fragment"><p>Replace spaces by _</p></li>
 </ul></li>
 </ul>
-</section>
-<section id="methods---augment-the-data" class="slide level2">
-<h2>Methods - Augment the data</h2>
+<h3 id="augment">Augment</h3>
 <ul>
 <li class="fragment"><p>Create an age group variable</p></li>
 <li class="fragment"><p>Create a metastasis variable</p>
@@ -420,24 +421,54 @@ Eleni-Sofia Tseperi (s240066), Johanne Lund (s233246), Marie Picquet (s233736), 
 </ul></li>
 </ul>
 </section>
+<section id="methods---describe" class="slide level2">
+<h2>Methods - Describe</h2>
+</section>
 <section id="results---data-description" class="slide level2">
 <h2>Results - Data description</h2>
+</section>
+<section id="methods---analysis-1" class="slide level2">
+<h2>Methods - Analysis 1</h2>
+</section>
+<section id="methods---analysis-2" class="slide level2 scrollable">
+<h2>Methods - Analysis 2</h2>
+<h3 id="aim">Aim</h3>
+<p>Identify genes that are significantly up- or down-regulated between the patients with/without metastasis</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img data-src="../results/04_gender_age_group_distribution.png"></p>
+<ol type="1">
+<li class="fragment">Pivot the data</li>
+<li class="fragment">Group per gene and nest the data</li>
+<li class="fragment">Fit a linear model per gene</li>
+<li class="fragment">Tidy the fitted model and get confidence intervals</li>
+<li class="fragment">Extract the model parameters and correct for multiple testing</li>
+</ol>
 </div><div class="column" style="width:50%;">
 
 </div>
 </div>
 </section>
-<section id="analysis-1" class="slide level2">
-<h2>Analysis 1</h2>
+<section id="methods---analysis-3" class="slide level2">
+<h2>Methods - Analysis 3</h2>
 </section>
-<section id="analysis-2" class="slide level2">
-<h2>Analysis 2</h2>
+<section id="results---analysis-1-2" class="slide level2">
+<h2>Results - Analysis 1 &amp; 2</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Analysis 1</p>
+</div><div class="column" style="width:50%;">
+<p>Analysis 2</p>
+<ul>
+<li class="fragment"><p>No gene found to be signicant after multiple testing</p></li>
+<li class="fragment"><p>Use the genes with p&lt;0.01 for the plot</p></li>
+<li class="fragment"><p>20 genes (12 up regulated, 8 down regulated)</p></li>
+</ul>
+<p><img data-src="images/06_analysis_volcano-01.png"></p>
+</div>
+</div>
 </section>
-<section id="analysis-3" class="slide level2">
-<h2>Analysis 3</h2>
+<section id="results-analysis-3-discussion" class="slide level2">
+<h2>Results analysis 3 &amp; Discussion</h2>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 

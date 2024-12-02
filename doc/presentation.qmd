@@ -179,7 +179,7 @@ estimates <- data_long_nested |>
 
 ## Analysis 3 results
 
-## Conclusion: 
+## Conclusion:
 
 -   No clear clustering
 

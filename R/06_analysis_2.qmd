@@ -128,7 +128,9 @@ pl1 <- estimates |>
 pl1 |> 
   ggsave(filename = "06_analysis_metastasis_regulation.png",
          path = "../results/",
-         bg = "white")
+         bg = "white",
+         width = 5, 
+         height = 4)
 
 pl1
 ```
@@ -142,11 +144,12 @@ pl2 <- estimates |>
              y = -log10(p.value),
              color = is_significant,
              label = gen_sig)) +
-  geom_text_repel(size = 2, 
+  geom_text_repel(size = 3, 
                   max.overlaps = Inf) +
   geom_point(alpha = 0.5, 
-             size = 1,
-             show.legend = FALSE) +
+             size = 1.5,
+             show.legend = FALSE,
+             shape = 18) +
   labs(x = "Estimates (95%Cls)",
        y = "-log10(p)",
        title = "Genes Associated with Metastasis in Colorectal Cancer",
@@ -161,7 +164,9 @@ pl2 <- estimates |>
 pl2 |> 
   ggsave(filename = "06_analysis_volcano.png",
          path ="../results/",
-         bg = "white")
+         bg = "white",
+         width = 5, 
+         height = 4)
 
 pl2
 ```

@@ -68,7 +68,7 @@ library(ggrepel)
 :::
 
 ::: {.column width="50%" style="font-size: 22px"}
-Clean
+### Clean
 
 -   Cleaning row value
 
@@ -76,7 +76,7 @@ Clean
 
     -   Standardize Gender Labels
 
-    -   Fix Invalid Age Values
+    -   Fix Invalid Age Value
 
     -   Remove empty row
 
@@ -84,15 +84,13 @@ Clean
 
     -   Make the name shorter (remove units, spaces...)
 
-Augment
+### Augment
 
 -   Create `age_group`, `metastasis` and `DFS_label` variable
 :::
 :::
 
-## Methods - Describe
-
-## Results - Data description
+## Data description
 
 ## Principal Component Analysis
 
@@ -112,7 +110,7 @@ We are finding tendencies in the data, looking at its spread, and trying to visu
 :::
 :::
 
-## Methods - Analysis 2
+## Gene regulation and metastasis
 
 ### Aim
 
@@ -163,9 +161,19 @@ estimates <- data_long_nested |>
 :::
 :::
 
-## Methods - Analysis 3
+## Gene regulation and metastasis
 
-## Results - Analysis 1 & 2
+-   No gene found to be significant after multiple testing
+
+-   Use the genes with p\<0.01 for the plot
+
+-   20 genes (12 up regulated, 8 down regulated)
+
+![](images/06_analysis_volcano-03.png)
+
+## Analysis 3
+
+## Analysis 3 results
 
 ::: columns
 ::: {.column width="50%" style="font-size: 22px"}
@@ -185,4 +193,4 @@ Analysis 2
 :::
 :::
 
-## Results analysis 3 & Discussion
+## Discussion

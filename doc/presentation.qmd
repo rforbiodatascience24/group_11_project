@@ -1,6 +1,6 @@
 ---
-title: "Group 11 - Gene Expression analysis in Colorectal Cancer"
-author: "Eleni-Sofia Tseperi (s240066),	Johanne Lund	(s233246), Marie Picquet	(s233736), Eglantine Anton	(s233242), Qiuyan Wu	(s241063)"
+title: "Gene Expression Analysis of Colorectal Cancer Samples"
+author: "Group 11: Eleni-Sofia Tseperi (s240066),	Johanne Lund	(s233246), Marie Picquet	(s233736), Eglantine Anton	(s233242), Qiuyan Wu	(s241063)"
 format:
   revealjs:
     code-line-numbers: true
@@ -15,21 +15,23 @@ editor: visual
 
 ## Introduction
 
--   Background
+-   Background:
 
     -   Colorectal cancer (CRC) is a major cause of cancer mortality
 
     -   Gene expression analysis can help identify dysregulated genes
 
--   Goal of the project
+-   Goal of the project:
 
     -   Investigate if the gene expression data can be used to build predictive models for CRC diagnosis
 
--   Data sets
+-   Data:
 
-    -   Gene expression level for 1935 genes
+    -   62 colorectal cancer samples
 
-    -   Patient information for 62 patients
+        -   Gene expression level for 1935 genes
+
+        -   Patient metadata on 8 variables
 
 ## Methods
 
@@ -90,6 +92,18 @@ editor: visual
 ## 
 
 ## Data Description
+
+should somewhere say the what the variables of the metadata are (gender, age, blabla)
+
+idk if you want to have it here or in the introduction or idk, but we should describe the raw data a bit
+
+## Analyses:
+
+1.  pca
+2.  sfsd
+3.  das
+
+methods for pca
 
 ## Principal Component Analysis
 

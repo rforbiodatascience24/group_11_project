@@ -136,7 +136,7 @@ editor: visual
 ```{r}
 #| echo: true
 #| eval: false
-#| code-line-numbers: "1-2|4-7|9-10|12-14|16-20|22-35|37-50"
+#| code-line-numbers: "5-18|20-25|27-41"
 
 # Load data
 data <- read_tsv("../data/03_dat_aug.tsv")

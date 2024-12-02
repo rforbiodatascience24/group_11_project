@@ -55,34 +55,19 @@ library(ggrepel)
 ## Methods - Tidy, clean & augment
 
 ::: columns
+<<<<<<< HEAD
+=======
+::: {.column width="50%" style="font-size: 22px"}
+>>>>>>> aa339b50daec66a4157377e2d06bab9676cbfae1
 ### Tidy
 
-::: {.column width="50%" height="auto" style="font-size: 22px"}
-Expression data
+-   Expression data
 
--   The columns represent observations and the rows variables
+    -   The columns represent observations and the rows variables -\> Pivot the data set
 
-    -   Pivot the data set
+-   Patient data
 
-    ```{r}
-    #| echo: true
-    #| eval: false
-    expr_data <- expr_data |>
-      mutate(ID_GENE = ID_REF) |>
-      select(-ID_REF, -...1) |> 
-      pivot_longer(-c(ID_GENE), 
-                   names_to = "ID_REF", 
-                   values_to = "Gene expression level") |>
-      pivot_wider(names_from = ID_GENE, 
-                  values_from = "Gene expression level") 
-    ```
-:::
-
-::: {.column width="50%" height="auto" style="font-size: 22px"}
-Patient data
-
--   Separate `DFS event/Adj_Radio/Adj_Chem` into 3 distinct variables
-
+<<<<<<< HEAD
 -   Convert `DFS (in years and months)` into months to have only value per observation
 :::
 
@@ -90,36 +75,59 @@ Patient data
 :::
 
 Combine the two data sets by joining on the patient ID
+=======
+    -   Separate `DFS event/Adj_Radio/Adj_Chem` into 3 distinct variables
+
+    -   Convert `DFS (in years and months)` into months to have only value per observation
+
+-   Combine the two data sets by joining on the patient ID
+>>>>>>> aa339b50daec66a4157377e2d06bab9676cbfae1
 :::
 
-### Clean
+::: {.column width="50%" style="font-size: 22px"}
+Clean
 
+<<<<<<< HEAD
 ::: columns
 ::: {.column width="50%" height="auto" style="font-size: 22px"}
 **Cleaning row value**
+=======
+-   Cleaning row value
+>>>>>>> aa339b50daec66a4157377e2d06bab9676cbfae1
 
--   Handle Missing Values
+    -   Handle Missing Values ("NA" and "N/A")
 
--   Standardize Gender Labels
+    -   Standardize Gender Labels
 
--   Fix Invalid Age Values
+    -   Fix Invalid Age Values
 
+<<<<<<< HEAD
 -   Removed rows where ID_REF does not start with GSM
 :::
 
 ::: {.column width="50%" height="auto" style="font-size: 22px"}
 **Cleaning column names**
+=======
+    -   Remove empty row
 
--   Remove `gene\_` at the beginning of all the gene names
+-   Cleaning column names
+>>>>>>> aa339b50daec66a4157377e2d06bab9676cbfae1
 
--   Remove the units from the names:
+    -   Make the name shorter (remove units, spaces...)
 
+Augment
+
+<<<<<<< HEAD
 -   Replace spaces by \_:
+=======
+-   Create `age_group`, `metastasis` and `DFS_label` variable
+>>>>>>> aa339b50daec66a4157377e2d06bab9676cbfae1
 :::
 :::
 
-### Augment
+## Methods - Describe
 
+<<<<<<< HEAD
 ::: columns
 ::: {.column width="30%" height="auto" style="font-size: 22px"}
 -   Create an `age_group` variable
@@ -161,8 +169,27 @@ data <- data |>
 :::
 
 :::: :::::::::: \## Methods - Describe
+=======
+## Results - Data description
 
-## Methods - Analysis 1
+## Principal Component Analysis
+
+We are finding tendencies in the data, looking at its spread, and trying to visualise the clustering of Duke stages, gender, or location of the tumour.
+
+::: columns
+::: {.column width="50%"}
+![](images/05_pca_scree_plot.png){width="272" height="20"}
+
+![](images/05_pca_gender.png){width="246" height="20"}
+:::
+
+::: {.column width="50%"}
+![](images/05_pca_Dukes_stages.png)
+>>>>>>> aa339b50daec66a4157377e2d06bab9676cbfae1
+
+![](images/05_pca_location.png){width="253" height="20"}
+:::
+:::
 
 ## Methods - Analysis 2
 
@@ -171,7 +198,7 @@ data <- data |>
 Identify genes that are significantly up- or down-regulated between the patients with/without metastasis
 
 ::: columns
-::: {.column width="50%"}
+::: {.column width="40%" style="font-size: 22px"}
 1.  Pivot the data
 2.  Group per gene and nest the data
 3.  Fit a linear model per gene
@@ -179,8 +206,9 @@ Identify genes that are significantly up- or down-regulated between the patients
 5.  Extract the model parameters and correct for multiple testing
 :::
 
-::: {.column width="50%"}
+::: {.column width="60%" style="font-size: 22px"}
 ```{r}
+#| echo: true
 #| eval: false
 data_long_nested <- data |>
   select(ends_with("_at"), metastasis) |> 
@@ -219,20 +247,20 @@ estimates <- data_long_nested |>
 ## Results - Analysis 1 & 2
 
 ::: columns
-::: {.column width="50%"}
+::: {.column width="50%" style="font-size: 22px"}
 Analysis 1
 :::
 
-::: {.column width="50%"}
+::: {.column width="50%" style="font-size: 22px"}
 Analysis 2
 
--   No gene found to be signicant after multiple testing
+-   No gene found to be significant after multiple testing
 
 -   Use the genes with p\<0.01 for the plot
 
 -   20 genes (12 up regulated, 8 down regulated)
 
-![](images/06_analysis_volcano-01.png)
+![](images/06_analysis_volcano-02.png)
 :::
 :::
 

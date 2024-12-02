@@ -128,7 +128,9 @@ pl1 <- estimates |>
 pl1 |> 
   ggsave(filename = "06_analysis_metastasis_regulation.png",
          path = "../results/",
-         bg = "white")
+         bg = "white",
+         width = 5, 
+         height = 4)
 
 pl1
 ```
@@ -142,11 +144,12 @@ pl2 <- estimates |>
              y = -log10(p.value),
              color = is_significant,
              label = gen_sig)) +
-  geom_text_repel(size = 2, 
+  geom_text_repel(size = 3, 
                   max.overlaps = Inf) +
   geom_point(alpha = 0.5, 
              size = 1,
-             show.legend = FALSE) +
+             show.legend = FALSE,
+             shape = 18) +
   labs(x = "Estimates (95%Cls)",
        y = "-log10(p)",
        title = "Genes Associated with Metastasis in Colorectal Cancer",
@@ -168,4 +171,4 @@ pl2
 
 ### Conclusion
 
-Among the 1,935 genes analyzed, none were identified as significantly associated with the development of metastasis after multiple test correcting. However, out of the genes with the lowest p-value, 12 were found to be significantly up-regulated, while 8 were found to be significantly down-regulated in patients with metastasis compared to those without it.
+Among the 1,935 genes analyzed, none were identified as significantly associated with the development of metastasis after multiple test correcting. However, out of the genes with the lowest p-value, 12 were found to be up-regulated, while 8 were found to be down-regulated in patients with metastasis compared to those without it.

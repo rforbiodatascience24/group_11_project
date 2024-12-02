@@ -64,7 +64,8 @@ scree_plot
 #Save plot
 scree_plot |> 
   ggsave(filename = "05_pca_scree_plot.png",
-         path =  "../results/")
+         path =  "../results/",
+         bg = "white")
 
 
 ```
@@ -81,13 +82,9 @@ pca_plot_axes_labels <- pca |>
 pca_plot <- pca_aug |> 
   ggplot(aes(x = .fittedPC1,
              y = .fittedPC2,
-             label = .rownames,
              colour = Dukes_stage,)) +
   geom_smooth(method = "lm") +
   geom_point() +
-  geom_text(colour = "black",
-            size = 1.5,
-            max.overlaps = Inf) +
   coord_fixed() +
   labs(
     title = "PCA: Scores Plot of Colorectal Cancer",
@@ -102,7 +99,8 @@ pca_plot
 #Save plot
 pca_plot |> 
   ggsave(filename = "05_pca_Dukes_stages.png",
-         path =  "../results/")
+         path =  "../results/",
+         bg = "white")
 ```
 
 ```{r}
@@ -110,14 +108,10 @@ pca_plot |>
 pca_plot <- pca_aug |> 
   ggplot(aes(x = .fittedPC1,
              y = .fittedPC2,
-             label = .rownames,
              colour = Location,)) +
   geom_point() +  # Scatter plot
   geom_smooth(method = "lm") +
   geom_point() +
-  geom_text(colour = "black",
-            size = 1.5,
-            max.overlaps = Inf) +
   coord_fixed() +
   labs(
     title = "PCA: Scores Plot of Colorectal Cancer",
@@ -132,7 +126,8 @@ pca_plot
 #Save plot
 pca_plot |> 
   ggsave(filename = "05_pca_location.png",
-         path =  "../results/")
+         path =  "../results/",
+         bg = "white")
 ```
 
 ```{r}
@@ -140,13 +135,9 @@ pca_plot |>
 pca_plot <- pca_aug |> 
   ggplot(aes(x = .fittedPC1,
              y = .fittedPC2,
-             label = .rownames,
              colour = Gender,)) +
   geom_smooth(method = "lm") +
   geom_point() +
-  geom_text(colour = "black",
-            size = 1.5,
-            max.overlaps = Inf) +
   coord_fixed() +
   labs(
     title = "PCA: Scores Plot of Colorectal Cancer",
@@ -161,7 +152,8 @@ pca_plot
 #Save plot
 pca_plot |> 
   ggsave(filename = "05_pca_gender.png",
-         path =  "../results/")
+         path =  "../results/",
+         bg = "white")
 ```
 
 ## Clean environment

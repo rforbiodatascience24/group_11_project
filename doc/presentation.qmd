@@ -9,7 +9,8 @@ format:
     scoll: true
     theme: simple
     transition: slide
-    incremental: true 
+    incremental: true
+    slideNumber: true
 editor: visual
 ---
 

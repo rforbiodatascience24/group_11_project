@@ -14,7 +14,7 @@
 
 ## Data Retrieval:
 
-The dataset for this project is taken from a dataset on Kaggle called Real Colorectal Cancer Datasets..
+The dataset for this project is taken from a dataset on Kaggle called Real Colorectal Cancer Datasets.
 
 The data_url is <https://www.kaggle.com/api/v1/datasets/download/amandam1/colorectal-cancer-patients>.
 

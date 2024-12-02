@@ -55,11 +55,7 @@ library(ggrepel)
 ## Methods - Tidy, clean & augment
 
 ::: columns
-<<<<<<< HEAD
-=======
-::: {.column width="50%" style="font-size: 22px"}
->>>>>>> aa339b50daec66a4157377e2d06bab9676cbfae1
-### Tidy
+::: {.column width="50%" style="font-size: 22px"} \### Tidy
 
 -   Expression data
 
@@ -67,33 +63,29 @@ library(ggrepel)
 
 -   Patient data
 
-<<<<<<< HEAD
 -   Convert `DFS (in years and months)` into months to have only value per observation
 :::
 
 ::: {.column align="center" width="100%" height="auto" style="font-size: 22px" align="center"}
 :::
 
-Combine the two data sets by joining on the patient ID
-=======
-    -   Separate `DFS event/Adj_Radio/Adj_Chem` into 3 distinct variables
+# Combine the two data sets by joining on the patient ID
 
-    -   Convert `DFS (in years and months)` into months to have only value per observation
+```         
+-   Separate `DFS event/Adj_Radio/Adj_Chem` into 3 distinct variables
 
--   Combine the two data sets by joining on the patient ID
->>>>>>> aa339b50daec66a4157377e2d06bab9676cbfae1
-:::
+-   Convert `DFS (in years and months)` into months to have only value per observation
+```
 
-::: {.column width="50%" style="font-size: 22px"}
-Clean
+-   Combine the two data sets by joining on the patient ID :::
 
-<<<<<<< HEAD
+::: {.column width="50%" style="font-size: 22px"} Clean
+
 ::: columns
 ::: {.column width="50%" height="auto" style="font-size: 22px"}
-**Cleaning row value**
-=======
+# **Cleaning row value**
+
 -   Cleaning row value
->>>>>>> aa339b50daec66a4157377e2d06bab9676cbfae1
 
     -   Handle Missing Values ("NA" and "N/A")
 
@@ -101,33 +93,32 @@ Clean
 
     -   Fix Invalid Age Values
 
-<<<<<<< HEAD
 -   Removed rows where ID_REF does not start with GSM
 :::
 
 ::: {.column width="50%" height="auto" style="font-size: 22px"}
-**Cleaning column names**
-=======
-    -   Remove empty row
+# **Cleaning column names**
+
+```         
+-   Remove empty row
+```
 
 -   Cleaning column names
->>>>>>> aa339b50daec66a4157377e2d06bab9676cbfae1
 
     -   Make the name shorter (remove units, spaces...)
 
 Augment
 
-<<<<<<< HEAD
--   Replace spaces by \_:
-=======
+-   
+
+    # Replace spaces by \_:
+
 -   Create `age_group`, `metastasis` and `DFS_label` variable
->>>>>>> aa339b50daec66a4157377e2d06bab9676cbfae1
 :::
 :::
 
 ## Methods - Describe
 
-<<<<<<< HEAD
 ::: columns
 ::: {.column width="30%" height="auto" style="font-size: 22px"}
 -   Create an `age_group` variable
@@ -168,8 +159,8 @@ data <- data |>
 ```
 :::
 
-:::: :::::::::: \## Methods - Describe
-=======
+# \## Methods - Describe
+
 ## Results - Data description
 
 ## Principal Component Analysis
@@ -185,7 +176,6 @@ We are finding tendencies in the data, looking at its spread, and trying to visu
 
 ::: {.column width="50%"}
 ![](images/05_pca_Dukes_stages.png)
->>>>>>> aa339b50daec66a4157377e2d06bab9676cbfae1
 
 ![](images/05_pca_location.png){width="253" height="20"}
 :::

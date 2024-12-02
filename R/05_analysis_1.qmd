@@ -64,7 +64,8 @@ scree_plot
 #Save plot
 scree_plot |> 
   ggsave(filename = "05_pca_scree_plot.png",
-         path =  "../results/")
+         path =  "../results/",
+         bg = "white")
 
 
 ```
@@ -102,7 +103,8 @@ pca_plot
 #Save plot
 pca_plot |> 
   ggsave(filename = "05_pca_Dukes_stages.png",
-         path =  "../results/")
+         path =  "../results/",
+         bg = "white")
 ```
 
 ```{r}
@@ -132,7 +134,8 @@ pca_plot
 #Save plot
 pca_plot |> 
   ggsave(filename = "05_pca_location.png",
-         path =  "../results/")
+         path =  "../results/",
+         bg = "white")
 ```
 
 ```{r}
@@ -161,7 +164,8 @@ pca_plot
 #Save plot
 pca_plot |> 
   ggsave(filename = "05_pca_gender.png",
-         path =  "../results/")
+         path =  "../results/",
+         bg = "white")
 ```
 
 ## Clean environment

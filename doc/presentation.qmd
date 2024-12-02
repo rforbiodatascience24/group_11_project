@@ -1,5 +1,5 @@
 ---
-title: "Group 11 - Gene Expression in Colorectal Cancer"
+title: "Group 11 - Gene Expression analysis in Colorectal Cancer"
 author: "Eleni-Sofia Tseperi (s240066),	Johanne Lund	(s233246), Marie Picquet	(s233736), Eglantine Anton	(s233242), Qiuyan Wu	(s241063)"
 format:
   revealjs:
@@ -12,15 +12,6 @@ format:
     incremental: true 
 editor: visual
 ---
-
-```{r}
-library(tidyverse)
-library(here)
-library(readr)
-library(broom)
-library(here)
-library(ggrepel)
-```
 
 ## Introduction
 
@@ -40,19 +31,21 @@ library(ggrepel)
 
     -   Patient information for 62 patients
 
-## Methods overview
+## Methods
 
 -   The run-all file 00_all.qmd is used to run the entire project
 
 ![](images/Overview_img.png)
 
+-   The analysis is done on gene expression data of colorectal cancer samples
+
 -   Data is loaded from Kaggle into the folder /data/\_raw
 
-    -   1 Patient Data File and 1 Gene Expression Data File
+    -   1 Gene Expression Data File and 1 Patient Metadata File
 
     -   Artificially made dirty and messy to increase the difficulty of the projects
 
-## Methods - Tidy, clean & augment
+## Methods
 
 ::: columns
 ::: {.column width="50%" style="font-size: 22px"}
@@ -94,7 +87,9 @@ library(ggrepel)
 :::
 :::
 
-## Data description
+## 
+
+## Data Description
 
 ## Principal Component Analysis
 
@@ -114,7 +109,7 @@ We are finding tendencies in the data, looking at its spread, and trying to visu
 :::
 :::
 
-## Gene regulation and metastasis
+## Gene regulation and metastasis analysis
 
 ### Aim
 
@@ -165,7 +160,7 @@ estimates <- data_long_nested |>
 :::
 :::
 
-## Gene regulation and metastasis
+## Gene regulation and metastasis analysis
 
 -   No gene found to be significant after multiple testing
 
@@ -175,9 +170,9 @@ estimates <- data_long_nested |>
 
 ![](images/06_analysis_volcano-03.png)
 
-## Analysis 3
+## Analysis of Disease-Free Survival in relation to Tumor Location
 
-## Analysis 3 results
+![](images/07_analysis_3.png)
 
 ## Conclusion:
 
@@ -185,4 +180,4 @@ estimates <- data_long_nested |>
 
 -   No significantly expressed genes
 
--   Correlation between the Dukes Stages and the location of the Tumor
+-   Tumor located in the rectum shown to be more aggressive

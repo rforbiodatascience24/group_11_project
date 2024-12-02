@@ -25,13 +25,7 @@ editor: visual
 
     -   Investigate if the gene expression data can be used to build predictive models for CRC diagnosis
 
--   Dataset:
-
-    -   62 colorectal cancer samples
-
-        -   Gene expression level for 1935 genes
-
-        -   Patient metadata on 8 variables
+-   Data source: Dataset taken from Kaggle
 
 ## Methods
 
@@ -41,9 +35,15 @@ editor: visual
 
 -   Data is loaded from Kaggle into the folder /data/\_raw
 
-    -   1 Gene Expression Data File and 1 Patient Metadata File
+    -   Patient Metadata File
 
-        -   variables...
+        -   62 colorectal cancer samples
+
+        -   8 variables
+
+    -   Gene Expression Data File
+
+        -   Gene expression level for 1935 genes
 
     -   Artificially made dirty and messy to increase the difficulty of the projects
 

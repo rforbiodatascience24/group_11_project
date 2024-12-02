@@ -49,7 +49,8 @@ library(ggrepel)
 (incl run-all file), raw, load, making dirty
 
 ## Methods - Tidy, clean & augment
-:::::::::: columns
+
+::: columns
 ### Tidy
 
 ::: {.column width="50%" height="auto" style="font-size: 22px"}
@@ -79,17 +80,17 @@ Patient data
 -   Separate `DFS event/Adj_Radio/Adj_Chem` into 3 distinct variables
 
 -   Convert `DFS (in years and months)` into months to have only value per observation
-
 :::
 
-::: {.column align="center" width="100%" height="auto" style="font-size: 22px"align="center"}
+::: {.column align="center" width="100%" height="auto" style="font-size: 22px" align="center"}
 :::
+
 Combine the two data sets by joining on the patient ID
 :::
 
 ### Clean
 
-:::: columns
+::: columns
 ::: {.column width="50%" height="auto" style="font-size: 22px"}
 **Cleaning row value**
 
@@ -101,6 +102,7 @@ Combine the two data sets by joining on the patient ID
 
 -   Removed rows where ID_REF does not start with GSM
 :::
+
 ::: {.column width="50%" height="auto" style="font-size: 22px"}
 **Cleaning column names**
 
@@ -108,13 +110,13 @@ Combine the two data sets by joining on the patient ID
 
 -   Remove the units from the names:
 
--   Replace spaces by \_: 
+-   Replace spaces by \_:
 :::
-::::
+:::
 
 ### Augment
 
-:::: columns
+::: columns
 ::: {.column width="30%" height="auto" style="font-size: 22px"}
 -   Create an `age_group` variable
 
@@ -124,6 +126,7 @@ Combine the two data sets by joining on the patient ID
 data <- data |>mutate(Age_group = cut(Age, breaks = seq(10, 100, by = 10)))
 ```
 :::
+
 ::: {.column width="30%" height="auto" style="font-size: 22px"}
 -   Create a `metastasis` variable
 
@@ -139,9 +142,11 @@ data <- data |>
                                 No_stage > 3 ~ 1))
 ```
 :::
-::: {.column width="30%" height="auto" style="font-size: 22px" }
+
+::: {.column width="30%" height="auto" style="font-size: 22px"}
 -   Create an `DFS_label` variable
 :::
+
 ```{r}
 #| echo: true
 #| eval: false
@@ -150,13 +155,30 @@ data <- data |>
                             DFS_event == 1 ~ "Return of disease"), .after = DFS_event)
 ```
 :::
-::::
-::::::::::
-## Methods - Describe
+
+:::: :::::::::: \## Methods - Describe
 
 ## Results - Data description
 
 ## Methods - Analysis 1
+
+### Principal component analysis (PCA)
+
+We are finding tendencies in the data, looking at its spread, and trying to visualise the clustering of Duke stages, gender, or location of the tumour.
+
+::: columns
+::: {.column width="50%"}
+![](images/05_pca_scree_plot-01.png)
+
+![](images/05_pca_gender.png)
+:::
+
+::: {.column width="50%"}
+![](images/05_pca_Dukes_stages.png)
+
+![](images/05_pca_location.png)
+:::
+:::
 
 ## Methods - Analysis 2
 

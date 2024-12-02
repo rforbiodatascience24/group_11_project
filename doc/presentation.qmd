@@ -7,7 +7,7 @@ format:
     scrollable: true
     smaller: true
     scoll: true
-    theme: night
+    theme: simple
     transition: slide
     incremental: true 
 editor: visual
@@ -69,6 +69,7 @@ library(ggrepel)
 ::: {.column align="center" width="100%" height="auto" style="font-size: 22px" align="center"}
 :::
 
+<<<<<<< HEAD
 # Combine the two data sets by joining on the patient ID
 
 ```         
@@ -84,6 +85,10 @@ library(ggrepel)
 ::: columns
 ::: {.column width="50%" height="auto" style="font-size: 22px"}
 # **Cleaning row value**
+=======
+::: {.column width="50%" style="font-size: 22px"}
+### Clean
+>>>>>>> a6ef4eaad3f0f75912f5098dd0021c7b26b9ab3d
 
 -   Cleaning row value
 
@@ -91,7 +96,7 @@ library(ggrepel)
 
     -   Standardize Gender Labels
 
-    -   Fix Invalid Age Values
+    -   Fix Invalid Age Value
 
 -   Removed rows where ID_REF does not start with GSM
 :::
@@ -107,7 +112,7 @@ library(ggrepel)
 
     -   Make the name shorter (remove units, spaces...)
 
-Augment
+### Augment
 
 -   
 
@@ -117,6 +122,7 @@ Augment
 :::
 :::
 
+<<<<<<< HEAD
 ## Methods - Describe
 
 ::: columns
@@ -162,6 +168,9 @@ data <- data |>
 # \## Methods - Describe
 
 ## Results - Data description
+=======
+## Data description
+>>>>>>> a6ef4eaad3f0f75912f5098dd0021c7b26b9ab3d
 
 ## Principal Component Analysis
 
@@ -181,7 +190,7 @@ We are finding tendencies in the data, looking at its spread, and trying to visu
 :::
 :::
 
-## Methods - Analysis 2
+## Gene regulation and metastasis
 
 ### Aim
 
@@ -232,9 +241,19 @@ estimates <- data_long_nested |>
 :::
 :::
 
-## Methods - Analysis 3
+## Gene regulation and metastasis
 
-## Results - Analysis 1 & 2
+-   No gene found to be significant after multiple testing
+
+-   Use the genes with p\<0.01 for the plot
+
+-   20 genes (12 up regulated, 8 down regulated)
+
+![](images/06_analysis_volcano-03.png)
+
+## Analysis 3
+
+## Analysis 3 results
 
 ::: columns
 ::: {.column width="50%" style="font-size: 22px"}
@@ -254,4 +273,4 @@ Analysis 2
 :::
 :::
 
-## Results analysis 3 & Discussion
+## Discussion

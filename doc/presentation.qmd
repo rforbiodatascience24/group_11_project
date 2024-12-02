@@ -95,7 +95,11 @@ editor: visual
 
 The data was explored:
 
-## 
+![](images/table04.png)
+
+![](images/04_DFS_age_distribution.png)
+
+![](images/04_gender_age_group_distribution.png)
 
 ::: columns
 ::: {.column width="50%"}

@@ -1,5 +1,5 @@
 ---
-title: "Group 11 - Gene Expression in Colorectal Cancer"
+title: "Group 11 - Gene expression in colorectal cancer"
 author: "Eleni-Sofia Tseperi (s240066),	Johanne Lund	(s233246), Marie Picquet	(s233736), Eglantine Anton	(s233242), Qiuyan Wu	(s241063)"
 format:
   revealjs:
@@ -26,36 +26,33 @@ library(ggrepel)
 
 -   Background
 
-    -   Colorectal Cancer (CRC) is a major cause of cancer mortality
+    -   Colorectal cancer (CRC) is a major cause of cancer mortality
 
-    -   Gene Expression Analysis can help identify disregulated genes
+    -   Gene expression analysis can help identify dysregulated genes
 
 -   Goal of the project
 
-    -   Investigate if the gene expression data can be used to build predictive models for CRC diagnosis
+    -   Investigate xxx
 
--   Dataset found on Kaggle
+    -   Model xxx
+
+-   Data sets
 
     -   Gene expression level for 1935 genes
 
     -   Patient information for 62 patients
 
+    -   Artificially made dirty and messy to increase the difficulty of the projects
+
 ## Methods overview
 
--   The run-all file 00_all.qmd is used to run the entire project
-
-[![](images/Overview_img.png)](https://r4bds.github.io/project_description.html)
-
--   Data is loaded from Kaggle into the folder /data/\_raw
-
-    -   1 Patient Data File and 1 Gene Expression Data File
-
-    -   Artificially made dirty and messy to increase the difficulty of the projects
+(incl run-all file), raw, load, making dirty
 
 ## Methods - Tidy, clean & augment
 
 ::: columns
-::: {.column width="50%" style="font-size: 22px"} \### Tidy
+::: {.column width="50%" style="font-size: 22px"}
+### Tidy
 
 -   Expression data
 
@@ -63,25 +60,12 @@ library(ggrepel)
 
 -   Patient data
 
--   Convert `DFS (in years and months)` into months to have only value per observation
+    -   Separate `DFS event/Adj_Radio/Adj_Chem` into 3 distinct variables
+
+    -   Convert `DFS (in years and months)` into months to have only value per observation
+
+-   Combine the two data sets by joining on the patient ID
 :::
-
-::: {.column align="center" width="100%" height="auto" style="font-size: 22px" align="center"}
-:::
-
-# Combine the two data sets by joining on the patient ID
-
-```         
--   Separate `DFS event/Adj_Radio/Adj_Chem` into 3 distinct variables
-
--   Convert `DFS (in years and months)` into months to have only value per observation
-```
-
--   Combine the two data sets by joining on the patient ID :::
-
-::: {.column width="50%" style="font-size: 22px"} Clean
-
-::: columns ::: {.column width="50%" height="auto" style="font-size: 22px"} \# **Cleaning row value**
 
 ::: {.column width="50%" style="font-size: 22px"}
 ### Clean
@@ -94,15 +78,7 @@ library(ggrepel)
 
     -   Fix Invalid Age Value
 
--   Removed rows where ID_REF does not start with GSM
-:::
-
-::: {.column width="50%" height="auto" style="font-size: 22px"}
-# **Cleaning column names**
-
-```         
--   Remove empty row
-```
+    -   Remove empty row
 
 -   Cleaning column names
 
@@ -110,60 +86,9 @@ library(ggrepel)
 
 ### Augment
 
--   
-
-    # Replace spaces by \_:
-
 -   Create `age_group`, `metastasis` and `DFS_label` variable
 :::
-
 :::
-
-## Methods - Describe
-
-::: columns
-::: {.column width="30%" height="auto" style="font-size: 22px"}
--   Create an `age_group` variable
-
-```{r}
-#| echo: true
-#| eval: false
-data <- data |>mutate(Age_group = cut(Age, breaks = seq(10, 100, by = 10)))
-```
-:::
-
-::: {.column width="30%" height="auto" style="font-size: 22px"}
--   Create a `metastasis` variable
-
-```{r}
-#| echo: true
-#| eval: false
-data <- data |>
-  mutate(No_stage = case_when(Dukes_stage == "A" ~ 1,
-                            Dukes_stage == "B" ~ 2,
-                            Dukes_stage == "C" ~ 3,
-                            Dukes_stage == "D" ~ 4),
-         metastasis = case_when(No_stage <= 3 ~ 0,
-                                No_stage > 3 ~ 1))
-```
-:::
-
-::: {.column width="30%" height="auto" style="font-size: 22px"}
--   Create an `DFS_label` variable
-:::
-
-```{r}
-#| echo: true
-#| eval: false
-data <- data |>
-  mutate(DFS_label = case_when(DFS_event == 0 ~ "No return of disease",
-                            DFS_event == 1 ~ "Return of disease"), .after = DFS_event)
-```
-:::
-
-# \## Methods - Describe
-
-## Results - Data description
 
 ## Data description
 

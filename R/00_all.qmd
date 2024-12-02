@@ -1,5 +1,5 @@
 ---
-title: "Analysis 3"
+title: "Run-all Quarto documents in folder"
 output:
   html_document:
     output_dir: "../results/"
@@ -8,9 +8,10 @@ editor: visual
 
 # Run-all quarto documents in this folder
 
-Libraries
+This scipt is running the entire program, by running all the quarto documents in the folder and rendering them to .html.
 
 ```{r}
+# Load libraries
 library(tidyverse)
 library(quarto)
 library(fs)

@@ -7,7 +7,7 @@ format:
     scrollable: true
     smaller: true
     scoll: true
-    theme: night
+    theme: simple
     transition: slide
     incremental: true 
 editor: visual
@@ -68,7 +68,7 @@ library(ggrepel)
 :::
 
 ::: {.column width="50%" style="font-size: 22px"}
-Clean
+### Clean
 
 -   Cleaning row value
 
@@ -76,7 +76,7 @@ Clean
 
     -   Standardize Gender Labels
 
-    -   Fix Invalid Age Values
+    -   Fix Invalid Age Value
 
     -   Remove empty row
 
@@ -84,7 +84,7 @@ Clean
 
     -   Make the name shorter (remove units, spaces...)
 
-Augment
+### Augment
 
 -   Create `age_group`, `metastasis` and `DFS_label` variable
 :::

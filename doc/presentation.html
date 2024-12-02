@@ -431,6 +431,48 @@ Eleni-Sofia Tseperi (s240066), Johanne Lund (s233246), Marie Picquet (s233736), 
 <section id="methods---tidy-clean-augment" class="slide level2">
 <h2>Methods - Tidy, clean &amp; augment</h2>
 <div class="columns">
+<<<<<<< HEAD
+<h3 id="tidy">Tidy</h3>
+<div class="column" height="auto" style="font-size: 22px">
+<p>Expression data</p>
+<ul>
+<li class="fragment"><p>The columns represent observations and the rows variables</p>
+<ul>
+<li class="fragment">Pivot the data set</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>expr_data <span class="ot">&lt;-</span> expr_data <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">ID_GENE =</span> ID_REF) <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href=""></a>  <span class="fu">select</span>(<span class="sc">-</span>ID_REF, <span class="sc">-</span>...<span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-4"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(ID_GENE), </span>
+<span id="cb1-5"><a href=""></a>               <span class="at">names_to =</span> <span class="st">"ID_REF"</span>, </span>
+<span id="cb1-6"><a href=""></a>               <span class="at">values_to =</span> <span class="st">"Gene expression level"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-7"><a href=""></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> ID_GENE, </span>
+<span id="cb1-8"><a href=""></a>              <span class="at">values_from =</span> <span class="st">"Gene expression level"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul>
+</div>
+<div class="column" height="auto" style="font-size: 22px">
+<p>Patient data</p>
+<ul>
+<li class="fragment"><p>Separate <code>DFS event/Adj_Radio/Adj_Chem</code> into 3 distinct variables</p></li>
+<li class="fragment"><p>Convert <code>DFS (in years and months)</code> into months to have only value per observation</p></li>
+</ul>
+</div>
+<div class="column" data-align="center" height="auto" style="font-size: 22px">
+
+</div>
+<p>Combine the two data sets by joining on the patient ID</p>
+</div>
+<h3 id="clean">Clean</h3>
+<div class="columns">
+<div class="column" height="auto" style="font-size: 22px">
+<p><strong>Cleaning row value</strong></p>
+<ul>
+<li class="fragment"><p>Handle Missing Values</p></li>
+<li class="fragment"><p>Standardize Gender Labels</p></li>
+<li class="fragment"><p>Fix Invalid Age Values</p></li>
+=======
 <div class="column" style="font-size: 22px">
 <h3 id="tidy">Tidy</h3>
 <ul>
@@ -460,15 +502,96 @@ Eleni-Sofia Tseperi (s240066), Johanne Lund (s233246), Marie Picquet (s233736), 
 <li class="fragment">Make the name shorter (remove units, spaces…)</li>
 </ul></li>
 </ul>
-<h3 id="augment">Augment</h3>
+<<<<<<< HEAD
+<p>Augment</p>
 <ul>
 <li class="fragment">Create <code>age_group</code>, <code>metastasis</code> and <code>DFS_label</code> variable</li>
 </ul>
+=======
+>>>>>>> aa339b50daec66a4157377e2d06bab9676cbfae1
+<li class="fragment"><p>Removed rows where ID_REF does not start with GSM</p></li>
+</ul>
+</div><div class="column" height="auto" style="font-size: 22px">
+<p><strong>Cleaning column names</strong></p>
+<ul>
+<li class="fragment"><p>Remove <code>gene\_</code> at the beginning of all the gene names</p></li>
+<li class="fragment"><p>Remove the units from the names:</p></li>
+<li class="fragment"><p>Replace spaces by _:</p></li>
+</ul>
+</div>
+</div>
+=======
+>>>>>>> a6ef4eaad3f0f75912f5098dd0021c7b26b9ab3d
+<h3 id="augment">Augment</h3>
+<ul>
+<<<<<<< HEAD
+<li class="fragment">Create an <code>age_group</code> variable</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span><span class="fu">mutate</span>(<span class="at">Age_group =</span> <span class="fu">cut</span>(Age, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">10</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" height="auto" style="font-size: 22px">
+<ul>
+<li class="fragment">Create a <code>metastasis</code> variable</li>
+<<<<<<< HEAD
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">No_stage =</span> <span class="fu">case_when</span>(Dukes_stage <span class="sc">==</span> <span class="st">"A"</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb3-3"><a href=""></a>                            Dukes_stage <span class="sc">==</span> <span class="st">"B"</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb3-4"><a href=""></a>                            Dukes_stage <span class="sc">==</span> <span class="st">"C"</span> <span class="sc">~</span> <span class="dv">3</span>,</span>
+<span id="cb3-5"><a href=""></a>                            Dukes_stage <span class="sc">==</span> <span class="st">"D"</span> <span class="sc">~</span> <span class="dv">4</span>),</span>
+<span id="cb3-6"><a href=""></a>         <span class="at">metastasis =</span> <span class="fu">case_when</span>(No_stage <span class="sc">&lt;=</span> <span class="dv">3</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb3-7"><a href=""></a>                                No_stage <span class="sc">&gt;</span> <span class="dv">3</span> <span class="sc">~</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" height="auto" style="font-size: 22px">
+<ul>
+<li class="fragment">Create an <code>DFS_label</code> variable</li>
+</ul>
+=======
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">No_stage =</span> <span class="fu">case_when</span>(Dukes_stage <span class="sc">==</span> <span class="st">"A"</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb3-3"><a href=""></a>                            Dukes_stage <span class="sc">==</span> <span class="st">"B"</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb3-4"><a href=""></a>                            Dukes_stage <span class="sc">==</span> <span class="st">"C"</span> <span class="sc">~</span> <span class="dv">3</span>,</span>
+<span id="cb3-5"><a href=""></a>                            Dukes_stage <span class="sc">==</span> <span class="st">"D"</span> <span class="sc">~</span> <span class="dv">4</span>),</span>
+<span id="cb3-6"><a href=""></a>         <span class="at">metastasis =</span> <span class="fu">case_when</span>(No_stage <span class="sc">&lt;=</span> <span class="dv">3</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb3-7"><a href=""></a>                                No_stage <span class="sc">&gt;</span> <span class="dv">3</span> <span class="sc">~</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" height="auto" style="font-size: 22px">
+<ul>
+<li class="fragment">Create an <code>DFS_label</code> variable</li>
+</ul>
+>>>>>>> aa339b50daec66a4157377e2d06bab9676cbfae1
+</div><div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">DFS_label =</span> <span class="fu">case_when</span>(DFS_event <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"No return of disease"</span>,</span>
+<span id="cb4-3"><a href=""></a>                            DFS_event <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Return of disease"</span>), <span class="at">.after =</span> DFS_event)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<<<<<<< HEAD
+</div>
+</div>
+<p>:::: :::::::::: ## Methods - Describe</p>
+=======
+>>>>>>> a171ff850660a660483865502e2bf53cda2d8e2e
+=======
+<li class="fragment">Create <code>age_group</code>, <code>metastasis</code> and <code>DFS_label</code> variable</li>
+</ul>
+>>>>>>> a6ef4eaad3f0f75912f5098dd0021c7b26b9ab3d
 </div>
 </div>
 </section>
+<<<<<<< HEAD
 <section id="data-description" class="slide level2">
 <h2>Data description</h2>
+=======
+<section id="methods---describe" class="slide level2">
+<h2>Methods - Describe</h2>
+>>>>>>> aa339b50daec66a4157377e2d06bab9676cbfae1
+</section>
+<section id="results---data-description" class="slide level2">
+<h2>Results - Data description</h2>
+>>>>>>> e573486444837fa0917c170c9cb2613ac55db947
 </section>
 <section id="principal-component-analysis" class="slide level2">
 <h2>Principal Component Analysis</h2>
